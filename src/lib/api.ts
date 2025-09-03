@@ -5,7 +5,6 @@ import { SearchFilters, Vehicle, Problem } from '@/types'
 
 export async function searchVehicles(filters: SearchFilters): Promise<Vehicle[]> {
   try {
-    let query = db.select().from(vehicles)
     const conditions = []
 
     // Apply year filter
@@ -51,23 +50,43 @@ export async function searchVehicles(filters: SearchFilters): Promise<Vehicle[]>
       conditions.push(inArray(vehicles.category, filters.category))
     }
 
-    // Combine conditions
-    if (conditions.length > 0) {
-      query = query.where(and(...conditions))
+    // Execute query with conditions
+    const results = conditions.length > 0 
+      ? await db.select().from(vehicles).where(and(...conditions)).limit(50)
+      : await db.select().from(vehicles).limit(50)
+    
+    interface VehicleResult {
+      id: number;
+      year: number;
+      make: string;
+      model: string;
+      engineType: string;
+      driveType: string;
+      category: string;
+      specialty: string | null;
     }
 
-    const results = await query.limit(50) // Limit results for performance
-    
-    return results.map(vehicle => ({
-      id: vehicle.id.toString(),
-      year: vehicle.year,
-      make: vehicle.make,
-      model: vehicle.model,
-      engineType: vehicle.engineType,
-      driveType: vehicle.driveType as 'AWD' | '2WD' | '4WD',
-      category: vehicle.category as 'car' | 'truck' | '18-wheeler',
-      specialty: vehicle.specialty || undefined,
-    }))
+    interface VehicleOutput {
+      id: string;
+      year: number;
+      make: string;
+      model: string;
+      engineType: string;
+      driveType: 'AWD' | '2WD' | '4WD';
+      category: 'car' | 'truck' | '18-wheeler';
+      specialty?: string;
+    }
+
+        return results.map((vehicle: VehicleResult): VehicleOutput => ({
+          id: vehicle.id.toString(),
+          year: vehicle.year,
+          make: vehicle.make,
+          model: vehicle.model,
+          engineType: vehicle.engineType,
+          driveType: vehicle.driveType as 'AWD' | '2WD' | '4WD',
+          category: vehicle.category as 'car' | 'truck' | '18-wheeler',
+          specialty: vehicle.specialty || undefined,
+        }))
   } catch (error) {
     console.error('Error searching vehicles:', error)
     return []
@@ -76,7 +95,7 @@ export async function searchVehicles(filters: SearchFilters): Promise<Vehicle[]>
 
 export async function searchProblems(vehicleId?: string, searchQuery?: string): Promise<Problem[]> {
   try {
-    let query = db.select().from(problems)
+    const baseQuery = db.select().from(problems)
     const conditions = []
 
     if (vehicleId) {
@@ -87,11 +106,9 @@ export async function searchProblems(vehicleId?: string, searchQuery?: string): 
       conditions.push(like(problems.title, `%${searchQuery}%`))
     }
 
-    if (conditions.length > 0) {
-      query = query.where(and(...conditions))
-    }
-
-    const results = await query.limit(20)
+    const results = await (conditions.length > 0
+      ? baseQuery.where(and(...conditions)).limit(20)
+      : baseQuery.limit(20))
     
     return results.map(problem => ({
       id: problem.id.toString(),

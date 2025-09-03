@@ -22,7 +22,11 @@ Card.displayName = "Card"
 
 Card.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const CardHeader = React.forwardRef<
@@ -40,7 +44,11 @@ CardHeader.displayName = "CardHeader"
 
 CardHeader.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const CardTitle = React.forwardRef<
@@ -61,7 +69,11 @@ CardTitle.displayName = "CardTitle"
 
 CardTitle.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const CardDescription = React.forwardRef<
@@ -79,7 +91,11 @@ CardDescription.displayName = "CardDescription"
 
 CardDescription.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const CardContent = React.forwardRef<
@@ -93,7 +109,11 @@ CardContent.displayName = "CardContent"
 
 CardContent.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const CardFooter = React.forwardRef<
@@ -111,7 +131,11 @@ CardFooter.displayName = "CardFooter"
 
 CardFooter.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

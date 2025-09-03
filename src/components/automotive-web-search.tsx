@@ -169,7 +169,10 @@ export function AutomotiveWebSearch({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
               <div>
                 <label className="block text-sm font-medium mb-2">Category</label>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <Select
+                  value={selectedCategory}
+                  onValueChange={(value) => setSelectedCategory(value as SearchCategory | 'all')}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
@@ -200,6 +203,8 @@ export function AutomotiveWebSearch({
               </div>
             </div>
           )}
+        </CardContent>
+      </Card>
 
       {/* Loading State */}
       {isLoading && (
@@ -291,7 +296,7 @@ export function AutomotiveWebSearch({
         <Card>
           <CardContent className="p-6 text-center">
             <p className="text-gray-600">
-              No results found for "{searchQuery}". Try different keywords or browse common problems.
+              No results found for &quot;{searchQuery}&quot;. Try different keywords or browse common problems.
             </p>
           </CardContent>
         </Card>

@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     try {
       results = await performWebSearch(body.query, body.category)
     } catch (searchError) {
-      console.log('Using simulated results (API not configured):', searchError.message)
+      console.log('Using simulated results (API not configured):', searchError instanceof Error ? searchError.message : String(searchError))
       results = await simulateWebSearch(body.query, body.category)
     }
     

@@ -42,13 +42,20 @@ export default function ProfilePage() {
         username: formData.username,
       })
       
-      await user?.update({
-        publicMetadata: {
-          bio: formData.bio,
-          specialties: formData.specialties,
-          experienceYears: formData.experienceYears,
-        }
-      })
+      // Update public metadata separately
+      if (user) {
+        await fetch('/api/update-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            bio: formData.bio,
+            specialties: formData.specialties,
+            experienceYears: formData.experienceYears,
+          }),
+        })
+      }
       
       setIsEditing(false)
     } catch (error) {

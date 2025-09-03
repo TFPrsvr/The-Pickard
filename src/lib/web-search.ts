@@ -129,7 +129,7 @@ export class AutomotiveWebSearchService {
       }
       
       const data = await response.json()
-      return this.formatSearchResults(data.results, term.term, term.category)
+      return this.formatSearchResults(data.results, term.term, term.category as SearchCategory)
     } catch (error) {
       console.error(`Error searching term "${term.term}":`, error)
       return []

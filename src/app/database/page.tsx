@@ -143,7 +143,7 @@ export default function DatabasePage() {
     if (searchQuery) {
       filtered = filtered.filter(part =>
         part.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        part.partNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        part.partNumber?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         part.manufacturer?.toLowerCase().includes(searchQuery.toLowerCase())
       )
     }
@@ -582,6 +582,7 @@ export default function DatabasePage() {
             </Card>
           )}
         </div>
+      </div>
       </div>
     </div>
   )

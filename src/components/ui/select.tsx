@@ -34,7 +34,11 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
 
 SelectTrigger.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const SelectScrollUpButton = React.forwardRef<
@@ -113,7 +117,11 @@ SelectContent.displayName = SelectPrimitive.Content.displayName
 
 SelectContent.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
   position: PropTypes.oneOf(['item-aligned', 'popper']),
 }
 
@@ -158,7 +166,11 @@ SelectItem.displayName = SelectPrimitive.Item.displayName
 
 SelectItem.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 const SelectSeparator = React.forwardRef<

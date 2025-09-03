@@ -56,7 +56,11 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['default', 'destructive', 'outline', 'secondary', 'ghost', 'link']),
   size: PropTypes.oneOf(['default', 'sm', 'lg', 'icon']),
   asChild: PropTypes.bool,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]),
 }
 
 export { Button, buttonVariants }
