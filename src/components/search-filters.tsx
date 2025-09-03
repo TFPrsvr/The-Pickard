@@ -46,7 +46,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleMakeChange = (make: string) => {
-    const makes = make ? [make] : undefined
+    const makes = make && make !== 'all' ? [make] : undefined
     onFiltersChange({
       ...filters,
       make: makes
@@ -54,7 +54,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleEngineTypeChange = (engine: string) => {
-    const engines = engine ? [engine] : undefined
+    const engines = engine && engine !== 'all' ? [engine] : undefined
     onFiltersChange({
       ...filters,
       engineType: engines
@@ -62,7 +62,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleDriveTypeChange = (drive: string) => {
-    const driveTypes = drive ? [drive as 'AWD' | '2WD' | '4WD'] : undefined
+    const driveTypes = drive && drive !== 'all' ? [drive as 'AWD' | '2WD' | '4WD'] : undefined
     onFiltersChange({
       ...filters,
       driveType: driveTypes
@@ -70,7 +70,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleCategoryChange = (category: string) => {
-    const categories = category ? [category as 'car' | 'truck' | '18-wheeler'] : undefined
+    const categories = category && category !== 'all' ? [category as 'car' | 'truck' | '18-wheeler'] : undefined
     onFiltersChange({
       ...filters,
       category: categories
@@ -127,7 +127,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 <SelectValue placeholder="Select make" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Makes</SelectItem>
+                <SelectItem value="all">All Makes</SelectItem>
                 {makes.map((make) => (
                   <SelectItem key={make} value={make}>
                     {make}
@@ -144,7 +144,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 <SelectValue placeholder="Select engine" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Engines</SelectItem>
+                <SelectItem value="all">All Engines</SelectItem>
                 {engineTypes.map((engine) => (
                   <SelectItem key={engine} value={engine}>
                     {engine}
@@ -161,7 +161,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 <SelectValue placeholder="Select drive type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Drive Types</SelectItem>
+                <SelectItem value="all">All Drive Types</SelectItem>
                 <SelectItem value="2WD">2WD</SelectItem>
                 <SelectItem value="4WD">4WD</SelectItem>
                 <SelectItem value="AWD">AWD</SelectItem>
@@ -176,7 +176,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="car">Car</SelectItem>
                 <SelectItem value="truck">Truck</SelectItem>
                 <SelectItem value="18-wheeler">18-Wheeler</SelectItem>

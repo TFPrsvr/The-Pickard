@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { VehicleSearchFilters } from '@/components/search-filters'
+import { AutomotiveWebSearch } from '@/components/automotive-web-search'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { SearchFilters, Vehicle, Problem } from '@/types'
-import { Search, Car, Wrench, ExternalLink } from 'lucide-react'
+import { SearchResult } from '@/lib/web-search'
+import { Search, Car, Wrench, ExternalLink, Globe } from 'lucide-react'
 import Link from 'next/link'
 
 export default function SearchPage() {
@@ -15,7 +17,7 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState<Vehicle[]>([])
   const [problemResults, setProblemResults] = useState<Problem[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [searchType, setSearchType] = useState<'vehicles' | 'problems'>('vehicles')
+  const [searchType, setSearchType] = useState<'vehicles' | 'problems' | 'web'>('vehicles')
 
   // Mock data for demonstration
   const mockVehicles: Vehicle[] = [
@@ -138,6 +140,12 @@ export default function SearchPage() {
     setProblemResults([])
   }
 
+  const handleWebSearchResult = (result: SearchResult) => {
+    // Handle saving web search result to database
+    console.log('Saving search result:', result)
+    // TODO: Implement database save functionality
+  }
+
   useEffect(() => {
     // Auto-search when filters change
     if (Object.keys(filters).some(key => filters[key as keyof SearchFilters]?.length)) {
@@ -193,7 +201,7 @@ export default function SearchPage() {
       {/* Search Results */}
       {(searchResults.length > 0 || problemResults.length > 0) && (
         <div className="space-y-6">
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button
               variant={searchType === 'vehicles' ? 'default' : 'outline'}
               onClick={() => setSearchType('vehicles')}
@@ -207,6 +215,13 @@ export default function SearchPage() {
             >
               <Wrench className="h-4 w-4 mr-2" />
               Problems ({problemResults.length})
+            </Button>
+            <Button
+              variant={searchType === 'web' ? 'default' : 'outline'}
+              onClick={() => setSearchType('web')}
+            >
+              <Globe className="h-4 w-4 mr-2" />
+              Web Search
             </Button>
           </div>
 
@@ -226,6 +241,11 @@ export default function SearchPage() {
             </div>
           )}
         </div>
+      )}
+
+      {/* Web Search Tab */}
+      {searchType === 'web' && (
+        <AutomotiveWebSearch onResultSelect={handleWebSearchResult} />
       )}
 
       {/* Empty State */}

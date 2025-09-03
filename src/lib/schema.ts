@@ -125,9 +125,27 @@ export const references = pgTable('references', {
   createdAt: timestamp('created_at').defaultNow(),
 })
 
+// Web Search Results table
+export const webSearchResults = pgTable('web_search_results', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id),
+  title: varchar('title', { length: 500 }).notNull(),
+  url: text('url').notNull(),
+  snippet: text('snippet'),
+  source: varchar('source', { length: 255 }),
+  searchTerm: varchar('search_term', { length: 255 }).notNull(),
+  category: varchar('category', { length: 50 }).notNull(), // engine, transmission, brakes, etc.
+  isBookmarked: boolean('is_bookmarked').default(false),
+  tags: json('tags').$type<string[]>().default([]),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+})
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   tips: many(tips),
+  webSearchResults: many(webSearchResults),
 }))
 
 export const vehiclesRelations = relations(vehicles, ({ many }) => ({
@@ -179,5 +197,12 @@ export const referencesRelations = relations(references, ({ one }) => ({
   solution: one(solutions, {
     fields: [references.solutionId],
     references: [solutions.id],
+  }),
+}))
+
+export const webSearchResultsRelations = relations(webSearchResults, ({ one }) => ({
+  user: one(users, {
+    fields: [webSearchResults.userId],
+    references: [users.id],
   }),
 }))
