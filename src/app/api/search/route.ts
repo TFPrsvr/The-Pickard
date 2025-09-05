@@ -33,8 +33,8 @@ export async function GET(request: NextRequest) {
     const driveType = searchParams.get('driveType')
     if (driveType) filters.driveType = [driveType as 'AWD' | '2WD' | '4WD']
 
-    const category = searchParams.get('category')
-    if (category) filters.category = [category as 'car' | 'truck' | '18-wheeler']
+    const submodel = searchParams.get('submodel')
+    if (submodel) filters.submodel = [submodel]
 
     if (type === 'vehicles') {
       const results = await searchVehicles(filters)

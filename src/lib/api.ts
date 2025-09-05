@@ -45,9 +45,15 @@ export async function searchVehicles(filters: SearchFilters): Promise<Vehicle[]>
       conditions.push(inArray(vehicles.driveType, filters.driveType))
     }
 
-    // Apply category filter
-    if (filters.category?.length) {
-      conditions.push(inArray(vehicles.category, filters.category))
+    // Apply submodel filter (search in specialty field)
+    if (filters.submodel?.length) {
+      const submodelConditions = filters.submodel.map(submodel => like(vehicles.specialty, `%${submodel}%`))
+      if (submodelConditions.length === 1) {
+        conditions.push(submodelConditions[0])
+      } else if (submodelConditions.length > 1) {
+        // For multiple submodels, use the first one - simplified for now
+        conditions.push(submodelConditions[0])
+      }
     }
 
     // Execute query with conditions

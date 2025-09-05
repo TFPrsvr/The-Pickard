@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { AutomotiveWebSearch } from '@/components/automotive-web-search'
 import { SearchResult } from '@/lib/web-search'
-import { Search, Database, Wrench, Lightbulb, Globe, ArrowRight } from 'lucide-react'
+import { Search, Database, Wrench, Lightbulb, Globe, ArrowRight, Car, Settings } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -19,101 +19,97 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.firstName}!</h1>
+          <h1 className="text-3xl font-bold text-gray-900">The Pickard</h1>
           <p className="text-gray-600 mt-2">
-            Access your automotive database tools and resources
+            The Database made for mechanics by mechanics. The one stop shop to find out about vehicle&apos;s problems both common and not so common and interchangeable parts, upload tips for the next mechanic.
           </p>
         </div>
 
         {/* Main Actions Grid - 2x2 Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Vehicle Search Section */}
-          <Card className="bg-white border-gray-200 shadow-sm">
-            <CardHeader className="bg-gray-100 border-b border-gray-200">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Search className="h-5 w-5 text-blue-600" />
-                Vehicle Search
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Find vehicle problems and solutions by specific vehicle details
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <Link href="/search">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                  <Search className="h-4 w-4 mr-2" />
-                  Search Vehicle Database
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <Link href="/search" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Car className="h-6 w-6 text-blue-600" />
+                  Vehicle Search
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Find vehicle problems and solutions by specific vehicle details
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-blue-600">
+                  <span className="font-medium">Search Vehicle Database</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
           {/* Problems Database Section */}
-          <Card className="bg-white border-gray-200 shadow-sm">
-            <CardHeader className="bg-gray-100 border-b border-gray-200">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Wrench className="h-5 w-5 text-red-600" />
-                Problems Database
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Browse and search automotive problems by vehicle specifications
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <Link href="/problems">
-                <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
-                  <Wrench className="h-4 w-4 mr-2" />
-                  Browse Problems Database
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <Link href="/problems" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Wrench className="h-6 w-6 text-red-600" />
+                  Problems & Solutions
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Browse and search automotive problems by vehicle specifications
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-red-600">
+                  <span className="font-medium">Browse Problems Database</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
           {/* Parts Database Section */}
-          <Card className="bg-white border-gray-200 shadow-sm">
-            <CardHeader className="bg-gray-100 border-b border-gray-200">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Database className="h-5 w-5 text-green-600" />
-                Parts Database
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Find interchangeable parts with advanced filtering options
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <Link href="/database">
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
-                  <Database className="h-4 w-4 mr-2" />
-                  Search Parts Database
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <Link href="/database" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Settings className="h-6 w-6 text-green-600" />
+                  Parts Database
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Find interchangeable parts with advanced filtering options
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-green-600">
+                  <span className="font-medium">Search Parts Database</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
           {/* Tips & Knowledge Section */}
-          <Card className="bg-white border-gray-200 shadow-sm">
-            <CardHeader className="bg-gray-100 border-b border-gray-200">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Lightbulb className="h-5 w-5 text-yellow-600" />
-                Mechanic Tips
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Access expert mechanic tips and share your knowledge
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <Link href="/tips">
-                <Button className="w-full bg-yellow-600 hover:bg-yellow-700 text-white">
-                  <Lightbulb className="h-4 w-4 mr-2" />
-                  View Tips & Knowledge
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <Link href="/tips" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Lightbulb className="h-6 w-6 text-yellow-600" />
+                  Expert Tips
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Access expert mechanic tips and share your knowledge
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-yellow-600">
+                  <span className="font-medium">View Tips & Knowledge</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
 
         {/* Web Search Section */}

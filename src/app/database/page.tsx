@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Part, Vehicle } from '@/types'
-import { Database, Search, Filter, ExternalLink, ArrowRightLeft, Package, DollarSign, RotateCcw } from 'lucide-react'
+import { Database, Search, Filter, ExternalLink, ArrowRightLeft, Package, DollarSign, RotateCcw, Save, Download, Star } from 'lucide-react'
 import Link from 'next/link'
 
 interface VehicleFilters {
@@ -25,6 +25,8 @@ export default function DatabasePage() {
   const [filteredParts, setFilteredParts] = useState<Part[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [selectedPart, setSelectedPart] = useState<Part | null>(null)
+  const [savedParts, setSavedParts] = useState<Part[]>([])
+  const [showSaved, setShowSaved] = useState(false)
 
   // Vehicle data for cascading filters (same as problems page)
   const vehicleData = {
@@ -204,6 +206,45 @@ export default function DatabasePage() {
 
   const getCompatibleVehicles = (partId: string) => {
     return compatibilityData[partId as keyof typeof compatibilityData] || []
+  }
+
+  const savePart = (part: Part) => {
+    if (!savedParts.find(p => p.id === part.id)) {
+      setSavedParts([...savedParts, part])
+    }
+  }
+
+  const removeSavedPart = (partId: string) => {
+    setSavedParts(savedParts.filter(p => p.id !== partId))
+  }
+
+  const exportSavedParts = () => {
+    const exportData = savedParts.map(part => ({
+      name: part.name,
+      partNumber: part.partNumber,
+      manufacturer: part.manufacturer,
+      price: part.price,
+      interchangeableWith: part.interchangeableWith.join(', ')
+    }))
+
+    const csv = [
+      ['Name', 'Part Number', 'Manufacturer', 'Price', 'Interchangeable Parts'],
+      ...exportData.map(part => [
+        part.name,
+        part.partNumber,
+        part.manufacturer || '',
+        part.price?.toString() || '',
+        part.interchangeableWith
+      ])
+    ].map(row => row.join(',')).join('\n')
+
+    const blob = new Blob([csv], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'saved-parts.csv'
+    a.click()
+    window.URL.revokeObjectURL(url)
   }
 
   return (
@@ -398,6 +439,78 @@ export default function DatabasePage() {
         </CardContent>
       </Card>
 
+      {/* Save/Export Panel */}
+      <div className="flex justify-between items-center">
+        <div></div>
+        <Button
+          variant="outline"
+          onClick={() => setShowSaved(!showSaved)}
+          className="relative"
+        >
+          <Star className="h-4 w-4 mr-2" />
+          Saved Parts ({savedParts.length})
+        </Button>
+      </div>
+
+      {showSaved && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <Star className="h-5 w-5" />
+                Saved Parts
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={exportSavedParts}
+                  disabled={savedParts.length === 0}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Export CSV
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSavedParts([])}
+                  disabled={savedParts.length === 0}
+                >
+                  Clear All
+                </Button>
+              </div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {savedParts.length === 0 ? (
+              <p className="text-muted-foreground text-center py-4">
+                No saved parts. Click the save button on parts to add them here.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {savedParts.map((part) => (
+                  <div key={part.id} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div>
+                      <div className="font-medium">{part.name}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {part.manufacturer} - {part.partNumber}
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeSavedPart(part.id)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Results */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Parts List */}
@@ -419,6 +532,8 @@ export default function DatabasePage() {
                   part={part} 
                   isSelected={selectedPart?.id === part.id}
                   onClick={() => setSelectedPart(part)}
+                  onSave={() => savePart(part)}
+                  isSaved={savedParts.some(p => p.id === part.id)}
                 />
               ))}
             </div>
@@ -592,9 +707,11 @@ interface PartCardProps {
   part: Part
   isSelected: boolean
   onClick: () => void
+  onSave: () => void
+  isSaved: boolean
 }
 
-function PartCard({ part, isSelected, onClick }: PartCardProps) {
+function PartCard({ part, isSelected, onClick, onSave, isSaved }: PartCardProps) {
   return (
     <Card 
       className={`cursor-pointer transition-all hover:shadow-md ${
@@ -623,9 +740,21 @@ function PartCard({ part, isSelected, onClick }: PartCardProps) {
                 ${part.price.toFixed(2)}
               </div>
             )}
-            <div className="text-xs text-muted-foreground mt-1">
+            <div className="text-xs text-muted-foreground mt-1 mb-2">
               Click for details
             </div>
+            <Button
+              variant={isSaved ? "default" : "outline"}
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation()
+                onSave()
+              }}
+              className="w-full"
+            >
+              <Save className="h-3 w-3 mr-1" />
+              {isSaved ? 'Saved' : 'Save'}
+            </Button>
           </div>
         </div>
       </CardContent>

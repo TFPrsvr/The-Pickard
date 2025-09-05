@@ -14,6 +14,7 @@ interface SearchFiltersProps {
   onFiltersChange: (filters: SearchFilters) => void
   onSearch: () => void
   onReset: () => void
+  searchQuery?: string
 }
 
 export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onReset }: SearchFiltersProps) {
@@ -69,11 +70,11 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
     })
   }
 
-  const handleCategoryChange = (category: string) => {
-    const categories = category && category !== 'all' ? [category as 'car' | 'truck' | '18-wheeler'] : undefined
+  const handleSubmodelChange = (submodel: string) => {
+    const submodels = submodel ? [submodel] : undefined
     onFiltersChange({
       ...filters,
-      category: categories
+      submodel: submodels
     })
   }
 
@@ -85,14 +86,14 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
           Search Filters
         </CardTitle>
         <CardDescription>
-          Filter vehicles by year, make, model, and specifications
+          Use filters below to narrow your search results
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Year Range</label>
-            <div className="flex gap-2">
+            <label className="text-sm font-medium">Year</label>
+            <div className="flex gap-1">
               <Input
                 placeholder="From"
                 value={yearFrom}
@@ -103,7 +104,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 type="number"
                 min="1950"
                 max={currentYear}
-                className="w-20"
+                className="w-full"
               />
               <Input
                 placeholder="To"
@@ -115,7 +116,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 type="number"
                 min="1950"
                 max={currentYear}
-                className="w-20"
+                className="w-full"
               />
             </div>
           </div>
@@ -138,7 +139,31 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Engine Type</label>
+            <label className="text-sm font-medium">Model</label>
+            <Input
+              placeholder="Enter model"
+              value={filters.model?.[0] || ''}
+              onChange={(e) => {
+                const models = e.target.value ? [e.target.value] : undefined
+                onFiltersChange({
+                  ...filters,
+                  model: models
+                })
+              }}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Submodel</label>
+            <Input
+              placeholder="Enter submodel"
+              value={filters.submodel?.[0] || ''}
+              onChange={(e) => handleSubmodelChange(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Engine</label>
             <Select onValueChange={handleEngineTypeChange} value={filters.engineType?.[0] || ''}>
               <SelectTrigger>
                 <SelectValue placeholder="Select engine" />
@@ -153,7 +178,9 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
               </SelectContent>
             </Select>
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-medium">Drive Type</label>
             <Select onValueChange={handleDriveTypeChange} value={filters.driveType?.[0] || ''}>
@@ -167,36 +194,6 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 <SelectItem value="AWD">AWD</SelectItem>
               </SelectContent>
             </Select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Vehicle Category</label>
-            <Select onValueChange={handleCategoryChange} value={filters.category?.[0] || ''}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="car">Car</SelectItem>
-                <SelectItem value="truck">Truck</SelectItem>
-                <SelectItem value="18-wheeler">18-Wheeler</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Model</label>
-            <Input
-              placeholder="Enter model"
-              value={filters.model?.[0] || ''}
-              onChange={(e) => {
-                const models = e.target.value ? [e.target.value] : undefined
-                onFiltersChange({
-                  ...filters,
-                  model: models
-                })
-              }}
-            />
           </div>
         </div>
 
