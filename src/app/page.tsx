@@ -20,21 +20,25 @@ export default function HomePage() {
           icon={<Search className="h-8 w-8" />}
           title="Diagnostic Center"
           description="Identify problems with your vehicle using our comprehensive diagnostic tools"
+          href="/search"
         />
         <FeatureCard
           icon={<Wrench className="h-8 w-8" />}
           title="Problems & Solutions"
           description="Find common and uncommon problems with detailed solutions"
+          href="/problems"
         />
         <FeatureCard
           icon={<Database className="h-8 w-8" />}
           title="Parts Database"
           description="Discover which vehicle parts are interchangeable"
+          href="/parts"
         />
         <FeatureCard
           icon={<Lightbulb className="h-8 w-8" />}
           title="Expert Tips"
           description="Access tips, tools recommendations, and how-to guides"
+          href="/tips"
         />
       </div>
 
@@ -77,17 +81,20 @@ interface FeatureCardProps {
   icon: React.ReactNode
   title: string
   description: string
+  href: string
 }
 
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
+function FeatureCard({ icon, title, description, href }: FeatureCardProps) {
   return (
-    <div className="service-card group">
-      <div className="text-primary mb-4 p-4 bg-primary/10 rounded-2xl w-fit group-hover:bg-primary/20 transition-colors">{icon}</div>
-      <h3 className="font-bold mb-3 text-xl text-secondary">{title}</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-      <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-        Learn more <span className="ml-1">→</span>
+    <Link href={href}>
+      <div className="service-card group cursor-pointer">
+        <div className="text-primary mb-4 p-4 bg-primary/10 rounded-md w-fit group-hover:bg-primary/20 transition-colors">{icon}</div>
+        <h3 className="font-bold mb-3 text-xl text-secondary">{title}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+        <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+          Learn more <span className="ml-1">→</span>
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
