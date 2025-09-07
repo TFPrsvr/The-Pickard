@@ -424,19 +424,19 @@ export function VehicleInfoDashboard({ year, make, model }: VehicleInfoDashboard
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="text-muted-foreground">Length:</span>
-                        <div className="font-medium">{specs.dimensions.length}"</div>
+                        <div className="font-medium">{specs.dimensions.length}&rdquo;</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Width:</span>
-                        <div className="font-medium">{specs.dimensions.width}"</div>
+                        <div className="font-medium">{specs.dimensions.width}&rdquo;</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Height:</span>
-                        <div className="font-medium">{specs.dimensions.height}"</div>
+                        <div className="font-medium">{specs.dimensions.height}&rdquo;</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Wheelbase:</span>
-                        <div className="font-medium">{specs.dimensions.wheelbase}"</div>
+                        <div className="font-medium">{specs.dimensions.wheelbase}&rdquo;</div>
                       </div>
                     </div>
                   </CardContent>

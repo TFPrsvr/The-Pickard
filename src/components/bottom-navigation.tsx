@@ -101,9 +101,9 @@ function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false)
 
   const quickActions = [
-    { name: 'Scan Code', icon: Search, action: () => console.log('Scan OBD code') },
-    { name: 'Find Parts', icon: Database, action: () => console.log('Find parts') },
-    { name: 'Get Help', icon: Lightbulb, action: () => console.log('Get help') },
+    { name: 'Scan Code', icon: Search, action: () => window.location.href = '/search' },
+    { name: 'Find Parts', icon: Database, action: () => window.location.href = '/parts' },
+    { name: 'Get Help', icon: Lightbulb, action: () => window.location.href = '/guides' },
   ]
 
   return (

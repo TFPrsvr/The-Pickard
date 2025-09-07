@@ -35,7 +35,6 @@ interface VehicleSelection {
 export default function PartsPage() {
   const [quickSearchQuery, setQuickSearchQuery] = useState('')
   const [quickSearchResults, setQuickSearchResults] = useState<QuickSearchResult[]>([])
-  const [selectedDatabase, setSelectedDatabase] = useState<string>('all')
   const [vehicleSelection, setVehicleSelection] = useState<VehicleSelection>({})
 
   const handleQuickSearch = async () => {
@@ -77,11 +76,7 @@ export default function PartsPage() {
       }
     ]
 
-    setQuickSearchResults(
-      selectedDatabase === 'all' 
-        ? mockResults 
-        : mockResults.filter(r => r.type === selectedDatabase)
-    )
+    setQuickSearchResults(mockResults)
   }
 
   const getTypeIcon = (type: string) => {
@@ -111,7 +106,7 @@ export default function PartsPage() {
       <div className="space-y-2">
         <h1 className="text-3xl font-bold">Parts Database</h1>
         <p className="text-muted-foreground">
-          Search across automotive, diesel, truck, BMW, and GM parts databases
+          Search for parts across all automotive databases and find compatible alternatives
         </p>
       </div>
 
@@ -128,7 +123,7 @@ export default function PartsPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Vehicle Selection Form */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">Year</label>
               <Select 
@@ -221,22 +216,6 @@ export default function PartsPage() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Database</label>
-              <Select value={selectedDatabase} onValueChange={setSelectedDatabase}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Databases</SelectItem>
-                  <SelectItem value="automotive">Automotive</SelectItem>
-                  <SelectItem value="diesel">Diesel Parts</SelectItem>
-                  <SelectItem value="truck">Truck Parts</SelectItem>
-                  <SelectItem value="bmw">BMW Parts</SelectItem>
-                  <SelectItem value="gm">GM Parts</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
           </div>
 
           {/* Selected Vehicle Display */}
@@ -315,111 +294,67 @@ export default function PartsPage() {
       </Card>
 
       {/* Database Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Car className="h-5 w-5 text-primary" />
-              Automotive Parts
+            <CardTitle className="flex items-center gap-2 text-xl">
+              <Car className="h-6 w-6 text-primary" />
+              Parts Database
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-3">
-              Car-Part.com, LKQ, Pull-A-Part cross-reference
+            <p className="text-sm text-muted-foreground mb-4">
+              Comprehensive automotive, diesel, truck, BMW, and GM parts database with cross-reference capabilities
             </p>
-            <div className="flex items-center justify-between text-sm">
-              <span>Coverage:</span>
-              <Badge>500,000+ Parts</Badge>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center justify-between">
+                <span>Automotive Parts:</span>
+                <Badge>500,000+ Parts</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Diesel Parts:</span>
+                <Badge variant="secondary">50,000+ Parts</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Truck Parts:</span>
+                <Badge variant="outline">100,000+ Parts</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>BMW Parts:</span>
+                <Badge variant="destructive">200,000+ Parts</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>GM Parts:</span>
+                <Badge variant="secondary">300,000+ Parts</Badge>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Settings className="h-5 w-5 text-secondary" />
-              Diesel Parts
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-3">
-              Cummins, Duramax, Power Stroke databases
-            </p>
-            <div className="flex items-center justify-between text-sm">
-              <span>Coverage:</span>
-              <Badge variant="secondary">50,000+ Parts</Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Truck className="h-5 w-5 text-orange-600" />
-              Truck Parts
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-3">
-              Rush Truck Centers, Peterbilt, Kenworth
-            </p>
-            <div className="flex items-center justify-between text-sm">
-              <span>Coverage:</span>
-              <Badge variant="outline">100,000+ Parts</Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Car className="h-5 w-5 text-blue-600" />
-              BMW Parts
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-3">
-              BMW ETK, Pelican Parts, FCP Euro
-            </p>
-            <div className="flex items-center justify-between text-sm">
-              <span>Coverage:</span>
-              <Badge variant="destructive">200,000+ Parts</Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Wrench className="h-5 w-5 text-blue-800" />
-              GM Parts
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-3">
-              GM OEM, AC Delco cross-reference
-            </p>
-            <div className="flex items-center justify-between text-sm">
-              <span>Coverage:</span>
-              <Badge variant="secondary">300,000+ Parts</Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Database className="h-5 w-5 text-green-600" />
+            <CardTitle className="flex items-center gap-2 text-xl">
+              <Database className="h-6 w-6 text-green-600" />
               Service Manuals
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-3">
-              Charm.li free service manuals & diagrams
+            <p className="text-sm text-muted-foreground mb-4">
+              Free service manuals, repair procedures, and technical diagrams for all vehicle types
             </p>
-            <div className="flex items-center justify-between text-sm">
-              <span>Coverage:</span>
-              <Badge className="bg-green-600">60+ Brands</Badge>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center justify-between">
+                <span>Coverage:</span>
+                <Badge className="bg-green-600">60+ Brands</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Content Type:</span>
+                <Badge variant="outline">Manuals & Diagrams</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Source:</span>
+                <Badge variant="secondary">Charm.li & Others</Badge>
+              </div>
             </div>
           </CardContent>
         </Card>

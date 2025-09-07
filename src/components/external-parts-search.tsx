@@ -220,7 +220,7 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
           Find Parts at Local & Online Stores
         </CardTitle>
         <CardDescription>
-          Search for "{searchQuery}" for your {vehicleInfo.year} {vehicleInfo.make} {vehicleInfo.model}
+          Search for &ldquo;{searchQuery}&rdquo; for your {vehicleInfo.year} {vehicleInfo.make} {vehicleInfo.model}
         </CardDescription>
       </CardHeader>
       <CardContent>

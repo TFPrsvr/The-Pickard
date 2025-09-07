@@ -149,9 +149,7 @@ export default function SearchPage() {
   }
 
   const handleWebSearchResult = (result: SearchResult) => {
-    // Handle saving web search result to database
-    console.log('Saving search result:', result)
-    // TODO: Implement database save functionality
+    // TODO: Implement database save functionality for search results
   }
 
   useEffect(() => {

@@ -7,13 +7,27 @@ import Image from 'next/image'
 
 export default function HomePage() {
   return (
-    <main className="py-12">
-      <div className="text-center mb-16 mt-48">
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Your comprehensive automotive database for mechanics. Search through problems, solutions, 
-            interchangeable parts, and expert tips for cars, trucks, and 18-wheelers.
-          </p>
+    <main className="py-8">
+      {/* Hero Section */}
+      <section className="text-center py-12 mb-16">
+        <div className="flex flex-col items-center mb-6">
+          <Image
+            src="/images/the-pickard-logo.png"
+            alt="The Pickard"
+            width={800}
+            height={300}
+            className="h-48 w-auto mb-4 opacity-100 contrast-200 brightness-110 saturate-150 drop-shadow-lg"
+            priority
+          />
+          <h1 className="text-3xl text-primary font-normal">
+            Automotive Mechanics Database
+          </h1>
         </div>
+        <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+          Your comprehensive automotive database for mechanics. Search through problems, solutions, 
+          interchangeable parts, and expert tips for cars, trucks, and 18-wheelers.
+        </p>
+      </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         <FeatureCard
@@ -60,15 +74,15 @@ export default function HomePage() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link href="/sign-up" className="automotive-button bg-primary hover:bg-primary/90 border-0">
-                  Get Started Free
+                  Get Started
                 </Link>
-                <Link href="/search" className="px-8 py-4 rounded-2xl border-2 border-white/30 text-white hover:bg-white/10 transition-colors font-semibold">
-                  Try Demo
+                <Link href="/search" className="px-8 py-4 rounded-md border-2 border-white/30 text-white hover:bg-white/10 transition-colors font-semibold">
+                  Explore Database
                 </Link>
               </div>
               
               <p className="text-white/60 text-sm mt-6">
-                No credit card required • Free forever plan available
+                Professional automotive diagnostics and repair database
               </p>
             </div>
           </div>

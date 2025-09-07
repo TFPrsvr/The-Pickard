@@ -12,7 +12,7 @@ export default function DashboardPage() {
   const { user } = useUser()
 
   const handleWebSearchResult = (result: SearchResult) => {
-    console.log('Saving search result to database:', result)
+    // TODO: Implement database save functionality for search results
   }
 
   return (

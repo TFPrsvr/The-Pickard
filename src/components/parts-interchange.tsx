@@ -250,7 +250,11 @@ export default function PartsInterchange() {
     },
   ]
 
-  const currentParts = searchResults[activeTab] || []
+  const currentParts = activeTab === 'new' 
+    ? searchResults.newParts 
+    : activeTab === 'used' 
+    ? searchResults.usedParts 
+    : searchResults.remanufactured
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
