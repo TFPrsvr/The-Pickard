@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+.env.test
+.env.sample
+.env.example
+
+# Claude configuration files
+CLAUDE.md
+.claude/
+
+# Generated files
+*.d.ts
+next-env.d.ts
+
+# Config files that don't need linting
+*.config.js
+*.config.ts
+tailwind.config.js
+postcss.config.js
+
+# Public assets
+public/

@@ -14,6 +14,7 @@ interface SearchFiltersProps {
   onFiltersChange: (filters: SearchFilters) => void
   onSearch: () => void
   onReset: () => void
+  searchQuery?: string
 }
 
 export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onReset }: SearchFiltersProps) {
@@ -46,7 +47,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleMakeChange = (make: string) => {
-    const makes = make ? [make] : undefined
+    const makes = make && make !== 'all' ? [make] : undefined
     onFiltersChange({
       ...filters,
       make: makes
@@ -54,7 +55,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleEngineTypeChange = (engine: string) => {
-    const engines = engine ? [engine] : undefined
+    const engines = engine && engine !== 'all' ? [engine] : undefined
     onFiltersChange({
       ...filters,
       engineType: engines
@@ -62,18 +63,18 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
   }
 
   const handleDriveTypeChange = (drive: string) => {
-    const driveTypes = drive ? [drive as 'AWD' | '2WD' | '4WD'] : undefined
+    const driveTypes = drive && drive !== 'all' ? [drive as 'AWD' | '2WD' | '4WD'] : undefined
     onFiltersChange({
       ...filters,
       driveType: driveTypes
     })
   }
 
-  const handleCategoryChange = (category: string) => {
-    const categories = category ? [category as 'car' | 'truck' | '18-wheeler'] : undefined
+  const handleSubmodelChange = (submodel: string) => {
+    const submodels = submodel ? [submodel] : undefined
     onFiltersChange({
       ...filters,
-      category: categories
+      submodel: submodels
     })
   }
 
@@ -85,14 +86,14 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
           Search Filters
         </CardTitle>
         <CardDescription>
-          Filter vehicles by year, make, model, and specifications
+          Use filters below to narrow your search results
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Year Range</label>
-            <div className="flex gap-2">
+            <label className="text-sm font-medium">Year</label>
+            <div className="flex gap-1">
               <Input
                 placeholder="From"
                 value={yearFrom}
@@ -103,7 +104,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 type="number"
                 min="1950"
                 max={currentYear}
-                className="w-20"
+                className="w-full"
               />
               <Input
                 placeholder="To"
@@ -115,7 +116,7 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 type="number"
                 min="1950"
                 max={currentYear}
-                className="w-20"
+                className="w-full"
               />
             </div>
           </div>
@@ -127,59 +128,12 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 <SelectValue placeholder="Select make" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Makes</SelectItem>
+                <SelectItem value="all">All Makes</SelectItem>
                 {makes.map((make) => (
                   <SelectItem key={make} value={make}>
                     {make}
                   </SelectItem>
                 ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Engine Type</label>
-            <Select onValueChange={handleEngineTypeChange} value={filters.engineType?.[0] || ''}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select engine" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Engines</SelectItem>
-                {engineTypes.map((engine) => (
-                  <SelectItem key={engine} value={engine}>
-                    {engine}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Drive Type</label>
-            <Select onValueChange={handleDriveTypeChange} value={filters.driveType?.[0] || ''}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select drive type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Drive Types</SelectItem>
-                <SelectItem value="2WD">2WD</SelectItem>
-                <SelectItem value="4WD">4WD</SelectItem>
-                <SelectItem value="AWD">AWD</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Vehicle Category</label>
-            <Select onValueChange={handleCategoryChange} value={filters.category?.[0] || ''}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
-                <SelectItem value="car">Car</SelectItem>
-                <SelectItem value="truck">Truck</SelectItem>
-                <SelectItem value="18-wheeler">18-Wheeler</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -197,6 +151,49 @@ export function VehicleSearchFilters({ filters, onFiltersChange, onSearch, onRes
                 })
               }}
             />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Submodel</label>
+            <Input
+              placeholder="Enter submodel"
+              value={filters.submodel?.[0] || ''}
+              onChange={(e) => handleSubmodelChange(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Engine</label>
+            <Select onValueChange={handleEngineTypeChange} value={filters.engineType?.[0] || ''}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select engine" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Engines</SelectItem>
+                {engineTypes.map((engine) => (
+                  <SelectItem key={engine} value={engine}>
+                    {engine}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Drive Type</label>
+            <Select onValueChange={handleDriveTypeChange} value={filters.driveType?.[0] || ''}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select drive type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Drive Types</SelectItem>
+                <SelectItem value="2WD">2WD</SelectItem>
+                <SelectItem value="4WD">4WD</SelectItem>
+                <SelectItem value="AWD">AWD</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

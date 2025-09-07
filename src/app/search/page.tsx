@@ -1,12 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { VehicleSearchFilters } from '@/components/search-filters'
+import { VehicleSelector } from '@/components/vehicle-selector'
+import { AutomotiveWebSearch } from '@/components/automotive-web-search'
+import { ExternalPartsSearch } from '@/components/external-parts-search'
+import { AutomotiveSuggestions } from '@/components/automotive-suggestions'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { SearchFilters, Vehicle, Problem } from '@/types'
-import { Search, Car, Wrench, ExternalLink } from 'lucide-react'
+import { SearchResult } from '@/lib/web-search'
+import { Search, Car, Wrench, ExternalLink, Globe } from 'lucide-react'
 import Link from 'next/link'
 
 export default function SearchPage() {
@@ -15,7 +19,7 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState<Vehicle[]>([])
   const [problemResults, setProblemResults] = useState<Problem[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [searchType, setSearchType] = useState<'vehicles' | 'problems'>('vehicles')
+  const [searchType, setSearchType] = useState<'vehicles' | 'problems' | 'web'>('vehicles')
 
   // Mock data for demonstration
   const mockVehicles: Vehicle[] = [
@@ -64,6 +68,10 @@ export default function SearchPage() {
   ]
 
   const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      return
+    }
+    
     setIsLoading(true)
     
     // Simulate API call
@@ -111,9 +119,11 @@ export default function SearchPage() {
         )
       }
 
-      if (filters.category?.length) {
+      if (filters.submodel?.length) {
         filteredVehicles = filteredVehicles.filter(vehicle =>
-          filters.category!.includes(vehicle.category)
+          filters.submodel!.some(submodel => 
+            vehicle.specialty?.toLowerCase().includes(submodel.toLowerCase())
+          )
         )
       }
 
@@ -138,6 +148,10 @@ export default function SearchPage() {
     setProblemResults([])
   }
 
+  const handleWebSearchResult = (result: SearchResult) => {
+    // TODO: Implement database save functionality for search results
+  }
+
   useEffect(() => {
     // Auto-search when filters change
     if (Object.keys(filters).some(key => filters[key as keyof SearchFilters]?.length)) {
@@ -150,50 +164,79 @@ export default function SearchPage() {
       <div>
         <h1 className="text-3xl font-bold mb-2">Vehicle Search</h1>
         <p className="text-muted-foreground">
-          Search our comprehensive database of vehicles, problems, and solutions
+          What are you looking for? Enter your vehicle details to find parts, problems, and solutions
         </p>
       </div>
 
-      {/* Quick Search */}
+      {/* Vehicle Selection and Search */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5" />
-            Quick Search
+            <Car className="h-5 w-5" />
+            What are you looking for?
           </CardTitle>
           <CardDescription>
-            Search for vehicles by year, make, model, or keywords
+            Select your vehicle details step by step, then search for what you need
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex gap-2">
-            <Input
-              placeholder="Search vehicles (e.g., 2019 Ford F-150)"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1"
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            />
-            <Button onClick={handleSearch} disabled={isLoading}>
-              <Search className="h-4 w-4 mr-2" />
-              {isLoading ? 'Searching...' : 'Search'}
-            </Button>
-          </div>
+        <CardContent className="space-y-6">
+          {/* Vehicle Selection - Cascading Filters */}
+          <VehicleSelector
+            filters={filters}
+            onFiltersChange={setFilters}
+          />
+          
+          {/* Search Query - Only show after basic vehicle info is selected */}
+          {(filters.year && filters.make && filters.model) && (
+            <div className="space-y-4">
+              <div className="border-t pt-4">
+                <label className="text-sm font-medium mb-2 block">What do you need help with?</label>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Enter what you're looking for (e.g., transmission problems, brake issues, oil filter)"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1"
+                    onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
+                  />
+                  <Button onClick={handleSearch} disabled={isLoading || !searchQuery.trim()}>
+                    <Search className="h-4 w-4 mr-2" />
+                    {isLoading ? 'Searching...' : 'Search'}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
-      {/* Advanced Filters */}
-      <VehicleSearchFilters
-        filters={filters}
-        onFiltersChange={setFilters}
-        onSearch={handleSearch}
-        onReset={handleReset}
+      {/* Automotive Suggestions Strip - Show contextual references and web search */}
+      <AutomotiveSuggestions
+        vehicleInfo={{
+          year: filters.year?.[0],
+          make: filters.make?.[0],
+          model: filters.model?.[0],
+          engine: filters.engineType?.[0]
+        }}
+        searchQuery={searchQuery}
+      />
+
+      {/* External Parts Search - Show when vehicle and search query are provided */}
+      <ExternalPartsSearch
+        searchQuery={searchQuery}
+        vehicleInfo={{
+          year: filters.year?.[0],
+          make: filters.make?.[0],
+          model: filters.model?.[0],
+          submodel: filters.submodel?.[0],
+          engine: filters.engineType?.[0]
+        }}
       />
 
       {/* Search Results */}
       {(searchResults.length > 0 || problemResults.length > 0) && (
         <div className="space-y-6">
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button
               variant={searchType === 'vehicles' ? 'default' : 'outline'}
               onClick={() => setSearchType('vehicles')}
@@ -207,6 +250,13 @@ export default function SearchPage() {
             >
               <Wrench className="h-4 w-4 mr-2" />
               Problems ({problemResults.length})
+            </Button>
+            <Button
+              variant={searchType === 'web' ? 'default' : 'outline'}
+              onClick={() => setSearchType('web')}
+            >
+              <Globe className="h-4 w-4 mr-2" />
+              Web Search
             </Button>
           </div>
 
@@ -226,6 +276,11 @@ export default function SearchPage() {
             </div>
           )}
         </div>
+      )}
+
+      {/* Web Search Tab */}
+      {searchType === 'web' && (
+        <AutomotiveWebSearch onResultSelect={handleWebSearchResult} />
       )}
 
       {/* Empty State */}

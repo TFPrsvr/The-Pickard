@@ -2,7 +2,8 @@
 
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import { Search, Database, Wrench, Lightbulb, FileDown } from 'lucide-react'
+import Image from 'next/image'
+import { Search, Database, Wrench, Lightbulb, FileText, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import PropTypes from 'prop-types'
 
@@ -12,11 +13,17 @@ export function Navbar() {
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <Wrench className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold">The Pickard</span>
+              <Image
+                src="/images/the-pickard-logo.png"
+                alt="The Pickard"
+                width={400}
+                height={120}
+                className="h-16 w-auto opacity-90 contrast-125"
+                priority
+              />
             </Link>
           </div>
 
@@ -24,10 +31,10 @@ export function Navbar() {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <NavLink href="/search" icon={<Search className="h-4 w-4" />}>
-                  Search
+                  Diagnostic Center
                 </NavLink>
-                <NavLink href="/database" icon={<Database className="h-4 w-4" />}>
-                  Database
+                <NavLink href="/parts" icon={<Database className="h-4 w-4" />}>
+                  Parts Database
                 </NavLink>
                 <NavLink href="/problems" icon={<Wrench className="h-4 w-4" />}>
                   Problems
@@ -35,8 +42,11 @@ export function Navbar() {
                 <NavLink href="/tips" icon={<Lightbulb className="h-4 w-4" />}>
                   Tips
                 </NavLink>
-                <NavLink href="/exports" icon={<FileDown className="h-4 w-4" />}>
-                  Exports
+                <NavLink href="/guides" icon={<FileText className="h-4 w-4" />}>
+                  How-to Guides
+                </NavLink>
+                <NavLink href="/diagrams" icon={<Zap className="h-4 w-4" />}>
+                  Diagrams
                 </NavLink>
               </div>
             </div>

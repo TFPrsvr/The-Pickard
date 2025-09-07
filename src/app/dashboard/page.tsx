@@ -3,162 +3,165 @@
 import { useUser } from '@clerk/nextjs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Search, Database, Wrench, Lightbulb, User, TrendingUp } from 'lucide-react'
+import { AutomotiveWebSearch } from '@/components/automotive-web-search'
+import { SearchResult } from '@/lib/web-search'
+import { Search, Database, Wrench, Lightbulb, Globe, ArrowRight, Car, Settings } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {
   const { user } = useUser()
 
+  const handleWebSearchResult = (result: SearchResult) => {
+    // TODO: Implement database save functionality for search results
+  }
+
   return (
-    <div className="py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Welcome back, {user?.firstName}!</h1>
-        <p className="text-muted-foreground mt-2">
-          Here&apos;s your automotive database dashboard
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">The Pickard</h1>
+          <p className="text-gray-600 mt-2">
+            The Database made for mechanics by mechanics. The one stop shop to find out about vehicle&apos;s problems both common and not so common and interchangeable parts, upload tips for the next mechanic.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard
-          title="Recent Searches"
-          value="12"
-          icon={<Search className="h-6 w-6" />}
-          change="+5 this week"
-        />
-        <StatCard
-          title="Saved Problems"
-          value="8"
-          icon={<Wrench className="h-6 w-6" />}
-          change="+2 this week"
-        />
-        <StatCard
-          title="Tips Created"
-          value="3"
-          icon={<Lightbulb className="h-6 w-6" />}
-          change="+1 this week"
-        />
-        <StatCard
-          title="Profile Views"
-          value="24"
-          icon={<User className="h-6 w-6" />}
-          change="+8 this week"
-        />
-      </div>
+        {/* Main Actions Grid - 2x2 Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Vehicle Search Section */}
+          <Link href="/search" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Car className="h-6 w-6 text-blue-600" />
+                  Vehicle Search
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Find vehicle problems and solutions by specific vehicle details
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-blue-600">
+                  <span className="font-medium">Search Vehicle Database</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>
-              Common tasks you can perform
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <QuickAction
-              title="Search Database"
-              description="Find vehicle problems and solutions"
-              href="/search"
-              icon={<Search className="h-5 w-5" />}
-            />
-            <QuickAction
-              title="Browse Problems"
-              description="View common automotive issues"
-              href="/problems"
-              icon={<Wrench className="h-5 w-5" />}
-            />
-            <QuickAction
-              title="View Tips"
-              description="Access expert mechanic tips"
-              href="/tips"
-              icon={<Lightbulb className="h-5 w-5" />}
-            />
-            <QuickAction
-              title="Parts Lookup"
-              description="Find interchangeable parts"
-              href="/database"
-              icon={<Database className="h-5 w-5" />}
-            />
-          </CardContent>
-        </Card>
+          {/* Problems Database Section */}
+          <Link href="/problems" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Wrench className="h-6 w-6 text-red-600" />
+                  Problems & Solutions
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Browse and search automotive problems by vehicle specifications
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-red-600">
+                  <span className="font-medium">Browse Problems Database</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>
-              Your latest interactions
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <ActivityItem
-                title="Searched for 2019 Ford F-150 transmission problems"
-                time="2 hours ago"
-              />
-              <ActivityItem
-                title="Saved solution for brake replacement"
-                time="1 day ago"
-              />
-              <ActivityItem
-                title="Added tip about oil change intervals"
-                time="3 days ago"
-              />
-              <ActivityItem
-                title="Updated profile information"
-                time="1 week ago"
-              />
-            </div>
-          </CardContent>
-        </Card>
+          {/* Parts Database Section */}
+          <Link href="/database" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Settings className="h-6 w-6 text-green-600" />
+                  Parts Database
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Find interchangeable parts with advanced filtering options
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-green-600">
+                  <span className="font-medium">Search Parts Database</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Tips & Knowledge Section */}
+          <Link href="/tips" className="block">
+            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
+              <CardHeader className="bg-gray-100 border-b border-gray-200">
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <Lightbulb className="h-6 w-6 text-yellow-600" />
+                  Expert Tips
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Access expert mechanic tips and share your knowledge
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between text-yellow-600">
+                  <span className="font-medium">View Tips & Knowledge</span>
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+
+        {/* Web Search Section */}
+        <div className="mb-8">
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardHeader className="bg-gray-100 border-b border-gray-200">
+              <CardTitle className="flex items-center gap-2 text-gray-900">
+                <Globe className="h-5 w-5 text-purple-600" />
+                Web Search
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Search the web for automotive repair information
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <AutomotiveWebSearch onResultSelect={handleWebSearchResult} />
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recent Activity Section - Moved to bottom */}
+        <div className="mb-8">
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardHeader className="bg-gray-100 border-b border-gray-200">
+              <CardTitle className="text-gray-900">Recent Activity</CardTitle>
+              <CardDescription className="text-gray-600">
+                Your recent database interactions
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <ActivityItem
+                  title="Searched for 2019 Ford F-150 transmission problems"
+                  time="2 hours ago"
+                />
+                <ActivityItem
+                  title="Saved solution for brake replacement"
+                  time="1 day ago"
+                />
+                <ActivityItem
+                  title="Added tip about oil change intervals"
+                  time="3 days ago"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )
 }
 
-interface StatCardProps {
-  title: string
-  value: string
-  icon: React.ReactNode
-  change: string
-}
-
-function StatCard({ title, value, icon, change }: StatCardProps) {
-  return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="text-primary">{icon}</div>
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        <p className="text-xs text-muted-foreground flex items-center gap-1">
-          <TrendingUp className="h-3 w-3" />
-          {change}
-        </p>
-      </CardContent>
-    </Card>
-  )
-}
-
-interface QuickActionProps {
-  title: string
-  description: string
-  href: string
-  icon: React.ReactNode
-}
-
-function QuickAction({ title, description, href, icon }: QuickActionProps) {
-  return (
-    <Link href={href} className="block">
-      <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-accent transition-colors">
-        <div className="text-primary">{icon}</div>
-        <div>
-          <p className="font-medium">{title}</p>
-          <p className="text-sm text-muted-foreground">{description}</p>
-        </div>
-      </div>
-    </Link>
-  )
-}
 
 interface ActivityItemProps {
   title: string
@@ -167,9 +170,9 @@ interface ActivityItemProps {
 
 function ActivityItem({ title, time }: ActivityItemProps) {
   return (
-    <div className="flex justify-between items-start">
-      <p className="text-sm">{title}</p>
-      <p className="text-xs text-muted-foreground">{time}</p>
+    <div className="flex justify-between items-start border-b border-gray-100 pb-3 last:border-b-0 last:pb-0">
+      <p className="text-sm text-gray-700">{title}</p>
+      <p className="text-xs text-gray-500">{time}</p>
     </div>
   )
 }

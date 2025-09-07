@@ -4,26 +4,41 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    /* Automotive Color Palette */
+    --background: 0 0% 98%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    
+    /* AutoCare Style - Modern Red/Orange Primary */
+    --primary: 0 84% 55%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
+    
+    /* Dark Navy Secondary */
+    --secondary: 224 71% 17%;
+    --secondary-foreground: 210 40% 98%;
+    
     --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
+    
+    /* Automotive Accent - Electric Blue */
+    --accent: 199 89% 48%;
     --accent-foreground: 222.2 84% 4.9%;
+    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --ring: 214 85% 27%;
+    --radius: 0.75rem;
+    
+    /* Automotive Status Colors */
+    --success: 142 76% 36%;
+    --warning: 45 93% 47%;
+    --info: 199 89% 48%;
+    --danger: 0 84% 60%;
   }
 
   .dark {
@@ -55,5 +70,115 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Automotive-specific animations and effects */
+.automotive-gradient {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--accent)) 50%, 
+    hsl(var(--secondary)) 100%);
+}
+
+.automotive-shadow {
+  box-shadow: 0 4px 20px -2px rgba(59, 130, 246, 0.15),
+              0 2px 10px -2px rgba(59, 130, 246, 0.05);
+}
+
+.automotive-hover-lift {
+  transition: all 0.3s ease;
+}
+
+.automotive-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px -2px rgba(59, 130, 246, 0.25);
+}
+
+/* Status indicator styles */
+.status-online { @apply bg-green-500 text-white; }
+.status-busy { @apply bg-yellow-500 text-white; }
+.status-offline { @apply bg-red-500 text-white; }
+.status-maintenance { @apply bg-orange-500 text-white; }
+
+/* AutoCare Style Components */
+.automotive-card {
+  @apply bg-card rounded-2xl border border-border/50 shadow-lg backdrop-blur-sm;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.automotive-button {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 
+         rounded-2xl px-8 py-4 font-semibold transition-all duration-200
+         shadow-lg hover:shadow-xl active:scale-95;
+}
+
+/* Service Card Style from AutoCare */
+.service-card {
+  @apply bg-card rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300;
+  border: 1px solid rgba(255, 68, 68, 0.1);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--primary));
+}
+
+/* Vehicle Grid Style */
+.vehicle-grid-card {
+  @apply bg-card rounded-xl p-4 border border-border/30 hover:border-primary/50 
+         transition-all duration-200 cursor-pointer;
+}
+
+.vehicle-grid-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 68, 68, 0.15);
+}
+
+.automotive-input {
+  @apply bg-card border-2 border-muted rounded-lg px-4 py-3 
+         focus:border-primary focus:ring-2 focus:ring-primary/20 
+         transition-all duration-200;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .automotive-card {
+    @apply mx-2 rounded-lg;
+  }
+  
+  .automotive-button {
+    @apply px-4 py-2 text-sm;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .automotive-hover-lift,
+  .automotive-button {
+    transition: none;
+  }
+  
+  .automotive-hover-lift:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .automotive-card {
+    @apply border-2 border-foreground;
+  }
+}
+
+/* Touch-friendly sizing for mobile */
+@media (pointer: coarse) {
+  .automotive-button {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .automotive-input {
+    @apply min-h-[44px];
   }
 }
