@@ -160,23 +160,26 @@ export default function SearchPage() {
   }, [filters])
 
   return (
-    <div className="py-8 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Vehicle Search</h1>
-        <p className="text-muted-foreground">
-          What are you looking for? Enter your vehicle details to find parts, problems, and solutions
+    <div className="py-8 space-y-6 bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+      {/* Header Section */}
+      <div className="text-center bg-white rounded-lg p-8 shadow-sm">
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          Diagnostic Center
+        </h1>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Find solutions fast! Enter your ride details and get instant help with parts, repairs, and troubleshooting.
         </p>
       </div>
 
       {/* Vehicle Selection and Search */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Car className="h-5 w-5" />
-            What are you looking for?
+      <Card className="shadow-lg border-0">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
+          <CardTitle className="flex items-center gap-3 text-xl">
+            <Car className="h-6 w-6" />
+            Start Your Search
           </CardTitle>
-          <CardDescription>
-            Select your vehicle details step by step, then search for what you need
+          <CardDescription className="text-blue-100">
+            Pick your vehicle first, then tell us what's going on
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -188,22 +191,27 @@ export default function SearchPage() {
           
           {/* Search Query - Only show after basic vehicle info is selected */}
           {(filters.year && filters.make && filters.model) && (
-            <div className="space-y-4">
-              <div className="border-t pt-4">
-                <label className="text-sm font-medium mb-2 block">What do you need help with?</label>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Enter what you're looking for (e.g., transmission problems, brake issues, oil filter)"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-1"
-                    onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
-                  />
-                  <Button onClick={handleSearch} disabled={isLoading || !searchQuery.trim()}>
-                    <Search className="h-4 w-4 mr-2" />
-                    {isLoading ? 'Searching...' : 'Search'}
-                  </Button>
-                </div>
+            <div className="space-y-4 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200">
+              <div className="text-center mb-4">
+                <h3 className="text-lg font-semibold text-green-800">Great! Now What's The Issue?</h3>
+                <p className="text-green-600 text-sm">Describe your problem or what part you need</p>
+              </div>
+              <div className="flex gap-3">
+                <Input
+                  placeholder="Type here: brake noise, engine trouble, need oil filter..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="flex-1 border-green-300 focus:border-green-500"
+                  onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
+                />
+                <Button 
+                  onClick={handleSearch} 
+                  disabled={isLoading || !searchQuery.trim()}
+                  className="bg-green-600 hover:bg-green-700 px-6"
+                >
+                  <Search className="h-5 w-5 mr-2" />
+                  {isLoading ? 'Finding...' : 'Go!'}
+                </Button>
               </div>
             </div>
           )}

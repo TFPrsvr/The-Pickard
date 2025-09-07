@@ -12,7 +12,7 @@ interface VehicleSelectorProps {
 
 // Mock data that would come from your database
 const vehicleData = {
-  years: ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005'],
+  years: Array.from({length: 35}, (_, i) => String(2025 - i)), // 2025 down to 1990
   
   // Common makes available for most years
   commonMakes: ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
