@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Problem, Vehicle } from '@/types'
-import { Wrench, Search, Filter, ExternalLink, Clock, AlertTriangle, RotateCcw } from 'lucide-react'
+import { Wrench, Search, Filter, ExternalLink, Clock, AlertTriangle, RotateCcw, Phone, Mail, MapPin, Download, Users } from 'lucide-react'
 import Link from 'next/link'
 
 interface VehicleFilters {
@@ -33,12 +33,29 @@ export default function ProblemsPage() {
 
   // Vehicle data for cascading filters
   const vehicleData = {
-    years: ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010'],
+    years: Array.from({length: 35}, (_, i) => String(2025 - i)), // 2025 down to 1990
     makes: ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Dodge', 'Hyundai', 'Kia', 'Subaru', 'Mazda', 'Volkswagen', 'BMW', 'Mercedes-Benz', 'Audi', 'Lexus', 'Acura', 'Volvo'],
     models: {
-      'Ford': ['F-150', 'F-250', 'F-350', 'Escape', 'Explorer', 'Mustang', 'Focus', 'Fusion', 'Edge', 'Expedition', 'Ranger', 'Transit', 'Bronco'],
-      'Chevrolet': ['Silverado 1500', 'Silverado 2500HD', 'Silverado 3500HD', 'Equinox', 'Traverse', 'Tahoe', 'Suburban', 'Camaro', 'Corvette', 'Malibu', 'Cruze', 'Colorado'],
-      'Toyota': ['Camry', 'Corolla', 'RAV4', 'Highlander', 'Tacoma', 'Tundra', 'Prius', 'Sienna', '4Runner', 'Sequoia', 'Land Cruiser', 'Avalon']
+      'Ford': ['F-150', 'F-250', 'F-350', 'Escape', 'Explorer', 'Mustang', 'Focus', 'Fusion', 'Edge', 'Expedition', 'Ranger', 'Transit', 'Bronco', 'Fiesta', 'Taurus', 'EcoSport'],
+      'Chevrolet': ['Silverado 1500', 'Silverado 2500HD', 'Silverado 3500HD', 'Equinox', 'Traverse', 'Tahoe', 'Suburban', 'Camaro', 'Corvette', 'Malibu', 'Cruze', 'Colorado', 'Impala', 'Sonic', 'Trax', 'Blazer'],
+      'Toyota': ['Camry', 'Corolla', 'RAV4', 'Highlander', 'Tacoma', 'Tundra', 'Prius', 'Sienna', '4Runner', 'Sequoia', 'Land Cruiser', 'Avalon', 'Yaris', 'C-HR', 'Venza', 'Supra'],
+      'Honda': ['Civic', 'Accord', 'CR-V', 'Pilot', 'Fit', 'HR-V', 'Odyssey', 'Ridgeline', 'Passport', 'Insight', 'Clarity'],
+      'Nissan': ['Altima', 'Sentra', 'Rogue', 'Pathfinder', 'Frontier', 'Titan', 'Versa', 'Kicks', 'Murano', 'Armada', 'Maxima', '370Z'],
+      'Ram': ['1500', '2500', '3500', 'ProMaster', 'ProMaster City'],
+      'GMC': ['Sierra 1500', 'Sierra 2500HD', 'Sierra 3500HD', 'Terrain', 'Acadia', 'Yukon', 'Canyon', 'Savana'],
+      'Jeep': ['Wrangler', 'Grand Cherokee', 'Cherokee', 'Compass', 'Renegade', 'Gladiator', 'Grand Wagoneer', 'Wagoneer'],
+      'Dodge': ['Charger', 'Challenger', 'Durango', 'Journey'],
+      'Hyundai': ['Elantra', 'Sonata', 'Tucson', 'Santa Fe', 'Accent', 'Venue', 'Kona', 'Palisade', 'Genesis'],
+      'Kia': ['Optima', 'Forte', 'Sportage', 'Sorento', 'Rio', 'Soul', 'Stinger', 'Telluride', 'Seltos'],
+      'Subaru': ['Outback', 'Forester', 'Impreza', 'Legacy', 'Crosstrek', 'Ascent', 'WRX', 'BRZ'],
+      'Mazda': ['Mazda3', 'Mazda6', 'CX-3', 'CX-5', 'CX-9', 'MX-5 Miata', 'CX-30'],
+      'Volkswagen': ['Jetta', 'Passat', 'Tiguan', 'Atlas', 'Golf', 'Beetle', 'Arteon'],
+      'BMW': ['3 Series', '5 Series', '7 Series', 'X1', 'X3', 'X5', 'X7', 'Z4', '4 Series', '6 Series'],
+      'Mercedes-Benz': ['C-Class', 'E-Class', 'S-Class', 'GLC', 'GLE', 'GLS', 'A-Class', 'CLA', 'GLA', 'GLB'],
+      'Audi': ['A3', 'A4', 'A6', 'A8', 'Q3', 'Q5', 'Q7', 'Q8', 'TT', 'R8'],
+      'Lexus': ['ES', 'IS', 'LS', 'GS', 'RX', 'GX', 'LX', 'NX', 'UX', 'LC'],
+      'Acura': ['ILX', 'TLX', 'RLX', 'RDX', 'MDX', 'NSX'],
+      'Volvo': ['S60', 'S90', 'XC40', 'XC60', 'XC90', 'V60', 'V90']
     },
     engineSizes: ['1.0L', '1.3L', '1.5L', '1.6L', '1.8L', '2.0L', '2.3L', '2.4L', '2.5L', '2.7L', '3.0L', '3.5L', '3.6L', '4.0L', '5.0L', '5.3L', '5.7L', '6.0L', '6.2L', '6.6L', '6.7L'],
     driveTypes: ['2WD', 'FWD', 'RWD', '4WD', 'AWD']
@@ -214,21 +231,33 @@ export default function ProblemsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold mb-2 text-gray-900">
+        {/* Banner Section */}
+        <div className="relative overflow-hidden rounded-lg mb-8">
+          <div className="absolute inset-0">
+            <img
+              src="/images/banner-background.png"
+              alt="Automotive Background"
+              className="w-full h-full object-cover opacity-20"
+            />
+          </div>
+          <div className="relative bg-gradient-to-r from-orange-600/90 to-red-600/90 text-white p-8 text-center">
+            <h1 className="text-4xl font-bold mb-2">
               {selectedVehicle 
                 ? `${selectedVehicle.year} ${selectedVehicle.make} ${selectedVehicle.model} Problems`
                 : 'Vehicle Problems Database'
               }
             </h1>
-            <p className="text-gray-600">
+            <p className="text-xl opacity-90">
               {selectedVehicle 
                 ? 'Common and uncommon problems for this specific vehicle'
                 : 'Browse problems filtered by vehicle specifications'
               }
             </p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div>
           </div>
           {selectedVehicle && (
             <Link href="/search">
@@ -473,6 +502,65 @@ export default function ProblemsPage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Professional Contact Section */}
+        <section className="mt-16 py-12 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-secondary mb-4">
+              NEED HELP DIAGNOSING YOUR PROBLEM?
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our certified automotive technicians are available to help diagnose complex problems. 
+              Get expert assistance with troubleshooting and repair solutions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Emergency Line */}
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Phone className="h-8 w-8 text-red-600" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Emergency Diagnostics</h3>
+              <p className="text-muted-foreground mb-3">24/7 emergency support line</p>
+              <p className="text-xl font-bold text-red-600">(555) FIX-AUTO</p>
+              <p className="text-sm text-muted-foreground">Available 24/7</p>
+            </div>
+
+            {/* Technical Support */}
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Technical Support</h3>
+              <p className="text-muted-foreground mb-3">Speak with ASE certified techs</p>
+              <p className="text-lg font-semibold text-blue-600">tech@thepickard.com</p>
+              <p className="text-sm text-muted-foreground">Mon-Fri 6AM-10PM</p>
+            </div>
+
+            {/* Workshop Location */}
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Workshop</h3>
+              <p className="text-muted-foreground mb-3">Bring your vehicle in</p>
+              <p className="text-sm text-muted-foreground">456 Repair Lane</p>
+              <p className="text-sm text-muted-foreground">Auto City, AC 67890</p>
+            </div>
+          </div>
+
+          {/* Download Diagnostic Guide */}
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-2 bg-orange-500 text-white px-8 py-4 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
+              <Download className="h-5 w-5" />
+              <span className="font-semibold">DOWNLOAD DIAGNOSTIC GUIDE</span>
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Step-by-step troubleshooting manual for common problems
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   )

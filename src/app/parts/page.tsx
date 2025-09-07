@@ -11,7 +11,8 @@ import PartsInterchange from "@/components/parts-interchange"
 import { vehicleDatabase, getModelsForMake, getEnginesForMake } from '@/lib/vehicle-data'
 import { 
   Car, Truck, Wrench, Settings, Database, Search, 
-  Package, AlertTriangle, ExternalLink, CheckCircle 
+  Package, AlertTriangle, ExternalLink, CheckCircle, 
+  Phone, Mail, MapPin, Download, Clock, Users 
 } from 'lucide-react'
 
 interface QuickSearchResult {
@@ -103,11 +104,21 @@ export default function PartsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold">Parts Database</h1>
-        <p className="text-muted-foreground">
-          Search for parts across all automotive databases and find compatible alternatives
-        </p>
+      {/* Banner Section */}
+      <div className="relative overflow-hidden rounded-lg mb-8">
+        <div className="absolute inset-0">
+          <img
+            src="/images/banner-background.png"
+            alt="Automotive Background"
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
+        <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white p-8 text-center">
+          <h1 className="text-4xl font-bold mb-2">Parts Database</h1>
+          <p className="text-xl opacity-90">
+            Search for parts across all automotive databases and find compatible alternatives
+          </p>
+        </div>
       </div>
 
       {/* Quick Search */}
@@ -115,10 +126,12 @@ export default function PartsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Search className="h-5 w-5" />
-            Check or Match Your Vehicle Specifications
+            Find Your Parts
           </CardTitle>
           <CardDescription>
-            Enter your vehicle information to search for the right parts. Selected filters will show below to help you find compatible parts and interchangeable alternatives.
+            <span className="font-semibold text-primary">Step 1:</span> Enter vehicle information first<br/>
+            <span className="font-semibold text-primary">Step 2:</span> Enter OEM part number<br/>
+            <span className="font-semibold text-primary">Step 3:</span> Search for compatible parts
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -452,6 +465,68 @@ export default function PartsPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Professional Contact Section */}
+      <section className="mt-16 py-12 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-secondary mb-4">
+            NEED HELP FINDING THE RIGHT PART?
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Our certified automotive parts specialists are here to help you find the exact part you need. 
+            Contact us directly for personalized assistance.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Request Call Back */}
+          <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Phone className="h-8 w-8 text-blue-600" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Request Call Back</h3>
+            <p className="text-muted-foreground mb-3">Get a call from our parts experts</p>
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+              Request Call
+            </button>
+          </div>
+
+          {/* Send Message */}
+          <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Mail className="h-8 w-8 text-green-600" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Send Message</h3>
+            <p className="text-muted-foreground mb-3">Send us your parts inquiry</p>
+            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors">
+              Send Message
+            </button>
+          </div>
+
+          {/* Find Location */}
+          <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MapPin className="h-8 w-8 text-orange-600" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Find Location</h3>
+            <p className="text-muted-foreground mb-3">Visit our parts department</p>
+            <button className="bg-orange-600 text-white px-6 py-2 rounded-md hover:bg-orange-700 transition-colors">
+              Find Store
+            </button>
+          </div>
+        </div>
+
+        {/* Download Catalog */}
+        <div className="text-center">
+          <div className="inline-flex items-center space-x-2 bg-orange-500 text-white px-8 py-4 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
+            <Download className="h-5 w-5" />
+            <span className="font-semibold">DOWNLOAD PARTS CATALOG</span>
+          </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            Complete parts reference guide with compatibility charts
+          </p>
+        </div>
+      </section>
     </div>
   )
 }
