@@ -80,10 +80,10 @@ export function PinterestIntegration({ category, maxPins = 6 }: PinterestIntegra
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-2xl font-bold text-gray-800 mb-2">
-            Pinterest Reference Library
+            Pinterest Library
           </h3>
           <p className="text-gray-600">
-            Curated automotive resources from our Pinterest collection
+            Curated automotive resources
           </p>
         </div>
         <a
@@ -137,19 +137,17 @@ export function PinterestIntegration({ category, maxPins = 6 }: PinterestIntegra
 function PinterestPinCard({ pin }: { pin: PinterestPin }) {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 overflow-hidden">
-      <div className="relative h-48 bg-gray-100">
-        <Image
-          src={pin.imageUrl}
-          alt={pin.title}
-          fill
-          className="object-cover"
-          onError={(e) => {
-            // Fallback for missing images
-            e.currentTarget.src = "data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100' height='100' fill='%23f3f4f6'/%3e%3ctext x='50' y='50' font-size='14' text-anchor='middle' dy='.3em' fill='%236b7280'%3eAutomotive%3c/text%3e%3c/svg%3e"
-          }}
-        />
-        <div className="absolute top-3 right-3">
-          <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
+      <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200">
+        <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+              <Car className="h-8 w-8 text-white" />
+            </div>
+            <p className="text-sm text-slate-700 font-medium">Automotive Pin</p>
+          </div>
+        </div>
+        <div className="absolute top-3 right-3 z-10">
+          <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center shadow-lg">
             <Heart className="h-4 w-4 text-white fill-current" />
           </div>
         </div>

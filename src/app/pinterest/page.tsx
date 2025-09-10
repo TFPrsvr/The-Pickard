@@ -12,6 +12,12 @@ export default function PinterestPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return
+    // TODO: Implement actual search functionality with Pinterest integration
+    console.log('Searching for:', searchQuery, 'in category:', selectedCategory)
+  }
+  
   const categories = [
     { id: 'all', name: 'All Categories', count: 225 },
     { id: 'engine', name: 'Engine & Performance', count: 68 },
@@ -32,13 +38,12 @@ export default function PinterestPage() {
               <Heart className="h-8 w-8 text-white fill-current" />
             </div>
             <div>
-              <h1 className="text-5xl font-bold text-gray-800 mb-2">Pinterest Reference Library</h1>
-              <p className="text-xl text-purple-600">Automotive Reference Collection</p>
+              <h1 className="text-5xl font-bold text-gray-800 mb-2">Pinterest Library</h1>
+              <p className="text-xl text-purple-600">Auto Reference</p>
             </div>
           </div>
           <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Explore our curated collection of automotive repair guides, diagnostic charts, component diagrams, 
-            and professional tips saved from Pinterest. Real-world solutions for mechanics and DIY enthusiasts.
+            Curated automotive repair guides, diagnostics, and professional tips. Real solutions for mechanics and DIY enthusiasts.
           </p>
         </div>
 
@@ -46,13 +51,15 @@ export default function PinterestPage() {
         <Card className="shadow-lg border-0 mb-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
           <CardContent className="p-8">
             <div className="flex items-center gap-6">
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
-                <User className="h-10 w-10 text-white" />
+              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center relative overflow-hidden">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                  <Car className="h-8 w-8 text-white" />
+                </div>
               </div>
               <div className="flex-1">
                 <h2 className="text-3xl font-bold mb-2">The Pickard Team</h2>
                 <p className="text-purple-100 text-lg mb-4">
-                  Curated automotive repair guides and diagnostic resources from industry professionals
+                  Curated auto repair guides from industry professionals
                 </p>
                 <div className="flex items-center gap-6 text-sm">
                   <div className="flex items-center gap-2">
@@ -84,14 +91,25 @@ export default function PinterestPage() {
         {/* Search and Filter */}
         <div className="flex flex-col lg:flex-row gap-6 mb-8">
           <div className="flex-1">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <Input
-                placeholder="Search pins: brake pads, engine diagnostic, wiring diagram..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 py-3 text-lg border-2 border-purple-200 focus:border-purple-500"
-              />
+            <div className="flex gap-3">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <Input
+                  placeholder="Search pins: brake pads, engine diagnostic, wiring diagram..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
+                  className="pl-10 py-3 text-lg placeholder:text-sm border-2 border-purple-200 focus:border-purple-500"
+                />
+              </div>
+              <Button 
+                onClick={handleSearch}
+                disabled={!searchQuery.trim()}
+                className="bg-purple-600 hover:bg-purple-700 px-6 py-3"
+              >
+                <Search className="h-5 w-5 mr-2" />
+                Search
+              </Button>
             </div>
           </div>
           
@@ -109,15 +127,15 @@ export default function PinterestPage() {
             <Button
               key={category.id}
               variant={selectedCategory === category.id ? "default" : "outline"}
-              className={`p-4 h-auto flex-col gap-2 ${
+              className={`p-4 h-auto min-h-[80px] flex-col gap-2 text-center ${
                 selectedCategory === category.id 
                   ? "bg-purple-600 text-white" 
                   : "border-purple-200 text-purple-700 hover:bg-purple-50"
               }`}
               onClick={() => setSelectedCategory(category.id)}
             >
-              <span className="font-semibold text-sm">{category.name}</span>
-              <span className="text-xs opacity-75">{category.count} pins</span>
+              <span className="font-semibold text-sm leading-tight break-words max-w-full">{category.name}</span>
+              <span className="text-xs opacity-75 whitespace-nowrap">{category.count} pins</span>
             </Button>
           ))}
         </div>
@@ -132,7 +150,7 @@ export default function PinterestPage() {
 
         {/* Additional Info */}
         <div className="mt-12 text-center bg-white rounded-lg p-8 shadow-lg">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">How Pinterest Integration Works</h3>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">How It Works</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             <div>
               <h4 className="font-semibold text-purple-600 mb-2">🔍 Curated Content</h4>
