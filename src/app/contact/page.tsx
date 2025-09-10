@@ -15,7 +15,7 @@ export default function ContactPage() {
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Have questions about diagnostics, need parts help, or want to share feedback? 
-            We're here to help you get back on the road.
+            We&apos;re here to help you get back on the road.
           </p>
         </div>
 
@@ -101,7 +101,7 @@ export default function ContactPage() {
         <div className="bg-white rounded-lg p-8 shadow-lg text-center">
           <h2 className="text-2xl font-bold mb-4 text-gray-800">Need Immediate Help?</h2>
           <p className="text-gray-600 mb-6">
-            For urgent diagnostic issues or emergency roadside assistance, don't hesitate to call our 24/7 hotline.
+            For urgent diagnostic issues or emergency roadside assistance, don&apos;t hesitate to call our 24/7 hotline.
             Our certified technicians are standing by to help you get back on the road safely.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -86,7 +86,7 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
             <CheckCircle className="h-5 w-5 text-green-600" />
             <div>
               <p className="text-green-800 font-medium">Message sent successfully!</p>
-              <p className="text-green-600 text-sm">We'll get back to you within 24 hours.</p>
+              <p className="text-green-600 text-sm">We&apos;ll get back to you within 24 hours.</p>
             </div>
           </div>
         )}

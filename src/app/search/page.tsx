@@ -179,7 +179,7 @@ export default function SearchPage() {
             Start Your Search
           </CardTitle>
           <CardDescription className="text-blue-100">
-            Pick your vehicle first, then tell us what's going on
+            Pick your vehicle first, then tell us what&apos;s going on
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -193,7 +193,7 @@ export default function SearchPage() {
           {(filters.year && filters.make && filters.model) && (
             <div className="space-y-4 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200">
               <div className="text-center mb-4">
-                <h3 className="text-lg font-semibold text-green-800">Great! Now What's The Issue?</h3>
+                <h3 className="text-lg font-semibold text-green-800">Great! Now What&apos;s The Issue?</h3>
                 <p className="text-green-600 text-sm">Describe your problem or what part you need</p>
               </div>
               <div className="flex gap-3">
