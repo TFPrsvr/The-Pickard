@@ -328,30 +328,30 @@ export default function DiagramsPage() {
         </Card>
       )}
 
-      {/* Popular Downloads */}
+      {/* Quick Stats */}
       <Card>
         <CardHeader>
-          <CardTitle>Most Downloaded</CardTitle>
-          <CardDescription>Popular technical diagrams this month</CardDescription>
+          <CardTitle>Collection Statistics</CardTitle>
+          <CardDescription>Overview of available technical diagrams</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            {diagrams.slice(0, 5).sort((a, b) => b.downloadCount - a.downloadCount).map((diagram, index) => (
-              <div key={diagram.id} className="flex items-center justify-between p-3 border rounded-md hover:bg-accent/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-sm">{diagram.title}</h4>
-                    <p className="text-xs text-muted-foreground">{diagram.downloadCount.toLocaleString()} downloads</p>
-                  </div>
-                </div>
-                <Button size="sm" variant="ghost">
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 border rounded-md">
+              <div className="text-2xl font-bold text-primary">{diagrams.length}</div>
+              <div className="text-sm text-muted-foreground">Total Diagrams</div>
+            </div>
+            <div className="text-center p-4 border rounded-md">
+              <div className="text-2xl font-bold text-blue-600">{diagrams.filter(d => d.category === 'wiring').length}</div>
+              <div className="text-sm text-muted-foreground">Wiring Diagrams</div>
+            </div>
+            <div className="text-center p-4 border rounded-md">
+              <div className="text-2xl font-bold text-green-600">{diagrams.filter(d => d.vehicleType === 'truck').length}</div>
+              <div className="text-sm text-muted-foreground">Truck Specific</div>
+            </div>
+            <div className="text-center p-4 border rounded-md">
+              <div className="text-2xl font-bold text-orange-600">{diagrams.reduce((sum, d) => sum + d.downloadCount, 0).toLocaleString()}</div>
+              <div className="text-sm text-muted-foreground">Total Downloads</div>
+            </div>
           </div>
         </CardContent>
       </Card>

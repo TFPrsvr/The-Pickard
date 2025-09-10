@@ -58,7 +58,7 @@ export default function TipsPage() {
       category: 'technique',
       vehicleTypes: ['car', 'truck'],
       media: [
-        { id: '2', type: 'video', url: '/videos/brake-bleeding.mp4', caption: 'Solo brake bleeding demonstration' }
+        { id: '2', type: 'video', url: 'https://www.youtube.com/embed/n1NvtUwfRJc', caption: 'Solo brake bleeding demonstration' }
       ],
       author: 'Sarah Chen',
       createdAt: new Date('2024-01-10'),
@@ -86,7 +86,7 @@ export default function TipsPage() {
       category: 'safety',
       vehicleTypes: ['car', 'truck', '18-wheeler'],
       media: [
-        { id: '4', type: 'video', url: '/videos/safety-setup.mp4', caption: 'Proper vehicle support demonstration' }
+        { id: '4', type: 'video', url: 'https://www.youtube.com/embed/joBmbh0AGSQ', caption: 'Proper vehicle support demonstration' }
       ],
       author: 'Jennifer Lopez',
       createdAt: new Date('2024-01-05'),
@@ -100,12 +100,40 @@ export default function TipsPage() {
       category: 'time-saver',
       vehicleTypes: ['car', 'truck'],
       media: [
-        { id: '5', type: 'image', url: '/images/magnetic-tray.jpg' }
+        { id: '5', type: 'video', url: 'https://www.youtube.com/embed/XvKbdTRO3h8', caption: 'Essential mechanic tools and organization tips' }
       ],
       author: 'Carlos Martinez',
       createdAt: new Date('2024-01-03'),
       likes: 78,
       tags: ['organization', 'tools', 'efficiency']
+    },
+    {
+      id: '6',
+      title: 'Engine Diagnostic Tips',
+      description: 'Learn how to properly diagnose engine problems using basic tools and observation techniques. Start with the basics before jumping to expensive diagnostics.',
+      category: 'technique',
+      vehicleTypes: ['car', 'truck'],
+      media: [
+        { id: '6', type: 'video', url: 'https://www.youtube.com/embed/ScMzIvxBSi4', caption: 'Basic engine diagnostic techniques' }
+      ],
+      author: 'Roberto Silva',
+      createdAt: new Date('2024-01-02'),
+      likes: 152,
+      tags: ['diagnostics', 'engine', 'troubleshooting']
+    },
+    {
+      id: '7',
+      title: 'Professional Brake Repair Guide',
+      description: 'Step-by-step brake pad replacement and rotor service. Always replace pads and rotors as a system for optimal braking performance.',
+      category: 'technique',
+      vehicleTypes: ['car', 'truck'],
+      media: [
+        { id: '7', type: 'video', url: 'https://www.youtube.com/embed/6RQ9egBbkUE', caption: 'Complete brake service walkthrough' }
+      ],
+      author: 'Jessica Thompson',
+      createdAt: new Date('2024-01-01'),
+      likes: 203,
+      tags: ['brakes', 'repair', 'maintenance']
     }
   ]
 
@@ -376,24 +404,45 @@ function TipCard({ tip, isLiked, onLike }: TipCardProps) {
         {tip.media.length > 0 && (
           <div className="space-y-3">
             {tip.media.map((media) => (
-              <div key={media.id} className="border rounded-lg p-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0">
-                    {media.type === 'image' && <FileImage className="h-8 w-8 text-blue-500" />}
-                    {media.type === 'video' && <Play className="h-8 w-8 text-red-500" />}
-                    {media.type === 'audio' && <Mic className="h-8 w-8 text-green-500" />}
+              <div key={media.id} className="border rounded-lg overflow-hidden">
+                {media.type === 'video' && media.url.includes('youtube.com/embed') ? (
+                  <div className="aspect-video">
+                    <iframe
+                      src={`${media.url}?rel=0&modestbranding=1&showinfo=0&controls=1`}
+                      title={media.caption || 'Video content'}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full"
+                      loading="lazy"
+                    />
                   </div>
-                  <div className="flex-1">
-                    <div className="font-medium capitalize">{media.type} content</div>
-                    {media.caption && (
-                      <div className="text-sm text-muted-foreground">{media.caption}</div>
-                    )}
+                ) : (
+                  <div className="p-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0">
+                        {media.type === 'image' && <FileImage className="h-8 w-8 text-blue-500" />}
+                        {media.type === 'video' && <Play className="h-8 w-8 text-red-500" />}
+                        {media.type === 'audio' && <Mic className="h-8 w-8 text-green-500" />}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium capitalize">{media.type} content</div>
+                        {media.caption && (
+                          <div className="text-sm text-muted-foreground">{media.caption}</div>
+                        )}
+                      </div>
+                      <Button variant="outline" size="sm">
+                        <Play className="h-4 w-4 mr-2" />
+                        View
+                      </Button>
+                    </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Play className="h-4 w-4 mr-2" />
-                    View
-                  </Button>
-                </div>
+                )}
+                {media.caption && media.type === 'video' && media.url.includes('youtube.com/embed') && (
+                  <div className="p-3 bg-gray-50 border-t">
+                    <div className="text-sm text-muted-foreground">{media.caption}</div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

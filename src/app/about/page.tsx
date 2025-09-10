@@ -125,54 +125,49 @@ export default function AboutPage() {
 
         {/* Team Section */}
         <section>
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Meet Our Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="shadow-lg border-0">
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-6">
-                  <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center">
-                    <Users className="h-10 w-10 text-gray-500" />
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Expertise</h2>
+          <Card className="shadow-lg border-0 max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <div className="text-center">
+                <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Award className="h-12 w-12 text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-4 text-gray-800">Professional Automotive Team</h3>
+                <p className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
+                  The Pickard database is built and maintained by a dedicated team of ASE certified automotive technicians, 
+                  database specialists, and technical writers. Our combined decades of experience across all vehicle types 
+                  ensures accurate, up-to-date diagnostic information and repair procedures for mechanics worldwide.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-blue-600 mb-2">15+</div>
+                    <div className="text-sm text-gray-600">Years Experience</div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Certified Technicians</h3>
-                    <p className="text-gray-600">
-                      Our team includes ASE certified automotive technicians with decades of hands-on experience 
-                      across all vehicle types and systems.
-                    </p>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-green-600 mb-2">ASE</div>
+                    <div className="text-sm text-gray-600">Certified Team</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-orange-600 mb-2">24/7</div>
+                    <div className="text-sm text-gray-600">Support Available</div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-lg border-0">
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-6">
-                  <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center">
-                    <Users className="h-10 w-10 text-gray-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Database Specialists</h3>
-                    <p className="text-gray-600">
-                      Technical writers and data analysts who ensure our information is accurate, 
-                      up-to-date, and easily accessible for quick diagnostics.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         {/* Contact Section */}
         <section className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-8">
           <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Get In Touch</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Call Us</h3>
-              <p className="text-gray-600">Emergency diagnostics available 24/7</p>
+              <h3 className="font-semibold text-lg mb-2">Technical Support</h3>
+              <p className="text-gray-600 mb-2">Emergency diagnostics available 24/7</p>
+              <p className="text-blue-600 font-semibold text-lg">(555) PICKARD</p>
               <Button className="mt-4 bg-blue-600 hover:bg-blue-700">
                 Contact Support
               </Button>
@@ -182,23 +177,19 @@ export default function AboutPage() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Email Us</h3>
-              <p className="text-gray-600">Get detailed technical assistance</p>
+              <h3 className="font-semibold text-lg mb-2">Email Support</h3>
+              <p className="text-gray-600 mb-2">Get detailed technical assistance</p>
+              <p className="text-green-600 font-semibold">support@thepickard.com</p>
               <Button className="mt-4 bg-green-600 hover:bg-green-700">
                 Send Message
               </Button>
             </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-orange-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Visit Us</h3>
-              <p className="text-gray-600">Multiple locations nationwide</p>
-              <Button className="mt-4 bg-orange-600 hover:bg-orange-700">
-                Find Location
-              </Button>
-            </div>
+          </div>
+          <div className="text-center mt-8 pt-8 border-t border-gray-200">
+            <p className="text-gray-600">
+              <strong>Online Database Access:</strong> Available 24/7 for registered users<br/>
+              <strong>Emergency Support:</strong> Call anytime for critical diagnostic assistance
+            </p>
           </div>
         </section>
 

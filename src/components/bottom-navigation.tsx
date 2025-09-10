@@ -12,7 +12,8 @@ import {
   FileText, 
   Zap,
   User,
-  Settings
+  Settings,
+  MessageSquare
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import PropTypes from 'prop-types'
@@ -156,6 +157,7 @@ export function TopTabNavigation() {
     { name: 'Tips', href: '/tips', icon: Lightbulb },
     { name: 'Guides', href: '/guides', icon: FileText },
     { name: 'Diagrams', href: '/diagrams', icon: Zap },
+    { name: 'Contact', href: '/contact', icon: MessageSquare },
   ]
 
   return (
