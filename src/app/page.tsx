@@ -4,21 +4,10 @@ import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen,
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import VideoFilter from '@/components/video-filter'
 
 export default function HomePage() {
   return (
-    <main className="py-4 relative">
-      {/* Background Video Filters */}
-      <div className="fixed top-0 left-0 w-64 h-full opacity-20 pointer-events-none z-0">
-        <VideoFilter position="left" className="w-full h-full" />
-      </div>
-      <div className="fixed top-0 right-0 w-64 h-full opacity-20 pointer-events-none z-0">
-        <VideoFilter position="right" className="w-full h-full" />
-      </div>
-      
-      {/* Main Content */}
-      <div className="relative z-10">
+    <main className="py-4">
       {/* Hero Section */}
       <section className="text-center py-12 mb-16">
         <div className="flex flex-col items-center mb-6">
@@ -259,7 +248,6 @@ function LocationCard({ location, city, address, phone, email, isLeft }: Locatio
           </div>
         </div>
       </div>
-      </div> {/* End Main Content */}
-    </main>
+    </div>
   )
 }
