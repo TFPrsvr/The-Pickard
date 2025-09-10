@@ -3,7 +3,7 @@
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare } from 'lucide-react'
+import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare, Home } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -93,6 +93,9 @@ export function Navbar() {
         </div>
         
         <div className="px-6 py-4 space-y-4">
+          <MobileNavLink href="/" icon={<Home className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Home
+          </MobileNavLink>
           <MobileNavLink href="/search" icon={<Car className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Diagnostic Center
           </MobileNavLink>
