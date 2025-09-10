@@ -53,6 +53,36 @@ const samplePins: PinterestPin[] = [
     boardName: 'Vehicle Mechanic Group',
     category: 'transmission',
     tags: ['transmission', 'maintenance', 'fluid', 'guide']
+  },
+  {
+    id: '4',
+    title: 'Electrical Wiring Diagram',
+    description: 'Vehicle electrical system troubleshooting chart',
+    imageUrl: '/images/placeholder-automotive.png',
+    url: 'https://pinterest.com/pin/sample4',
+    boardName: 'Vehicle Mechanic Group',
+    category: 'electrical',
+    tags: ['electrical', 'wiring', 'diagram', 'troubleshooting']
+  },
+  {
+    id: '5',
+    title: 'Suspension Component Guide',
+    description: 'Complete suspension system parts identification',
+    imageUrl: '/images/placeholder-automotive.png',
+    url: 'https://pinterest.com/pin/sample5',
+    boardName: 'Vehicle Mechanic Group',
+    category: 'suspension',
+    tags: ['suspension', 'components', 'parts', 'guide']
+  },
+  {
+    id: '6',
+    title: 'General Maintenance Schedule',
+    description: 'Vehicle maintenance checklist and timing guide',
+    imageUrl: '/images/placeholder-automotive.png',
+    url: 'https://pinterest.com/pin/sample6',
+    boardName: 'Vehicle Mechanic Group',
+    category: 'general',
+    tags: ['maintenance', 'schedule', 'checklist', 'timing']
   }
 ]
 
@@ -135,15 +165,37 @@ export function PinterestIntegration({ category, maxPins = 6 }: PinterestIntegra
 }
 
 function PinterestPinCard({ pin }: { pin: PinterestPin }) {
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'engine': return '🔧'
+      case 'brakes': return '🛑'
+      case 'transmission': return '⚙️'
+      case 'electrical': return '⚡'
+      case 'suspension': return '🔩'
+      default: return '🚗'
+    }
+  }
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'engine': return 'from-red-100 to-red-200'
+      case 'brakes': return 'from-yellow-100 to-orange-200'
+      case 'transmission': return 'from-blue-100 to-blue-200'
+      case 'electrical': return 'from-purple-100 to-purple-200'
+      case 'suspension': return 'from-green-100 to-green-200'
+      default: return 'from-gray-100 to-gray-200'
+    }
+  }
+
   return (
     <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 overflow-hidden">
-      <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200">
-        <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+      <div className="relative h-48 bg-gradient-to-br from-slate-200 to-slate-300">
+        <div className={`w-full h-full bg-gradient-to-br ${getCategoryColor(pin.category)} flex items-center justify-center`}>
           <div className="text-center">
-            <div className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-              <Car className="h-8 w-8 text-white" />
+            <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg border border-gray-200">
+              <span className="text-3xl">{getCategoryIcon(pin.category)}</span>
             </div>
-            <p className="text-sm text-slate-700 font-medium">Automotive Pin</p>
+            <p className="text-sm text-slate-800 font-semibold px-2">{pin.category.charAt(0).toUpperCase() + pin.category.slice(1)} Guide</p>
           </div>
         </div>
         <div className="absolute top-3 right-3 z-10">

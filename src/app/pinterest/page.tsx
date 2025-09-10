@@ -127,14 +127,14 @@ export default function PinterestPage() {
             <Button
               key={category.id}
               variant={selectedCategory === category.id ? "default" : "outline"}
-              className={`p-4 h-auto min-h-[80px] flex-col gap-2 text-center ${
+              className={`p-3 h-auto min-h-[90px] flex flex-col justify-center items-center gap-2 text-center overflow-hidden ${
                 selectedCategory === category.id 
                   ? "bg-purple-600 text-white" 
                   : "border-purple-200 text-purple-700 hover:bg-purple-50"
               }`}
               onClick={() => setSelectedCategory(category.id)}
             >
-              <span className="font-semibold text-sm leading-tight break-words max-w-full">{category.name}</span>
+              <span className="font-semibold text-xs leading-tight break-words hyphens-auto w-full px-1" style={{wordBreak: 'break-word', overflowWrap: 'break-word'}}>{category.name}</span>
               <span className="text-xs opacity-75 whitespace-nowrap">{category.count} pins</span>
             </Button>
           ))}
