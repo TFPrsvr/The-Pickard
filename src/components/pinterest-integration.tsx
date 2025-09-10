@@ -83,11 +83,11 @@ export function PinterestIntegration({ category, maxPins = 6 }: PinterestIntegra
             Pinterest Reference Library
           </h3>
           <p className="text-gray-600">
-            Curated automotive resources from <span className="font-semibold text-purple-600">@FoolMeNoMore84</span> - Tabitha Fortner
+            Curated automotive resources from our Pinterest collection
           </p>
         </div>
         <a
-          href="https://pinterest.com/FoolMeNoMore84"
+          href="https://pinterest.com"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-purple-600 hover:text-purple-800 font-medium"
@@ -124,7 +124,7 @@ export function PinterestIntegration({ category, maxPins = 6 }: PinterestIntegra
         <Button 
           variant="outline" 
           className="text-purple-600 border-purple-600 hover:bg-purple-50"
-          onClick={() => window.open('https://pinterest.com/FoolMeNoMore84', '_blank')}
+          onClick={() => window.open('https://pinterest.com', '_blank')}
         >
           <Heart className="h-4 w-4 mr-2" />
           View More on Pinterest

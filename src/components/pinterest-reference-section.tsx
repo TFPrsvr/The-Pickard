@@ -18,7 +18,7 @@ export function PinterestReferenceSection() {
           </div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Access curated automotive resources and repair guides from our Pinterest collection. 
-            Real-world solutions pinned by <span className="font-semibold text-purple-600">Tabitha Fortner (@FoolMeNoMore84)</span>.
+            Real-world solutions from automotive professionals and experts.
           </p>
         </div>
 
@@ -80,10 +80,10 @@ export function PinterestReferenceSection() {
             <Button 
               variant="outline" 
               className="border-purple-600 text-purple-600 hover:bg-purple-50 px-8 py-3"
-              onClick={() => window.open('https://pinterest.com/FoolMeNoMore84', '_blank')}
+              onClick={() => window.open('https://pinterest.com', '_blank')}
             >
               <ExternalLink className="h-5 w-5 mr-2" />
-              Visit Pinterest Profile
+              Visit Pinterest
             </Button>
           </div>
           

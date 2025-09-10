@@ -33,7 +33,7 @@ export default function PinterestPage() {
             </div>
             <div>
               <h1 className="text-5xl font-bold text-gray-800 mb-2">Pinterest Reference Library</h1>
-              <p className="text-xl text-purple-600">@FoolMeNoMore84 - Vehicle Mechanic Group</p>
+              <p className="text-xl text-purple-600">Automotive Reference Collection</p>
             </div>
           </div>
           <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -50,9 +50,9 @@ export default function PinterestPage() {
                 <User className="h-10 w-10 text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-3xl font-bold mb-2">Tabitha Fortner</h2>
+                <h2 className="text-3xl font-bold mb-2">The Pickard Team</h2>
                 <p className="text-purple-100 text-lg mb-4">
-                  Automotive enthusiast sharing practical repair guides and diagnostic resources
+                  Curated automotive repair guides and diagnostic resources from industry professionals
                 </p>
                 <div className="flex items-center gap-6 text-sm">
                   <div className="flex items-center gap-2">
@@ -65,14 +65,14 @@ export default function PinterestPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Tag className="h-4 w-4" />
-                    <span>Vehicle Mechanic Group</span>
+                    <span>Automotive Collection</span>
                   </div>
                 </div>
               </div>
               <Button 
                 variant="secondary" 
                 className="bg-white text-purple-600 hover:bg-gray-100"
-                onClick={() => window.open('https://pinterest.com/FoolMeNoMore84', '_blank')}
+                onClick={() => window.open('https://pinterest.com', '_blank')}
               >
                 <ExternalLink className="h-4 w-4 mr-2" />
                 Visit Pinterest
