@@ -92,45 +92,32 @@ export function Navbar() {
           </div>
         </div>
         
-        {isSignedIn && (
-          <div className="px-6 py-4 space-y-4">
-            <MobileNavLink href="/search" icon={<Car className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Diagnostic Center
-            </MobileNavLink>
-            <MobileNavLink href="/parts" icon={<Database className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Parts Database
-            </MobileNavLink>
-            <MobileNavLink href="/problems" icon={<Settings className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Problems & Solutions
-            </MobileNavLink>
-            <MobileNavLink href="/tips" icon={<BookOpen className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Expert Tips
-            </MobileNavLink>
-            <MobileNavLink href="/guides" icon={<FileText className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              How-to Guides
-            </MobileNavLink>
-            <MobileNavLink href="/diagrams" icon={<Zap className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Wiring Diagrams
-            </MobileNavLink>
-            <MobileNavLink href="/about" icon={<Info className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              About Us
-            </MobileNavLink>
-            <MobileNavLink href="/contact" icon={<MessageSquare className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Contact Us
-            </MobileNavLink>
-          </div>
-        )}
-        
-        {!isSignedIn && (
-          <div className="px-6 py-4 border-t">
-            <MobileNavLink href="/about" icon={<Info className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              About Us
-            </MobileNavLink>
-            <MobileNavLink href="/contact" icon={<MessageSquare className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-              Contact Us
-            </MobileNavLink>
-          </div>
-        )}
+        <div className="px-6 py-4 space-y-4">
+          <MobileNavLink href="/search" icon={<Car className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Diagnostic Center
+          </MobileNavLink>
+          <MobileNavLink href="/parts" icon={<Database className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Parts Database
+          </MobileNavLink>
+          <MobileNavLink href="/problems" icon={<Settings className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Problems & Solutions
+          </MobileNavLink>
+          <MobileNavLink href="/tips" icon={<BookOpen className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Expert Tips
+          </MobileNavLink>
+          <MobileNavLink href="/guides" icon={<FileText className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            How-to Guides
+          </MobileNavLink>
+          <MobileNavLink href="/diagrams" icon={<Zap className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Wiring Diagrams
+          </MobileNavLink>
+          <MobileNavLink href="/about" icon={<Info className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            About Us
+          </MobileNavLink>
+          <MobileNavLink href="/contact" icon={<MessageSquare className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Contact Us
+          </MobileNavLink>
+        </div>
           </div>
 
           {/* Overlay */}
