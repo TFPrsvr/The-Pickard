@@ -3,7 +3,7 @@
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare, Home } from 'lucide-react'
+import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare, Home, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -113,6 +113,9 @@ export function Navbar() {
           </MobileNavLink>
           <MobileNavLink href="/diagrams" icon={<Zap className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Wiring Diagrams
+          </MobileNavLink>
+          <MobileNavLink href="/pinterest" icon={<Heart className="h-6 w-6 text-red-500 fill-current" />} onClick={() => setIsMobileMenuOpen(false)}>
+            Pinterest Library
           </MobileNavLink>
           <MobileNavLink href="/about" icon={<Info className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             About Us

@@ -4,6 +4,7 @@ import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen,
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
+import PinterestReferenceSection from '@/components/pinterest-reference-section'
 
 export default function HomePage() {
   return (
@@ -165,6 +166,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Pinterest Reference Library */}
+      <PinterestReferenceSection />
     </main>
   )
 }
