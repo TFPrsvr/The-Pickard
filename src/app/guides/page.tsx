@@ -7,7 +7,8 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { 
   FileText, Search, Wrench, Car, Truck, Settings, 
-  Clock, BookOpen, ExternalLink, Star, Filter 
+  Clock, BookOpen, ExternalLink, Star, Filter, 
+  Zap, Gauge, Cog, Fuel, Battery, AlertTriangle 
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -111,9 +112,9 @@ export default function GuidesPage() {
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'repair': return <Wrench className="h-4 w-4" />
-      case 'maintenance': return <Settings className="h-4 w-4" />
-      case 'diagnostic': return <Search className="h-4 w-4" />
-      case 'electrical': return <Car className="h-4 w-4" />
+      case 'maintenance': return <Cog className="h-4 w-4" />
+      case 'diagnostic': return <Gauge className="h-4 w-4" />
+      case 'electrical': return <Zap className="h-4 w-4" />
       default: return <FileText className="h-4 w-4" />
     }
   }
@@ -236,17 +237,17 @@ export default function GuidesPage() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 border rounded-md hover:bg-accent cursor-pointer">
-              <Wrench className="h-8 w-8 mx-auto mb-2 text-primary" />
+              <Fuel className="h-8 w-8 mx-auto mb-2 text-primary" />
               <h4 className="font-medium">Engine Repair</h4>
               <p className="text-sm text-muted-foreground">25 guides</p>
             </div>
             <div className="text-center p-4 border rounded-md hover:bg-accent cursor-pointer">
-              <Settings className="h-8 w-8 mx-auto mb-2 text-secondary" />
+              <Cog className="h-8 w-8 mx-auto mb-2 text-secondary" />
               <h4 className="font-medium">Maintenance</h4>
               <p className="text-sm text-muted-foreground">18 guides</p>
             </div>
             <div className="text-center p-4 border rounded-md hover:bg-accent cursor-pointer">
-              <Car className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+              <Battery className="h-8 w-8 mx-auto mb-2 text-blue-600" />
               <h4 className="font-medium">Electrical</h4>
               <p className="text-sm text-muted-foreground">12 guides</p>
             </div>

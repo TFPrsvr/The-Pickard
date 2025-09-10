@@ -33,7 +33,7 @@ export default function ProblemsPage() {
 
   // Vehicle data for cascading filters
   const vehicleData = {
-    years: Array.from({length: 35}, (_, i) => String(2025 - i)), // 2025 down to 1990
+    years: Array.from({length: 126}, (_, i) => String(2025 - i)), // 2025 down to 1900
     makes: ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Dodge', 'Hyundai', 'Kia', 'Subaru', 'Mazda', 'Volkswagen', 'BMW', 'Mercedes-Benz', 'Audi', 'Lexus', 'Acura', 'Volvo'],
     models: {
       'Ford': ['F-150', 'F-250', 'F-350', 'Escape', 'Explorer', 'Mustang', 'Focus', 'Fusion', 'Edge', 'Expedition', 'Ranger', 'Transit', 'Bronco', 'Fiesta', 'Taurus', 'EcoSport'],
@@ -515,40 +515,6 @@ export default function ProblemsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Emergency Line */}
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="h-8 w-8 text-red-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Emergency Diagnostics</h3>
-              <p className="text-muted-foreground mb-3">24/7 emergency support line</p>
-              <p className="text-xl font-bold text-red-600">(555) FIX-AUTO</p>
-              <p className="text-sm text-muted-foreground">Available 24/7</p>
-            </div>
-
-            {/* Technical Support */}
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Technical Support</h3>
-              <p className="text-muted-foreground mb-3">Speak with ASE certified techs</p>
-              <p className="text-lg font-semibold text-blue-600">tech@thepickard.com</p>
-              <p className="text-sm text-muted-foreground">Mon-Fri 6AM-10PM</p>
-            </div>
-
-            {/* Workshop Location */}
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Workshop</h3>
-              <p className="text-muted-foreground mb-3">Bring your vehicle in</p>
-              <p className="text-sm text-muted-foreground">456 Repair Lane</p>
-              <p className="text-sm text-muted-foreground">Auto City, AC 67890</p>
-            </div>
-          </div>
 
           {/* Download Diagnostic Guide */}
           <div className="text-center">

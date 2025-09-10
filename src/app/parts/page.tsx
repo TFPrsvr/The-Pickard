@@ -41,41 +41,139 @@ export default function PartsPage() {
   const handleQuickSearch = async () => {
     if (!quickSearchQuery) return
 
-    // Mock quick search across all databases
-    const mockResults: QuickSearchResult[] = [
-      {
-        type: 'automotive',
-        partNumber: quickSearchQuery,
-        description: 'Engine Mount - Front',
-        price: '$89.99',
+    // Enhanced mock search with more realistic results based on query
+    const query = quickSearchQuery.toLowerCase()
+    let mockResults: QuickSearchResult[] = []
+
+    // Generate realistic results based on common part searches
+    if (query.includes('filter') || query.includes('oil') || query.includes('15208')) {
+      mockResults = [
+        {
+          type: 'automotive',
+          partNumber: quickSearchQuery.toUpperCase(),
+          description: 'Oil Filter - Standard',
+          price: '$12.99',
+          availability: 'In Stock',
+          supplier: 'AutoZone'
+        },
+        {
+          type: 'gm',
+          partNumber: 'ACDelco-PF46',
+          description: 'Oil Filter (ACDelco OEM)',
+          price: '$18.99',
+          availability: 'In Stock',
+          supplier: 'GM Parts Direct'
+        },
+        {
+          type: 'bmw',
+          partNumber: '11427508969',
+          description: 'BMW Oil Filter Kit',
+          price: '$24.99',
+          availability: 'In Stock',
+          supplier: 'BMW Genuine Parts'
+        }
+      ]
+    } else if (query.includes('brake') || query.includes('pad') || query.includes('rotor')) {
+      mockResults = [
+        {
+          type: 'automotive',
+          partNumber: quickSearchQuery.toUpperCase(),
+          description: 'Brake Pad Set - Front',
+          price: '$59.99',
+          availability: 'In Stock',
+          supplier: 'AutoZone'
+        },
+        {
+          type: 'automotive',
+          partNumber: 'AC-' + quickSearchQuery,
+          description: 'Premium Ceramic Brake Pads',
+          price: '$89.99',
+          availability: 'In Stock',
+          supplier: 'Advance Auto Parts'
+        },
+        {
+          type: 'gm',
+          partNumber: 'ACDelco-17D1367CH',
+          description: 'GM OEM Brake Pad Set',
+          price: '$125.99',
+          availability: 'Special Order',
+          supplier: 'GM Parts'
+        }
+      ]
+    } else if (query.includes('spark') || query.includes('plug') || query.includes('ignition')) {
+      mockResults = [
+        {
+          type: 'automotive',
+          partNumber: quickSearchQuery.toUpperCase(),
+          description: 'Spark Plug Set (4-Pack)',
+          price: '$32.99',
+          availability: 'In Stock',
+          supplier: 'O\'Reilly Auto Parts'
+        },
+        {
+          type: 'gm',
+          partNumber: 'ACDelco-41-110',
+          description: 'GM OEM Spark Plugs',
+          price: '$45.99',
+          availability: 'In Stock',
+          supplier: 'GM Parts Direct'
+        }
+      ]
+    } else if (query.includes('engine') || query.includes('mount')) {
+      mockResults = [
+        {
+          type: 'automotive',
+          partNumber: quickSearchQuery.toUpperCase(),
+          description: 'Engine Mount - Front',
+          price: '$89.99',
+          availability: 'In Stock',
+          supplier: 'AutoZone'
+        },
+        {
+          type: 'gm',
+          partNumber: 'GM-' + quickSearchQuery,
+          description: 'Engine Mount Assembly (GM OEM)',
+          price: '$145.99',
+          availability: 'Special Order',
+          supplier: 'GM Parts'
+        }
+      ]
+    } else {
+      // Default generic results
+      mockResults = [
+        {
+          type: 'automotive',
+          partNumber: quickSearchQuery.toUpperCase(),
+          description: 'Automotive Part',
+          price: '$45.99',
+          availability: 'In Stock',
+          supplier: 'AutoZone'
+        },
+        {
+          type: 'truck',
+          partNumber: 'TRK-' + quickSearchQuery,
+          description: 'Heavy Duty Truck Part',
+          price: '$189.99',
+          availability: 'In Stock',
+          supplier: 'TruckPro'
+        }
+      ]
+    }
+
+    // Add vehicle-specific results if vehicle is selected
+    if (vehicleSelection.make && vehicleSelection.model) {
+      const vehicleSpecificPart: QuickSearchResult = {
+        type: vehicleSelection.make.toLowerCase().includes('bmw') ? 'bmw' : 
+              vehicleSelection.make.toLowerCase().includes('gm') || 
+              vehicleSelection.make.toLowerCase().includes('chevrolet') ? 'gm' : 'automotive',
+        partNumber: `${vehicleSelection.make.substring(0,3).toUpperCase()}-${quickSearchQuery}`,
+        description: `${vehicleSelection.make} ${vehicleSelection.model} Specific Part`,
+        price: '$95.99',
         availability: 'In Stock',
-        supplier: 'AutoZone'
-      },
-      {
-        type: 'gm',
-        partNumber: 'GM-' + quickSearchQuery,
-        description: 'Engine Mount Assembly (GM OEM)',
-        price: '$145.99',
-        availability: 'Special Order',
-        supplier: 'GM Parts'
-      },
-      {
-        type: 'diesel',
-        partNumber: 'CP3-' + quickSearchQuery,
-        description: 'CP3 Injection Pump',
-        price: '$1,850.00',
-        availability: 'Remanufactured',
-        supplier: 'Diesel Parts Direct'
-      },
-      {
-        type: 'bmw',
-        partNumber: 'BMW-' + quickSearchQuery,
-        description: 'Oil Filter Housing',
-        price: '$245.99',
-        availability: 'In Stock',
-        supplier: 'BMW Genuine'
+        supplier: `${vehicleSelection.make} Dealer Parts`
       }
-    ]
+      mockResults.unshift(vehicleSpecificPart)
+    }
 
     setQuickSearchResults(mockResults)
   }
@@ -478,7 +576,7 @@ export default function PartsPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Request Call Back */}
           <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -500,18 +598,6 @@ export default function PartsPage() {
             <p className="text-muted-foreground mb-3">Send us your parts inquiry</p>
             <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors">
               Send Message
-            </button>
-          </div>
-
-          {/* Find Location */}
-          <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <MapPin className="h-8 w-8 text-orange-600" />
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Find Location</h3>
-            <p className="text-muted-foreground mb-3">Visit our parts department</p>
-            <button className="bg-orange-600 text-white px-6 py-2 rounded-md hover:bg-orange-700 transition-colors">
-              Find Store
             </button>
           </div>
         </div>
