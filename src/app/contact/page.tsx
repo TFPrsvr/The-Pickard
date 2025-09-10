@@ -31,7 +31,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-lg mb-2">Call Us</h3>
                     <p className="text-gray-600 mb-2">Emergency diagnostics available</p>
-                    <p className="font-semibold text-blue-600">(555) PICKARD</p>
+                    <p className="font-semibold text-blue-600">(555) 123-AUTO</p>
                     <p className="text-sm text-gray-500">24/7 Emergency Line</p>
                   </div>
                 </div>
@@ -61,9 +61,9 @@ export default function ContactPage() {
                     <MapPin className="h-6 w-6 text-orange-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Online Database</h3>
-                    <p className="text-gray-600 mb-2">Access from anywhere</p>
-                    <p className="text-sm text-gray-700">24/7 web-based diagnostic platform<br />Available worldwide</p>
+                    <h3 className="font-semibold text-lg mb-2">Visit Us</h3>
+                    <p className="text-gray-600 mb-2">Multiple service centers</p>
+                    <p className="text-sm text-gray-700">123 Automotive Blvd<br />Service City, SC 12345</p>
                   </div>
                 </div>
               </CardContent>
