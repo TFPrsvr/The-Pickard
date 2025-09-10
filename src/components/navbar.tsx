@@ -6,11 +6,18 @@ import Image from 'next/image'
 import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
+import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 export function Navbar() {
   const { isSignedIn, user } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
@@ -67,10 +74,12 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Slide-out Menu */}
-      <div className={`fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] ${
-        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
+      {/* Mobile Slide-out Menu Portal */}
+      {mounted && createPortal(
+        <>
+          <div className={`fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] ${
+            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}>
         <div className="p-6 border-b">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
@@ -122,14 +131,17 @@ export function Navbar() {
             </MobileNavLink>
           </div>
         )}
-      </div>
+          </div>
 
-      {/* Overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
+          {/* Overlay */}
+          {isMobileMenuOpen && (
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-50 z-[9998]"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+          )}
+        </>,
+        document.body
       )}
     </nav>
   )
