@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Search, Filter, Heart, ExternalLink, User, Calendar, Tag } from 'lucide-react'
+import { Search, Filter, Heart, ExternalLink, User, Calendar, Tag, Car } from 'lucide-react'
 import PinterestIntegration from '@/components/pinterest-integration'
 import Image from 'next/image'
 

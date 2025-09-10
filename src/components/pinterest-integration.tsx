@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, Heart, Share, Bookmark } from 'lucide-react'
+import { ExternalLink, Heart, Share, Bookmark, Car } from 'lucide-react'
 import Image from 'next/image'
 
 interface PinterestPin {
