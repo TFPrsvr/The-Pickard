@@ -120,7 +120,7 @@ export function Navbar() {
           <MobileNavLink href="/about" icon={<Info className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             About Us
           </MobileNavLink>
-          <MobileNavLink href="/contact" icon={<MessageSquare className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/contact" icon={<Image src="/images/icons8-share.svg" alt="Contact" width={24} height={24} />} onClick={() => setIsMobileMenuOpen(false)}>
             Contact Us
           </MobileNavLink>
         </div>

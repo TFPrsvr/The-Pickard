@@ -12,12 +12,13 @@ interface VehicleSelectorProps {
 
 // Mock data that would come from your database
 const vehicleData = {
-  years: Array.from({length: 35}, (_, i) => String(2025 - i)), // 2025 down to 1990
+  years: Array.from({length: 60}, (_, i) => String(2025 - i)), // 2025 down to 1965
   
   // Common makes available for most years
   commonMakes: ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
   
   makesByYear: {
+    '2025': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln'],
     '2024': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln'],
     '2023': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
     '2022': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
@@ -37,7 +38,15 @@ const vehicleData = {
     '2008': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
     '2007': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
     '2006': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
-    '2005': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick']
+    '2005': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick'],
+    '2000': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Saturn', 'Oldsmobile'],
+    '1995': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Saturn', 'Oldsmobile', 'Plymouth'],
+    '1990': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Oldsmobile', 'Plymouth', 'Chrysler'],
+    '1985': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Mazda', 'Mitsubishi', 'Volvo', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Oldsmobile', 'Plymouth', 'Chrysler', 'Dodge'],
+    '1980': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'GMC', 'Jeep', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Mazda', 'Volvo', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Oldsmobile', 'Plymouth', 'Chrysler', 'Dodge', 'AMC'],
+    '1975': ['Ford', 'Chevrolet', 'Toyota', 'Honda', 'GMC', 'Jeep', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Volvo', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Oldsmobile', 'Plymouth', 'Chrysler', 'Dodge', 'AMC'],
+    '1970': ['Ford', 'Chevrolet', 'GMC', 'Jeep', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Volvo', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Oldsmobile', 'Plymouth', 'Chrysler', 'Dodge', 'AMC'],
+    '1965': ['Ford', 'Chevrolet', 'GMC', 'Jeep', 'Mercedes-Benz', 'Volkswagen', 'Volvo', 'Cadillac', 'Lincoln', 'Buick', 'Pontiac', 'Oldsmobile', 'Plymouth', 'Chrysler', 'Dodge', 'AMC', 'Studebaker']
   },
   modelsByYearMake: {
     // Ford models for different years
