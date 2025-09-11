@@ -406,14 +406,14 @@ function TipCard({ tip, isLiked, onLike }: TipCardProps) {
             {tip.media.map((media) => (
               <div key={media.id} className="border rounded-lg overflow-hidden">
                 {media.type === 'video' && media.url.includes('youtube.com/embed') ? (
-                  <div className="aspect-video">
+                  <div className="aspect-video max-w-md mx-auto">
                     <iframe
                       src={`${media.url}?rel=0&modestbranding=1&showinfo=0&controls=1`}
                       title={media.caption || 'Video content'}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
-                      className="w-full h-full"
+                      className="w-full h-full rounded"
                       loading="lazy"
                     />
                   </div>
@@ -466,7 +466,7 @@ function TipCard({ tip, isLiked, onLike }: TipCardProps) {
           <span>Applies to:</span>
           <div className="flex gap-2">
             {tip.vehicleTypes.map((type, index) => (
-              <span key={index} className="px-2 py-1 bg-accent rounded-full text-xs">
+              <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
                 {type.replace('-', ' ')}
               </span>
             ))}

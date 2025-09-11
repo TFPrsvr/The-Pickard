@@ -67,59 +67,6 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Team & Contact Section */}
-      <section className="mb-16 py-12 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-secondary mb-4">
-            GET MORE INFORMATION ABOUT OUR TEAM!
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Meet our certified automotive technicians and mechanics who bring years of experience 
-            to diagnose and repair your vehicle with precision and expertise.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          {/* Team Images */}
-          <div className="flex justify-between items-end space-x-4">
-            <div className="flex-1">
-              <div className="bg-gray-300 h-64 rounded-lg flex items-center justify-center">
-                <Users className="h-16 w-16 text-gray-500" />
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="bg-gray-300 h-64 rounded-lg flex items-center justify-center">
-                <Users className="h-16 w-16 text-gray-500" />
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-secondary mb-4">OUR LOCATIONS</h3>
-            </div>
-            
-            <div className="text-center">
-              <p className="text-lg text-muted-foreground mb-4">
-                Multiple service locations available nationwide
-              </p>
-              <div className="inline-flex items-center space-x-2 bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition-colors cursor-pointer">
-                <MapPin className="h-5 w-5" />
-                <span className="font-semibold">FIND NEAREST LOCATION</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Download Section */}
-        <div className="text-center">
-          <div className="inline-flex items-center space-x-2 bg-orange-500 text-white px-8 py-4 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
-            <Download className="h-5 w-5" />
-            <span className="font-semibold">DOWNLOAD MANUAL</span>
-          </div>
-        </div>
-      </section>
 
       {/* Call to Action with Phone Support */}
       <section className="text-center mb-16">
@@ -160,6 +107,17 @@ export default function HomePage() {
               </div>
             </div>
             
+            {/* Social Media Icons */}
+            <div className="flex justify-center items-center gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                <Image src="/images/icons8-facebook-50.svg" alt="Facebook" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
+                <Image src="/images/icons8-instagram-50.svg" alt="Instagram" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
+                <Image src="/images/icons8-twitter-50.svg" alt="Twitter" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
+                <Image src="/images/icons8-youtube-50.svg" alt="YouTube" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
+                <Image src="/images/icons8-linkedin.svg" alt="LinkedIn" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
+              </div>
+            </div>
+            
             <p className="text-white/60 text-sm">
               Professional automotive diagnostics and repair database
             </p>
@@ -169,6 +127,15 @@ export default function HomePage() {
 
       {/* Pinterest Reference Library */}
       <PinterestReferenceSection />
+      
+      {/* Icons8 Attribution */}
+      <footer className="mt-16 py-6 border-t border-gray-200 bg-gray-50">
+        <div className="text-center">
+          <p className="text-sm text-gray-600">
+            Icons by <a href="https://icons8.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Icons8</a>
+          </p>
+        </div>
+      </footer>
     </main>
   )
 }

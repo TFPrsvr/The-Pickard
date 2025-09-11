@@ -77,7 +77,7 @@ export function Navbar() {
       {/* Mobile Slide-out Menu Portal */}
       {mounted && createPortal(
         <>
-          <div className={`fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] ${
+          <div className={`fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] flex flex-col ${
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}>
         <div className="p-6 border-b">
@@ -92,7 +92,7 @@ export function Navbar() {
           </div>
         </div>
         
-        <div className="px-6 py-4 space-y-4">
+        <div className="px-6 py-4 space-y-4 flex-1 overflow-y-auto">
           <MobileNavLink href="/" icon={<Home className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Home
           </MobileNavLink>
