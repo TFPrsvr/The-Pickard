@@ -1,6 +1,6 @@
 'use client'
 
-import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen, Phone, MapPin, Download, Users, Clock, Mail } from 'lucide-react'
+import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen, Phone, MapPin, Download, Users, Clock, Mail, Gauge, WrenchIcon, Cog, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -34,7 +34,7 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         <FeatureCard
-          icon={<Car className="h-10 w-10" />}
+          icon={<Gauge className="h-10 w-10" />}
           title="Diagnostic Center"
           description="Identify problems with your vehicle using our comprehensive diagnostic tools"
           href="/search"
@@ -42,7 +42,7 @@ export default function HomePage() {
           borderColor="border-blue-600"
         />
         <FeatureCard
-          icon={<Settings className="h-10 w-10" />}
+          icon={<Wrench className="h-10 w-10" />}
           title="Problems & Solutions"
           description="Find common and uncommon problems with detailed solutions"
           href="/problems"
@@ -50,7 +50,7 @@ export default function HomePage() {
           borderColor="border-orange-600"
         />
         <FeatureCard
-          icon={<Database className="h-10 w-10" />}
+          icon={<Cog className="h-10 w-10" />}
           title="Parts Database"
           description="Discover which vehicle parts are interchangeable"
           href="/parts"
@@ -58,7 +58,7 @@ export default function HomePage() {
           borderColor="border-green-600"
         />
         <FeatureCard
-          icon={<BookOpen className="h-10 w-10" />}
+          icon={<GraduationCap className="h-10 w-10" />}
           title="Expert Tips"
           description="Access tips, tools recommendations, and how-to guides"
           href="/tips"
@@ -110,11 +110,11 @@ export default function HomePage() {
             {/* Social Media Icons */}
             <div className="flex justify-center items-center gap-4 mb-6">
               <div className="flex items-center gap-3">
-                <Image src="/images/icons8-facebook-50.svg" alt="Facebook" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
-                <Image src="/images/icons8-instagram-50.svg" alt="Instagram" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
-                <Image src="/images/icons8-twitter-50.svg" alt="Twitter" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
-                <Image src="/images/icons8-youtube-50.svg" alt="YouTube" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
-                <Image src="/images/icons8-linkedin.svg" alt="LinkedIn" width={24} height={24} className="text-white/80 hover:text-white transition-colors" />
+                <Image src="/images/icons8-facebook-50.svg" alt="Facebook" width={20} height={20} className="hover:scale-110 transition-transform" />
+                <Image src="/images/icons8-instagram-50.svg" alt="Instagram" width={20} height={20} className="hover:scale-110 transition-transform" />
+                <Image src="/images/icons8-twitter-50.svg" alt="Twitter" width={20} height={20} className="hover:scale-110 transition-transform" />
+                <Image src="/images/icons8-youtube-50.svg" alt="YouTube" width={20} height={20} className="hover:scale-110 transition-transform" />
+                <Image src="/images/icons8-linkedin.svg" alt="LinkedIn" width={20} height={20} className="hover:scale-110 transition-transform" />
               </div>
             </div>
             
