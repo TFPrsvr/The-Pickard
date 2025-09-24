@@ -21,7 +21,7 @@ interface ExternalPartsSearchProps {
 interface ExternalSource {
   id: string
   name: string
-  type: 'auto_parts_store' | 'salvage_yard' | 'online_retailer' | 'dealer'
+  type: 'auto_parts_store' | 'salvage_yard' | 'online_retailer' | 'dealer' | 'diagnostic_reference'
   website?: string
   phone?: string
   address?: string
@@ -71,6 +71,18 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
       availability: 'order_only',
       distance: '1.5 miles'
     },
+    {
+      id: '9',
+      name: 'NAPA Auto Parts',
+      type: 'auto_parts_store',
+      website: 'https://www.napaonline.com',
+      phone: '(555) 123-6789',
+      address: '321 Auto Way, Your City',
+      hours: 'Mon-Sun 6AM-10PM',
+      priceRange: 'medium',
+      availability: 'in_stock',
+      distance: '0.9 miles'
+    },
     // Salvage Yards
     {
       id: '4',
@@ -113,6 +125,14 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
       priceRange: 'medium',
       availability: 'order_only',
     },
+    {
+      id: '10',
+      name: 'Detroit Axle',
+      type: 'online_retailer',
+      website: 'https://www.detroitaxle.com',
+      priceRange: 'low',
+      availability: 'order_only',
+    },
     // Dealer
     {
       id: '8',
@@ -124,6 +144,15 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
       priceRange: 'high',
       availability: 'order_only',
       distance: '2.3 miles'
+    },
+    // Diagnostic & Reference Sites
+    {
+      id: '11',
+      name: 'StartMyCar',
+      type: 'diagnostic_reference',
+      website: 'https://www.startmycar.com',
+      priceRange: 'low',
+      availability: 'in_stock',
     }
   ])
 
@@ -137,6 +166,8 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
         return '🌐'
       case 'dealer':
         return '🏢'
+      case 'diagnostic_reference':
+        return '🔧'
       default:
         return '📍'
     }
@@ -152,6 +183,8 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
         return 'Online Retailer'
       case 'dealer':
         return 'Dealership'
+      case 'diagnostic_reference':
+        return 'Diagnostic & Reference'
       default:
         return 'Store'
     }
@@ -187,20 +220,27 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
     const { year, make, model } = vehicleInfo
     const vehicleQuery = `${year || ''} ${make || ''} ${model || ''}`.trim()
     const fullQuery = `${vehicleQuery} ${searchQuery}`.trim()
-    
+
     if (source.website) {
-      // These would be the actual search URLs for each retailer
+      // These are the actual search URLs for each retailer
       switch (source.name) {
         case 'AutoZone':
-          return `${source.website}/searchresult?searchText=${encodeURIComponent(fullQuery)}`
+          return `${source.website}/auto-parts/search?searchText=${encodeURIComponent(fullQuery)}`
         case "O'Reilly Auto Parts":
-          return `${source.website}/search?text=${encodeURIComponent(fullQuery)}`
+          return `${source.website}/search?q=${encodeURIComponent(fullQuery)}`
         case 'Advance Auto Parts':
           return `${source.website}/search-results?searchTerm=${encodeURIComponent(fullQuery)}`
+        case 'NAPA Auto Parts':
+          return `${source.website}/search?searchterm=${encodeURIComponent(fullQuery)}`
         case 'RockAuto':
+          // RockAuto has a complex catalog system - direct to parts search
           return `${source.website}/catalog/x,carcode,1,parttype,${encodeURIComponent(searchQuery)}`
         case '1A Auto':
           return `${source.website}/search?keywords=${encodeURIComponent(fullQuery)}`
+        case 'Detroit Axle':
+          return `${source.website}/search?q=${encodeURIComponent(fullQuery)}`
+        case 'StartMyCar':
+          return `${source.website}/search?q=${encodeURIComponent(fullQuery)}`
         default:
           return source.website
       }
@@ -276,7 +316,7 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
                         onClick={() => window.open(buildSearchUrl(source), '_blank')}
                       >
                         <ExternalLink className="h-3 w-3 mr-2" />
-                        Search Parts
+                        {source.type === 'diagnostic_reference' ? 'View Guides' : 'Search Parts'}
                       </Button>
                     )}
                     {source.phone && (
