@@ -21,7 +21,7 @@ interface ExternalPartsSearchProps {
 interface ExternalSource {
   id: string
   name: string
-  type: 'auto_parts_store' | 'salvage_yard' | 'online_retailer' | 'dealer' | 'diagnostic_reference'
+  type: 'auto_parts_store' | 'salvage_yard' | 'online_retailer' | 'dealer' | 'diagnostic_reference' | 'icon_resource'
   website?: string
   phone?: string
   address?: string
@@ -153,6 +153,15 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
       website: 'https://www.startmycar.com',
       priceRange: 'low',
       availability: 'in_stock',
+    },
+    // Icon & Design Resources
+    {
+      id: '12',
+      name: 'The Noun Project',
+      type: 'icon_resource',
+      website: 'https://www.thenounproject.com',
+      priceRange: 'low',
+      availability: 'in_stock',
     }
   ])
 
@@ -168,6 +177,8 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
         return '🏢'
       case 'diagnostic_reference':
         return '🔧'
+      case 'icon_resource':
+        return '🎨'
       default:
         return '📍'
     }
@@ -185,6 +196,8 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
         return 'Dealership'
       case 'diagnostic_reference':
         return 'Diagnostic & Reference'
+      case 'icon_resource':
+        return 'Icon & Design Resource'
       default:
         return 'Store'
     }
@@ -241,6 +254,8 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
           return `${source.website}/search?q=${encodeURIComponent(fullQuery)}`
         case 'StartMyCar':
           return `${source.website}/search?q=${encodeURIComponent(fullQuery)}`
+        case 'The Noun Project':
+          return `${source.website}/search/?q=${encodeURIComponent(searchQuery)}`
         default:
           return source.website
       }
@@ -316,7 +331,8 @@ export function ExternalPartsSearch({ searchQuery, vehicleInfo }: ExternalPartsS
                         onClick={() => window.open(buildSearchUrl(source), '_blank')}
                       >
                         <ExternalLink className="h-3 w-3 mr-2" />
-                        {source.type === 'diagnostic_reference' ? 'View Guides' : 'Search Parts'}
+                        {source.type === 'diagnostic_reference' ? 'View Guides' :
+                         source.type === 'icon_resource' ? 'Browse Icons' : 'Search Parts'}
                       </Button>
                     )}
                     {source.phone && (
