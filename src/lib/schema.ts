@@ -25,9 +25,12 @@ export const vehicles = pgTable('vehicles', {
   make: varchar('make', { length: 50 }).notNull(),
   model: varchar('model', { length: 100 }).notNull(),
   engineType: varchar('engine_type', { length: 100 }).notNull(),
-  driveType: varchar('drive_type', { length: 10 }).notNull(), // '2WD', '4WD', 'AWD'
+  driveType: varchar('drive_type', { length: 10 }).notNull(), // '2WD', '4WD', 'AWD', 'RWD', 'Chain', 'Shaft'
   specialty: varchar('specialty', { length: 100 }),
-  category: varchar('category', { length: 20 }).notNull(), // 'car', 'truck', '18-wheeler'
+  category: varchar('category', { length: 20 }).notNull(), // 'car', 'truck', '18-wheeler', 'motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft', 'rv'
+  displacement: integer('displacement'), // Engine displacement in cc (for powersports)
+  strokeType: varchar('stroke_type', { length: 10 }), // '2-stroke', '4-stroke' (for powersports)
+  coolingType: varchar('cooling_type', { length: 20 }), // 'liquid', 'air', 'oil' (for powersports)
   createdAt: timestamp('created_at').defaultNow(),
 })
 

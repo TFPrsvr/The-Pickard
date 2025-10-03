@@ -1,4 +1,4 @@
-// Comprehensive Vehicle Database for Automotive Mechanics
+// Comprehensive Vehicle Database for Automotive Mechanics and Powersports
 
 export interface VehicleData {
   years: string[]
@@ -7,6 +7,19 @@ export interface VehicleData {
   engines: Record<string, string[]> // engines by make
   driveTypes: string[]
   transmissions: string[]
+}
+
+export interface PowersportsData {
+  motorcycleMakes: string[]
+  atvMakes: string[]
+  utvMakes: string[]
+  snowmobileMakes: string[]
+  watercraftMakes: string[]
+  models: Record<string, string[]>
+  displacements: string[] // Common CC ratings
+  driveTypes: string[]
+  strokeTypes: string[]
+  coolingTypes: string[]
 }
 
 export const vehicleDatabase: VehicleData = {
@@ -163,6 +176,184 @@ export function getCommercialTruckData(): Partial<VehicleData> {
       'International': ['Cummins X15', 'International A26'],
       'Volvo': ['Volvo D11', 'Volvo D13', 'Cummins X15']
     }
+  }
+}
+
+// Powersports Database - Motorcycles, ATVs, UTVs, Snowmobiles, Watercraft
+export const powersportsDatabase: PowersportsData = {
+  motorcycleMakes: [
+    'Harley-Davidson', 'Honda', 'Yamaha', 'Kawasaki', 'Suzuki', 'Ducati',
+    'BMW', 'KTM', 'Triumph', 'Indian', 'Royal Enfield', 'Aprilia',
+    'Husqvarna', 'Can-Am (Spyder)', 'Victory', 'Buell', 'Moto Guzzi',
+    'MV Agusta', 'Benelli', 'CF Moto'
+  ],
+
+  atvMakes: [
+    'Honda', 'Yamaha', 'Kawasaki', 'Suzuki', 'Polaris', 'Can-Am',
+    'Arctic Cat', 'Kymco', 'CF Moto', 'Textron (Alterra)', 'Bombardier'
+  ],
+
+  utvMakes: [
+    'Polaris (RZR, Ranger)', 'Can-Am (Maverick, Defender)', 'Honda (Pioneer, Talon)',
+    'Yamaha (Wolverine, YXZ)', 'Kawasaki (Teryx, Mule)', 'Arctic Cat (Wildcat, Prowler)',
+    'Kubota (RTV)', 'John Deere (Gator)', 'CF Moto (ZForce)', 'Textron (Havoc)'
+  ],
+
+  snowmobileMakes: [
+    'Polaris', 'Ski-Doo (BRP)', 'Arctic Cat', 'Yamaha'
+  ],
+
+  watercraftMakes: [
+    'Sea-Doo (BRP)', 'Yamaha (WaveRunner)', 'Kawasaki (Jet Ski)'
+  ],
+
+  models: {
+    // Motorcycles
+    'Harley-Davidson': [
+      'Road King', 'Street Glide', 'Road Glide', 'Electra Glide', 'Sportster',
+      'Iron 883', 'Forty-Eight', 'Fat Boy', 'Softail', 'Street Bob',
+      'Low Rider', 'Pan America', 'LiveWire'
+    ],
+    'Honda': [
+      // Motorcycles
+      'Gold Wing', 'Africa Twin', 'CB500X', 'CB650R', 'CBR600RR', 'CBR1000RR',
+      'Rebel 500', 'Shadow', 'CRF450R', 'CRF250R',
+      // ATVs
+      'FourTrax Rancher', 'FourTrax Foreman', 'FourTrax Rincon', 'TRX90X',
+      // UTVs
+      'Pioneer 1000', 'Pioneer 700', 'Talon 1000R', 'Talon 1000X'
+    ],
+    'Yamaha': [
+      // Motorcycles
+      'YZF-R1', 'YZF-R6', 'MT-07', 'MT-09', 'MT-10', 'FJR1300', 'Tenere 700',
+      'V Star', 'Bolt', 'Viking', 'YZ450F', 'WR450F',
+      // ATVs
+      'Kodiak 450', 'Kodiak 700', 'Grizzly 700', 'Raptor 700',
+      // UTVs
+      'Wolverine X2', 'Wolverine X4', 'YXZ1000R',
+      // Snowmobiles
+      'Sidewinder', 'VK Professional', 'Mountain Max',
+      // Watercraft
+      'WaveRunner VX', 'WaveRunner FX', 'SuperJet'
+    ],
+    'Kawasaki': [
+      // Motorcycles
+      'Ninja 400', 'Ninja 650', 'Ninja ZX-6R', 'Ninja ZX-10R', 'Ninja H2',
+      'Z400', 'Z650', 'Z900', 'Versys 650', 'Versys 1000', 'Vulcan',
+      'KLR650', 'KX450', 'KX250',
+      // ATVs
+      'Brute Force 300', 'Brute Force 750', 'KFX90',
+      // UTVs
+      'Teryx KRX 1000', 'Teryx4', 'Mule PRO-FXT',
+      // Watercraft
+      'Jet Ski Ultra 310', 'Jet Ski STX 160'
+    ],
+    'Suzuki': [
+      // Motorcycles
+      'GSX-R600', 'GSX-R750', 'GSX-R1000', 'GSX-S750', 'GSX-S1000',
+      'Hayabusa', 'V-Strom 650', 'V-Strom 1050', 'SV650', 'Boulevard',
+      'RM-Z450', 'DR-Z400',
+      // ATVs
+      'KingQuad 500', 'KingQuad 750', 'QuadSport Z90'
+    ],
+    'Polaris': [
+      // ATVs
+      'Sportsman 450', 'Sportsman 570', 'Sportsman 850', 'Sportsman XP 1000',
+      'Scrambler 850', 'Outlaw 110',
+      // UTVs
+      'RZR Pro XP', 'RZR Turbo R', 'RZR XP 1000', 'RZR 900', 'RZR 200',
+      'Ranger XP 1000', 'Ranger 570', 'Ranger Crew', 'General XP 1000',
+      // Snowmobiles
+      'Switchback', 'RMK', 'Indy', 'Titan'
+    ],
+    'Can-Am': [
+      // Motorcycles/Trikes
+      'Spyder F3', 'Spyder RT', 'Ryker',
+      // ATVs
+      'Outlander 450', 'Outlander 650', 'Outlander 850', 'Outlander 1000',
+      'Renegade 650', 'Renegade 1000', 'DS 90',
+      // UTVs
+      'Maverick X3', 'Maverick Sport', 'Maverick Trail',
+      'Defender HD8', 'Defender HD10', 'Defender MAX'
+    ],
+    'Arctic Cat': [
+      // ATVs
+      'Alterra 300', 'Alterra 570', 'Alterra 700', 'Alterra TRV 1000',
+      // UTVs
+      'Wildcat XX', 'Prowler Pro', 'Stampede',
+      // Snowmobiles
+      'ZR', 'M', 'Blast', 'Norseman'
+    ],
+    'Ski-Doo (BRP)': [
+      'Summit', 'Renegade', 'MXZ', 'Expedition', 'Grand Touring', 'Skandic'
+    ],
+    'Sea-Doo (BRP)': [
+      'Spark', 'GTI', 'GTX', 'RXT-X', 'Wake Pro', 'Fish Pro', 'Explorer Pro'
+    ],
+    'Ducati': [
+      'Panigale V2', 'Panigale V4', 'Streetfighter V2', 'Streetfighter V4',
+      'Monster', 'Supersport', 'Multistrada', 'Diavel', 'Scrambler'
+    ],
+    'BMW': [
+      'S 1000 RR', 'S 1000 R', 'R 1250 GS', 'R 1250 RT', 'F 850 GS',
+      'F 750 GS', 'R nineT', 'K 1600 GT'
+    ],
+    'KTM': [
+      '390 Duke', '890 Duke', '1290 Super Duke', '390 Adventure', '890 Adventure',
+      '1290 Super Adventure', 'RC 390', '450 SX-F', '250 SX-F'
+    ]
+  },
+
+  // Common displacement ranges for powersports
+  displacements: [
+    '50cc', '90cc', '110cc', '125cc', '150cc', '200cc', '250cc', '300cc',
+    '350cc', '400cc', '450cc', '500cc', '570cc', '600cc', '650cc', '700cc',
+    '750cc', '800cc', '850cc', '900cc', '1000cc', '1050cc', '1100cc',
+    '1200cc', '1250cc', '1300cc', '1400cc', '1500cc', '1600cc', '1700cc',
+    '1800cc', '1900cc', '2000cc+'
+  ],
+
+  driveTypes: [
+    'Chain', // Most common for motorcycles
+    'Shaft', // Common for touring bikes
+    'Belt', // Harley-Davidson and some cruisers
+    '2WD', // ATV rear-wheel
+    '4WD', // ATV/UTV all-wheel
+    'AWD', // Some UTVs
+    'Selectable 4WD' // Most ATVs/UTVs
+  ],
+
+  strokeTypes: [
+    '2-stroke', // Older ATVs, dirt bikes, snowmobiles, some watercraft
+    '4-stroke'  // Modern motorcycles, ATVs, UTVs
+  ],
+
+  coolingTypes: [
+    'Liquid',  // Most modern powersports
+    'Air',     // Older bikes, some cruisers
+    'Oil'      // Some Harley-Davidsons
+  ]
+}
+
+// Helper functions for powersports
+export function getModelsForPowersportsMake(make: string): string[] {
+  return powersportsDatabase.models[make] || []
+}
+
+export function getPowersportsMakesByCategory(category: 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft'): string[] {
+  switch (category) {
+    case 'motorcycle':
+      return powersportsDatabase.motorcycleMakes
+    case 'atv':
+      return powersportsDatabase.atvMakes
+    case 'utv':
+      return powersportsDatabase.utvMakes
+    case 'snowmobile':
+      return powersportsDatabase.snowmobileMakes
+    case 'watercraft':
+      return powersportsDatabase.watercraftMakes
+    default:
+      return []
   }
 }
 

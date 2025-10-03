@@ -1,12 +1,40 @@
+export type VehicleCategory =
+  | 'car'
+  | 'truck'
+  | '18-wheeler'
+  | 'motorcycle'
+  | 'atv'
+  | 'utv'
+  | 'snowmobile'
+  | 'watercraft'
+  | 'rv'
+
+export type DriveType =
+  | '2WD'
+  | '4WD'
+  | 'AWD'
+  | 'RWD'
+  | 'FWD'
+  | 'Chain'
+  | 'Shaft'
+  | 'Belt'
+
+export type StrokeType = '2-stroke' | '4-stroke'
+export type CoolingType = 'liquid' | 'air' | 'oil'
+
 export interface Vehicle {
   id: string
   year: number
   make: string
   model: string
   engineType: string
-  driveType: '2WD' | '4WD' | 'AWD'
+  driveType: DriveType
   specialty?: string
-  category: 'car' | 'truck' | '18-wheeler'
+  category: VehicleCategory
+  // Powersports specific fields
+  displacement?: number // Engine displacement in cc
+  strokeType?: StrokeType
+  coolingType?: CoolingType
 }
 
 export interface Problem {
@@ -95,8 +123,12 @@ export interface SearchFilters {
   model?: string[]
   submodel?: string[]
   engineType?: string[]
-  driveType?: Vehicle['driveType'][]
+  driveType?: DriveType[]
   specialty?: string[]
+  category?: VehicleCategory[]
+  displacement?: number[] // For powersports filtering
+  strokeType?: StrokeType[]
+  coolingType?: CoolingType[]
   commonality?: Problem['commonality'][]
   difficulty?: Problem['difficulty'][]
 }
