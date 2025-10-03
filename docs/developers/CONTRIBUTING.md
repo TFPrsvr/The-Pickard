@@ -15,9 +15,10 @@ Thank you for your interest in contributing to The Pickard! This guide outlines 
 ### Setup
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/company/the-pickard.git
+   git clone https://github.com/YOUR_ORG/the-pickard.git
    cd the-pickard
    ```
+   > **Note**: Replace `YOUR_ORG` with your actual GitHub organization or username
 
 2. **Install Dependencies**:
    ```bash
@@ -492,7 +493,7 @@ function handleKeyDown(event: KeyboardEvent) {
 - **Documentation**: `/docs` folder in repository
 - **Code Examples**: Check existing components for patterns
 - **Type Definitions**: Review `/types` folder for interfaces
-- **API Documentation**: See `/docs/API.md`
+- **API Documentation**: See [API.md](./API.md)
 
 ### Communication
 - **Issues**: Use GitHub issues for bugs and feature requests

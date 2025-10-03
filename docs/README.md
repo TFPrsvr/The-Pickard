@@ -146,9 +146,18 @@ the-pickard/
 - TypeScript definitions for type safety
 - Established coding patterns and best practices
 
+## Documentation Structure
+
+This documentation is organized by user type:
+
+- **[users/](./users/)** - Guides for mechanics and business users
+- **[admins/](./admins/)** - System administration guides
+- **[developers/](./developers/)** - Development and contribution guides
+- **[deployment/](./deployment/)** - Deployment and integration guides
+
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for development guidelines and best practices.
+See [developers/CONTRIBUTING.md](./developers/CONTRIBUTING.md) for development guidelines and best practices.
 
 ## Security
 
