@@ -14,7 +14,7 @@ import {
   getModelsForMake,
   getEnginesForMake,
   getModelsForPowersportsMake,
-  getMakesForCategory
+  getPowersportsMakesByCategory
 } from '@/lib/vehicle-data'
 import { VehicleCategory } from '@/types'
 import {
@@ -299,7 +299,10 @@ export default function PartsPage() {
                     <SelectValue placeholder="Select make" />
                   </SelectTrigger>
                   <SelectContent>
-                    {getMakesForCategory(vehicleSelection.category).map((make) => (
+                    {(['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category)
+                      ? getPowersportsMakesByCategory(vehicleSelection.category as 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft')
+                      : vehicleDatabase.makes
+                    ).map((make: string) => (
                       <SelectItem key={make} value={make}>{make}</SelectItem>
                     ))}
                   </SelectContent>
