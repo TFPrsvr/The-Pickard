@@ -15,10 +15,9 @@ Thank you for your interest in contributing to The Pickard! This guide outlines 
 ### Setup
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/YOUR_ORG/the-pickard.git
-   cd the-pickard
+   git clone https://github.com/TFPrsvr/The-Pickard.git
+   cd The-Pickard
    ```
-   > **Note**: Replace `YOUR_ORG` with your actual GitHub organization or username
 
 2. **Install Dependencies**:
    ```bash

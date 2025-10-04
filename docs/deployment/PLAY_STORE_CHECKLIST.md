@@ -28,7 +28,7 @@ Generate the following icon sizes:
 - [ ] `parts-96x96.png` - Parts Database shortcut
 - [ ] `dashboard-96x96.png` - Dashboard shortcut
 
-**Instructions**: See `public/icons/README.md` for generation guide
+**Instructions**: ✅ See `public/icons/ICON_GENERATION_GUIDE.md` for comprehensive generation guide
 
 **Tools**:
 - [PWA Icon Generator](https://www.pwabuilder.com/imageGenerator)
@@ -73,36 +73,37 @@ Generate the following icon sizes:
 
 ### 3. Privacy Policy & Terms (REQUIRED)
 
-**Status**: ⚠️ **NEEDS CREATION**
+**Status**: ✅ **COMPLETE**
 
-#### Privacy Policy
-- [ ] Create `docs/legal/PRIVACY_POLICY.md`
-- [ ] Host publicly accessible version (required by app stores)
-- [ ] Include sections:
-  - What data is collected (user accounts, search history, saved results)
-  - How data is used (personalization, analytics)
-  - Third-party services (Clerk, Google Custom Search, Neon)
-  - User rights (GDPR, CCPA compliance)
-  - Data retention policies
-  - Contact information
+#### Privacy Policy ✅
+- [x] Create `docs/legal/PRIVACY_POLICY.md` ✅
+- [x] Host publicly accessible version (required by app stores) ✅
+- [x] Include sections: ✅
+  - ✅ What data is collected (user accounts, Clerk authentication)
+  - ✅ How data is used (personalization, application functionality)
+  - ✅ Third-party services (Clerk, Neon Database, Google Custom Search)
+  - ✅ User rights (GDPR, CCPA compliance - access, correction, deletion, portability)
+  - ✅ Data retention policies
+  - ✅ Contact information (thepickard@support.com)
 
-#### Terms of Service
-- [ ] Create `docs/legal/TERMS_OF_SERVICE.md`
-- [ ] Host publicly accessible version
-- [ ] Include sections:
-  - Acceptable use policy
-  - User responsibilities
-  - Intellectual property rights
-  - Liability limitations
-  - Dispute resolution
+#### Terms of Service ✅
+- [x] Create `docs/legal/TERMS_OF_SERVICE.md` ✅
+- [x] Host publicly accessible version ✅
+- [x] Include sections: ✅
+  - ✅ Acceptable use policy
+  - ✅ User responsibilities
+  - ✅ Intellectual property rights
+  - ✅ Liability limitations (automotive repair disclaimer)
+  - ✅ Dispute resolution
 
-**Public URLs Required**:
-- Privacy Policy: `https://your-domain.com/privacy`
-- Terms of Service: `https://your-domain.com/terms`
+**Public URLs**:
+- ✅ Privacy Policy: `/privacy` (implemented in `src/app/privacy/page.tsx`)
+- ✅ Terms of Service: `/terms` (implemented in `src/app/terms/page.tsx`)
 
-**Templates**:
-- [TermsFeed Privacy Policy Generator](https://www.termsfeed.com/privacy-policy-generator/)
-- [Privacy Policies Generator](https://www.privacypolicies.com/)
+**Compliance**:
+- ✅ GDPR compliant (EU data protection)
+- ✅ CCPA compliant (California consumer privacy)
+- ✅ Automotive-specific disclaimers included
 
 ---
 
@@ -242,8 +243,9 @@ Generate the following icon sizes:
 - [x] Environment setup (`docs/developers/ENVIRONMENT.md`) ✅
 - [x] Mobile deployment (`docs/deployment/MOBILE-DEPLOYMENT.md`) ✅
 - [x] PWA manifest (`public/manifest.json`) ✅
-- [ ] Privacy policy (⚠️ REQUIRED)
-- [ ] Terms of service (⚠️ REQUIRED)
+- [x] Privacy policy (`docs/legal/PRIVACY_POLICY.md` + `/privacy` route) ✅
+- [x] Terms of service (`docs/legal/TERMS_OF_SERVICE.md` + `/terms` route) ✅
+- [x] PWA icon generation guide (`public/icons/ICON_GENERATION_GUIDE.md`) ✅
 
 ---
 
@@ -336,6 +338,13 @@ Right before submission, verify:
 
 ---
 
-**Last Updated**: 2024-01-15
+**Last Updated**: 2025-01-16
 
-**Status**: 🟡 In Progress - Complete critical items above before submission
+**Status**: 🟢 Legal Documentation Complete - Visual assets (icons, screenshots) remaining before submission
+
+**Recent Progress**:
+- ✅ Privacy Policy created (GDPR/CCPA compliant)
+- ✅ Terms of Service created (automotive disclaimers included)
+- ✅ Public legal pages implemented (`/privacy`, `/terms`)
+- ✅ PWA icon generation guide created
+- ⏳ Next: Generate PWA icons and capture screenshots
