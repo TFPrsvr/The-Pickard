@@ -8,11 +8,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import PartsInterchange from "@/components/parts-interchange"
-import { vehicleDatabase, getModelsForMake, getEnginesForMake } from '@/lib/vehicle-data'
-import { 
-  Car, Truck, Wrench, Settings, Database, Search, 
-  Package, AlertTriangle, ExternalLink, CheckCircle, 
-  Phone, Mail, MapPin, Download, Clock, Users 
+import {
+  vehicleDatabase,
+  powersportsDatabase,
+  getModelsForMake,
+  getEnginesForMake,
+  getModelsForPowersportsMake,
+  getPowersportsMakesByCategory
+} from '@/lib/vehicle-data'
+import { VehicleCategory } from '@/types'
+import {
+  Car, Truck, Wrench, Settings, Database, Search,
+  Package, AlertTriangle, ExternalLink, CheckCircle,
+  Phone, Mail, MapPin, Download, Clock, Users
 } from 'lucide-react'
 
 interface QuickSearchResult {
@@ -25,12 +33,16 @@ interface QuickSearchResult {
 }
 
 interface VehicleSelection {
+  category?: VehicleCategory
   year?: string
   make?: string
   model?: string
   engine?: string
   driveType?: string
   transmission?: string
+  displacement?: string
+  strokeType?: string
+  coolingType?: string
 }
 
 export default function PartsPage() {
@@ -214,7 +226,7 @@ export default function PartsPage() {
         <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white p-8 text-center">
           <h1 className="text-4xl font-bold mb-2">Parts Database</h1>
           <p className="text-xl opacity-90">
-            Search for parts across all automotive databases and find compatible alternatives
+            Search for parts across automotive and powersports databases and find compatible alternatives
           </p>
         </div>
       </div>
@@ -233,104 +245,213 @@ export default function PartsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Vehicle Selection Form */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Year</label>
-              <Select 
-                value={vehicleSelection.year || ''} 
-                onValueChange={(value) => setVehicleSelection({...vehicleSelection, year: value, model: '', engine: ''})}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select year" />
-                </SelectTrigger>
-                <SelectContent>
-                  {vehicleDatabase.years.map((year) => (
-                    <SelectItem key={year} value={year}>{year}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Make</label>
-              <Select 
-                value={vehicleSelection.make || ''} 
-                onValueChange={(value) => setVehicleSelection({...vehicleSelection, make: value, model: '', engine: ''})}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select make" />
-                </SelectTrigger>
-                <SelectContent>
-                  {vehicleDatabase.makes.map((make) => (
-                    <SelectItem key={make} value={make}>{make}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Model</label>
-              <Select 
-                value={vehicleSelection.model || ''} 
-                onValueChange={(value) => setVehicleSelection({...vehicleSelection, model: value, engine: ''})}
-                disabled={!vehicleSelection.make}
-              >
-                <SelectTrigger className="disabled:bg-gray-100 disabled:text-gray-400">
-                  <SelectValue placeholder={vehicleSelection.make ? "Select model" : "Select make first"} />
-                </SelectTrigger>
-                <SelectContent>
-                  {getModelsForMake(vehicleSelection.make || '').map((model) => (
-                    <SelectItem key={model} value={model}>{model}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Engine</label>
-              <Select 
-                value={vehicleSelection.engine || ''} 
-                onValueChange={(value) => setVehicleSelection({...vehicleSelection, engine: value})}
-                disabled={!vehicleSelection.make}
-              >
-                <SelectTrigger className="disabled:bg-gray-100 disabled:text-gray-400">
-                  <SelectValue placeholder={vehicleSelection.make ? "Select engine" : "Select make first"} />
-                </SelectTrigger>
-                <SelectContent>
-                  {getEnginesForMake(vehicleSelection.make || '').map((engine) => (
-                    <SelectItem key={engine} value={engine}>{engine}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Drive Type</label>
-              <Select 
-                value={vehicleSelection.driveType || ''} 
-                onValueChange={(value) => setVehicleSelection({...vehicleSelection, driveType: value})}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Drive type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {vehicleDatabase.driveTypes.map((drive) => (
-                    <SelectItem key={drive} value={drive}>
-                      {drive === 'FWD' ? 'FWD (Front-Wheel Drive)' :
-                       drive === 'RWD' ? 'RWD (Rear-Wheel Drive)' :
-                       drive === 'AWD' ? 'AWD (All-Wheel Drive)' :
-                       drive === '4WD' ? '4WD (Four-Wheel Drive)' : drive}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
+          {/* Vehicle Category Selection */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Vehicle Category</label>
+            <Select
+              value={vehicleSelection.category || ''}
+              onValueChange={(value) => setVehicleSelection({ category: value as VehicleCategory })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select vehicle category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="car">🚗 Cars</SelectItem>
+                <SelectItem value="truck">🚚 Trucks</SelectItem>
+                <SelectItem value="18-wheeler">🚛 18-Wheelers</SelectItem>
+                <SelectItem value="motorcycle">🏍️ Motorcycles</SelectItem>
+                <SelectItem value="atv">🏁 ATVs</SelectItem>
+                <SelectItem value="utv">🚜 UTVs</SelectItem>
+                <SelectItem value="snowmobile">🏔️ Snowmobiles</SelectItem>
+                <SelectItem value="watercraft">🚤 Watercraft</SelectItem>
+                <SelectItem value="rv">🏕️ RVs</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
+          {/* Vehicle Selection Form - Category-Aware */}
+          {vehicleSelection.category && (
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Year</label>
+                <Select
+                  value={vehicleSelection.year || ''}
+                  onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, year: value, model: '', engine: '' })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {vehicleDatabase.years.map((year) => (
+                      <SelectItem key={year} value={year}>{year}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Make</label>
+                <Select
+                  value={vehicleSelection.make || ''}
+                  onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, make: value, model: '', engine: '' })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select make" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category)
+                      ? getPowersportsMakesByCategory(vehicleSelection.category as 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft')
+                      : vehicleDatabase.makes
+                    ).map((make: string) => (
+                      <SelectItem key={make} value={make}>{make}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Model</label>
+                <Select
+                  value={vehicleSelection.model || ''}
+                  onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, model: value, engine: '' })}
+                  disabled={!vehicleSelection.make}
+                >
+                  <SelectTrigger className="disabled:bg-gray-100 disabled:text-gray-400">
+                    <SelectValue placeholder={vehicleSelection.make ? "Select model" : "Select make first"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category)
+                      ? getModelsForPowersportsMake(vehicleSelection.make || '')
+                      : getModelsForMake(vehicleSelection.make || '')
+                    ).map((model) => (
+                      <SelectItem key={model} value={model}>{model}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Automotive-specific fields */}
+              {['car', 'truck', '18-wheeler', 'rv'].includes(vehicleSelection.category) && (
+                <>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Engine</label>
+                    <Select
+                      value={vehicleSelection.engine || ''}
+                      onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, engine: value })}
+                      disabled={!vehicleSelection.make}
+                    >
+                      <SelectTrigger className="disabled:bg-gray-100 disabled:text-gray-400">
+                        <SelectValue placeholder={vehicleSelection.make ? "Select engine" : "Select make first"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {getEnginesForMake(vehicleSelection.make || '').map((engine) => (
+                          <SelectItem key={engine} value={engine}>{engine}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Drive Type</label>
+                    <Select
+                      value={vehicleSelection.driveType || ''}
+                      onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, driveType: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Drive type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {vehicleDatabase.driveTypes.map((drive) => (
+                          <SelectItem key={drive} value={drive}>
+                            {drive === 'FWD' ? 'FWD (Front-Wheel Drive)' :
+                              drive === 'RWD' ? 'RWD (Rear-Wheel Drive)' :
+                                drive === 'AWD' ? 'AWD (All-Wheel Drive)' :
+                                  drive === '4WD' ? '4WD (Four-Wheel Drive)' : drive}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+
+              {/* Powersports-specific fields */}
+              {['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category) && (
+                <>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Displacement (CC)</label>
+                    <Select
+                      value={vehicleSelection.displacement || ''}
+                      onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, displacement: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select CC" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {powersportsDatabase.displacements.map((cc) => (
+                          <SelectItem key={cc} value={cc}>{cc}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Stroke Type</label>
+                    <Select
+                      value={vehicleSelection.strokeType || ''}
+                      onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, strokeType: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Stroke type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {powersportsDatabase.strokeTypes.map((stroke) => (
+                          <SelectItem key={stroke} value={stroke}>{stroke}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Cooling Type</label>
+                    <Select
+                      value={vehicleSelection.coolingType || ''}
+                      onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, coolingType: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Cooling type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {powersportsDatabase.coolingTypes.map((cooling) => (
+                          <SelectItem key={cooling} value={cooling}>{cooling}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Drive Type</label>
+                    <Select
+                      value={vehicleSelection.driveType || ''}
+                      onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, driveType: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Drive type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {powersportsDatabase.driveTypes.map((drive) => (
+                          <SelectItem key={drive} value={drive}>{drive}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
           {/* Selected Vehicle Display */}
-          {(vehicleSelection.year || vehicleSelection.make || vehicleSelection.model) && (
+          {(vehicleSelection.category || vehicleSelection.year || vehicleSelection.make || vehicleSelection.model) && (
             <Card className="bg-green-50 border-green-200">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -338,10 +459,14 @@ export default function PartsPage() {
                   <h4 className="font-medium text-green-800">Selected Vehicle Specifications</h4>
                 </div>
                 <div className="text-sm text-green-700">
+                  {vehicleSelection.category && <span className="font-medium capitalize">{vehicleSelection.category} • </span>}
                   {vehicleSelection.year && <span className="font-medium">{vehicleSelection.year} </span>}
                   {vehicleSelection.make && <span className="font-medium">{vehicleSelection.make} </span>}
                   {vehicleSelection.model && <span className="font-medium">{vehicleSelection.model}</span>}
                   {vehicleSelection.engine && <span> • {vehicleSelection.engine}</span>}
+                  {vehicleSelection.displacement && <span> • {vehicleSelection.displacement}</span>}
+                  {vehicleSelection.strokeType && <span> • {vehicleSelection.strokeType}</span>}
+                  {vehicleSelection.coolingType && <span> • {vehicleSelection.coolingType}</span>}
                   {vehicleSelection.driveType && <span> • {vehicleSelection.driveType}</span>}
                 </div>
                 <div className="mt-2 text-xs text-green-600">

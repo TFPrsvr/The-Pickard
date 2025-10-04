@@ -11,7 +11,11 @@ export async function GET(request: NextRequest) {
 
     // Parse filters from query parameters
     const filters: SearchFilters = {}
-    
+
+    // Category filter
+    const category = searchParams.get('category')
+    if (category) filters.category = [category as any]
+
     const yearFrom = searchParams.get('yearFrom')
     const yearTo = searchParams.get('yearTo')
     if (yearFrom || yearTo) {
@@ -31,10 +35,20 @@ export async function GET(request: NextRequest) {
     if (engineType) filters.engineType = [engineType]
 
     const driveType = searchParams.get('driveType')
-    if (driveType) filters.driveType = [driveType as 'AWD' | '2WD' | '4WD']
+    if (driveType) filters.driveType = [driveType as any]
 
     const submodel = searchParams.get('submodel')
     if (submodel) filters.submodel = [submodel]
+
+    // Powersports-specific filters
+    const displacement = searchParams.get('displacement')
+    if (displacement) filters.displacement = [parseInt(displacement)]
+
+    const strokeType = searchParams.get('strokeType')
+    if (strokeType) filters.strokeType = [strokeType as any]
+
+    const coolingType = searchParams.get('coolingType')
+    if (coolingType) filters.coolingType = [coolingType as any]
 
     if (type === 'vehicles') {
       const results = await searchVehicles(filters)
