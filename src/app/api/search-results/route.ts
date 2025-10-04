@@ -3,12 +3,22 @@ import { auth } from '@clerk/nextjs/server'
 import { db } from '@/lib/database'
 import { webSearchResults, users } from '@/lib/schema'
 import { eq, and, desc } from 'drizzle-orm'
+import { SecurityLogger } from '@/lib/security/security-logger'
+
+function getClientIP(request: NextRequest): string {
+  return request.headers.get('x-forwarded-for')?.split(',')[0] ||
+         request.headers.get('x-real-ip') ||
+         'unknown';
+}
 
 export async function POST(request: NextRequest) {
   try {
     const { userId } = await auth()
-    
+
     if (!userId) {
+      const ip = getClientIP(request);
+      await SecurityLogger.logUnauthorizedAccess(ip, '/api/search-results');
+
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -89,8 +99,11 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { userId } = await auth()
-    
+
     if (!userId) {
+      const ip = getClientIP(request);
+      await SecurityLogger.logUnauthorizedAccess(ip, '/api/search-results');
+
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -163,8 +176,11 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const { userId } = await auth()
-    
+
     if (!userId) {
+      const ip = getClientIP(request);
+      await SecurityLogger.logUnauthorizedAccess(ip, '/api/search-results');
+
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -235,8 +251,11 @@ export async function PATCH(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { userId } = await auth()
-    
+
     if (!userId) {
+      const ip = getClientIP(request);
+      await SecurityLogger.logUnauthorizedAccess(ip, '/api/search-results');
+
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

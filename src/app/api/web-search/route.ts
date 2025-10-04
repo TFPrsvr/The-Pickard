@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { SearchCategory } from '@/lib/search-terms'
+import { searchRateLimiter, withRateLimit } from '@/lib/security/rate-limiter'
+import { validateSearchInput } from '@/lib/security/input-validation'
+import { SecurityLogger } from '@/lib/security/security-logger'
 
 interface SearchRequestBody {
   query: string
@@ -8,15 +11,54 @@ interface SearchRequestBody {
   type?: 'automotive_terms' | 'specific_problem'
 }
 
+function getClientIP(request: NextRequest): string {
+  return request.headers.get('x-forwarded-for')?.split(',')[0] ||
+         request.headers.get('x-real-ip') ||
+         'unknown';
+}
+
 export async function POST(request: NextRequest) {
   try {
+    // Apply rate limiting
+    const rateLimitResult = await withRateLimit(request, searchRateLimiter);
+
+    if (!rateLimitResult.success) {
+      const ip = getClientIP(request);
+      await SecurityLogger.logRateLimitExceeded(ip, '/api/web-search');
+
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        {
+          status: 429,
+          headers: rateLimitResult.headers
+        }
+      );
+    }
+
     const body: SearchRequestBody = await request.json()
-    
+
     if (!body.query) {
       return NextResponse.json(
         { error: 'Query parameter is required' },
-        { status: 400 }
+        { status: 400, headers: rateLimitResult.headers }
       )
+    }
+
+    // Validate search query
+    const validation = validateSearchInput(body.query);
+    if (!validation.isValid) {
+      const ip = getClientIP(request);
+      await SecurityLogger.logInvalidInput(
+        ip,
+        '/api/web-search',
+        body.query,
+        validation.errors
+      );
+
+      return NextResponse.json(
+        { error: validation.errors[0] },
+        { status: 400, headers: rateLimitResult.headers }
+      );
     }
     
     // Try real web search API first, fall back to simulation if not configured
@@ -34,8 +76,8 @@ export async function POST(request: NextRequest) {
       category: body.category,
       results: results,
       timestamp: new Date().toISOString()
-    })
-    
+    }, { headers: rateLimitResult.headers })
+
   } catch (error) {
     console.error('Web search API error:', error)
     return NextResponse.json(
