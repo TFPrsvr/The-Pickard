@@ -3,7 +3,7 @@
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare, Home, Heart } from 'lucide-react'
+import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Info, MessageSquare, Home, Heart, ChevronDown, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -14,6 +14,7 @@ export function Navbar() {
   const { isSignedIn, user } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [vehicleTypesExpanded, setVehicleTypesExpanded] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -96,6 +97,61 @@ export function Navbar() {
           <MobileNavLink href="/" icon={<Home className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Home
           </MobileNavLink>
+
+          {/* Vehicle Types Expandable Section */}
+          <div className="space-y-2">
+            <button
+              onClick={() => setVehicleTypesExpanded(!vehicleTypesExpanded)}
+              className="w-full flex items-center justify-between rounded-lg px-4 py-3 text-base font-medium text-gray-900 transition-colors hover:bg-gray-100"
+              aria-expanded={vehicleTypesExpanded}
+              aria-label="Toggle vehicle types menu"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="text-blue-600">
+                  <Car className="h-6 w-6" />
+                </div>
+                <span>Vehicle Types</span>
+              </div>
+              {vehicleTypesExpanded ? (
+                <ChevronDown className="h-5 w-5 text-gray-400" />
+              ) : (
+                <ChevronRight className="h-5 w-5 text-gray-400" />
+              )}
+            </button>
+
+            {vehicleTypesExpanded && (
+              <div className="ml-4 space-y-1 pl-6 border-l-2 border-gray-200">
+                <MobileNavLink href="/search-by-category?category=car" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🚗 Cars
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=truck" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🚚 Trucks
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=18-wheeler" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🚛 18-Wheelers
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=motorcycle" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🏍️ Motorcycles
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=atv" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🏁 ATVs
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=utv" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🚜 UTVs
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=snowmobile" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🏔️ Snowmobiles
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=watercraft" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🚤 Watercraft
+                </MobileNavLink>
+                <MobileNavLink href="/search-by-category?category=rv" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
+                  🏕️ RVs
+                </MobileNavLink>
+              </div>
+            )}
+          </div>
+
           <MobileNavLink href="/search" icon={<Car className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Diagnostic Center
           </MobileNavLink>
