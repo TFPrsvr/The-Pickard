@@ -22,25 +22,30 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter.className} antialiased`} suppressHydrationWarning>
+          {/* Skip to Main Content - Accessibility */}
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+
           {/* Global Background Image */}
-          <div className="fixed inset-0 z-0 pointer-events-none flex items-center justify-center">
+          <div className="fixed inset-0 z-0 pointer-events-none flex items-center justify-center" aria-hidden="true">
             <Image
               src="/images/banner-background.png"
-              alt="Automotive Repair Search Background"
+              alt=""
               width={800}
               height={400}
               className="opacity-10"
               priority
             />
           </div>
-          
+
           <div className="relative z-10">
             <Navbar />
-            <div className="min-h-screen bg-background/80 backdrop-blur-sm px-4 sm:px-6 lg:px-8 pb-20 md:pb-8">
+            <main id="main-content" className="min-h-screen bg-background/80 backdrop-blur-sm px-4 sm:px-6 lg:px-8 pb-20 md:pb-8">
               <div className="mx-auto max-w-7xl">
                 {children}
               </div>
-            </div>
+            </main>
             <BottomNavigation />
           </div>
         </body>
