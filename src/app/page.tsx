@@ -27,9 +27,18 @@ export default function HomePage() {
           </h1>
         </div>
         <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-          Your comprehensive automotive database for mechanics. Search through problems, solutions, 
-          interchangeable parts, and expert tips for cars, trucks, and 18-wheelers.
+          Your comprehensive automotive and powersports database for mechanics. Search through problems, solutions,
+          interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
         </p>
+
+        {/* Quick Category Access */}
+        <div className="mt-8">
+          <Link href="/search-by-category">
+            <Button size="lg" className="text-lg px-8 py-6">
+              Select Your Vehicle Type
+            </Button>
+          </Link>
+        </div>
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
