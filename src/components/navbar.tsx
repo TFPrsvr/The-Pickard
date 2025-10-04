@@ -21,7 +21,7 @@ export function Navbar() {
   }, [])
 
   return (
-    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
+    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative" aria-label="Main">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-24 items-center justify-between">
           {/* Left: Hamburger Menu */}
@@ -29,11 +29,14 @@ export function Navbar() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary transition-colors"
+              aria-label="Open navigation menu"
+              aria-expanded={mounted ? isMobileMenuOpen : false}
+              aria-controls="mobile-navigation-menu"
             >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
+              {mounted && isMobileMenuOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -78,22 +81,28 @@ export function Navbar() {
       {/* Mobile Slide-out Menu Portal */}
       {mounted && createPortal(
         <>
-          <div className={`fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] flex flex-col ${
-            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}>
+          <div
+            id="mobile-navigation-menu"
+            className={`fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] flex flex-col ${
+              isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
+            role="dialog"
+            aria-label="Navigation menu"
+          >
         <div className="p-6 border-b">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              aria-label="Close navigation menu"
             >
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
         </div>
-        
-        <div className="px-6 py-4 space-y-4 flex-1 overflow-y-auto">
+
+        <nav className="px-6 py-4 space-y-4 flex-1 overflow-y-auto" aria-label="Main navigation">
           <MobileNavLink href="/" icon={<Home className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Home
           </MobileNavLink>
@@ -104,23 +113,24 @@ export function Navbar() {
               onClick={() => setVehicleTypesExpanded(!vehicleTypesExpanded)}
               className="w-full flex items-center justify-between rounded-lg px-4 py-3 text-base font-medium text-gray-900 transition-colors hover:bg-gray-100"
               aria-expanded={vehicleTypesExpanded}
-              aria-label="Toggle vehicle types menu"
+              aria-controls="vehicle-types-submenu"
+              aria-label="Vehicle types menu"
             >
               <div className="flex items-center space-x-4">
                 <div className="text-blue-600">
-                  <Car className="h-6 w-6" />
+                  <Car className="h-6 w-6" aria-hidden="true" />
                 </div>
                 <span>Vehicle Types</span>
               </div>
               {vehicleTypesExpanded ? (
-                <ChevronDown className="h-5 w-5 text-gray-400" />
+                <ChevronDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
               ) : (
-                <ChevronRight className="h-5 w-5 text-gray-400" />
+                <ChevronRight className="h-5 w-5 text-gray-400" aria-hidden="true" />
               )}
             </button>
 
             {vehicleTypesExpanded && (
-              <div className="ml-4 space-y-1 pl-6 border-l-2 border-gray-200">
+              <div id="vehicle-types-submenu" className="ml-4 space-y-1 pl-6 border-l-2 border-gray-200" role="group" aria-label="Vehicle categories">
                 <MobileNavLink href="/search-by-category?category=car" onClick={() => setIsMobileMenuOpen(false)} icon={null}>
                   🚗 Cars
                 </MobileNavLink>
@@ -179,14 +189,15 @@ export function Navbar() {
           <MobileNavLink href="/contact" icon={<Image src="/images/icons8-share.svg" alt="Contact" width={24} height={24} />} onClick={() => setIsMobileMenuOpen(false)}>
             Contact Us
           </MobileNavLink>
-        </div>
+        </nav>
           </div>
 
           {/* Overlay */}
           {isMobileMenuOpen && (
-            <div 
+            <div
               className="fixed inset-0 bg-black bg-opacity-50 z-[9998]"
               onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden="true"
             />
           )}
         </>,
