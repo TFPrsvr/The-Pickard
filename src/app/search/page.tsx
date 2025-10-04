@@ -1,25 +1,33 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { VehicleSelector } from '@/components/vehicle-selector'
+import { CategoryAwareVehicleSelector } from '@/components/category-aware-vehicle-selector'
 import { AutomotiveWebSearch } from '@/components/automotive-web-search'
 import { ExternalPartsSearch } from '@/components/external-parts-search'
 import { AutomotiveSuggestions } from '@/components/automotive-suggestions'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { SearchFilters, Vehicle, Problem } from '@/types'
+import { SearchFilters, Vehicle, Problem, VehicleCategory } from '@/types'
 import { SearchResult } from '@/lib/web-search'
 import { Search, Car, Wrench, ExternalLink, Globe } from 'lucide-react'
 import Link from 'next/link'
 
-export default function SearchPage() {
+function SearchPageContent() {
+  const searchParams = useSearchParams()
+  const categoryParam = searchParams.get('category') as VehicleCategory | null
+
   const [searchQuery, setSearchQuery] = useState('')
-  const [filters, setFilters] = useState<SearchFilters>({})
+  const [filters, setFilters] = useState<SearchFilters>(
+    categoryParam ? { category: [categoryParam] } : {}
+  )
   const [searchResults, setSearchResults] = useState<Vehicle[]>([])
   const [problemResults, setProblemResults] = useState<Problem[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchType, setSearchType] = useState<'vehicles' | 'problems' | 'web'>('vehicles')
+  const [selectedCategory, setSelectedCategory] = useState<VehicleCategory | null>(categoryParam)
 
   // Mock data for demonstration
   const mockVehicles: Vehicle[] = [
@@ -171,52 +179,73 @@ export default function SearchPage() {
         </p>
       </div>
 
-      {/* Vehicle Selection and Search */}
-      <Card className="shadow-lg border-0">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
-          <CardTitle className="flex items-center gap-3 text-xl">
-            <Car className="h-6 w-6" />
-            Start Your Search
-          </CardTitle>
-          <CardDescription className="text-blue-100">
-            Pick your vehicle first, then tell us what&apos;s going on
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Vehicle Selection - Cascading Filters */}
-          <VehicleSelector
-            filters={filters}
-            onFiltersChange={setFilters}
-          />
-          
-          {/* Search Query - Only show after basic vehicle info is selected */}
-          {(filters.year && filters.make && filters.model) && (
-            <div className="space-y-4 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200">
-              <div className="text-center mb-4">
-                <h3 className="text-lg font-semibold text-green-800">Great! Now What&apos;s The Issue?</h3>
-                <p className="text-green-600 text-sm">Describe your problem or what part you need</p>
+      {/* Category Selection or Direct Link Notice */}
+      {!selectedCategory && (
+        <Card className="shadow-lg border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <CardContent className="py-8 text-center">
+            <h3 className="text-xl font-semibold mb-4">Choose Your Vehicle Type First</h3>
+            <p className="text-muted-foreground mb-6">
+              For the best search experience, select your vehicle category to see relevant options
+            </p>
+            <Link href="/search-by-category">
+              <Button size="lg" className="text-lg px-8 py-6">
+                <Car className="h-5 w-5 mr-2" />
+                Select Vehicle Type
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Vehicle Selection and Search - Category-Aware */}
+      {selectedCategory && (
+        <Card className="shadow-lg border-0">
+          <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
+            <CardTitle className="flex items-center gap-3 text-xl">
+              <Car className="h-6 w-6" />
+              Start Your Search
+            </CardTitle>
+            <CardDescription className="text-blue-100">
+              Pick your vehicle first, then tell us what&apos;s going on
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Vehicle Selection - Category-Aware Cascading Filters */}
+            <CategoryAwareVehicleSelector
+              category={selectedCategory}
+              filters={filters}
+              onFiltersChange={setFilters}
+            />
+
+            {/* Search Query - Only show after basic vehicle info is selected */}
+            {(filters.year && filters.make && filters.model) && (
+              <div className="space-y-4 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200">
+                <div className="text-center mb-4">
+                  <h3 className="text-lg font-semibold text-green-800">Great! Now What&apos;s The Issue?</h3>
+                  <p className="text-green-600 text-sm">Describe your problem or what part you need</p>
+                </div>
+                <div className="flex gap-3">
+                  <Input
+                    placeholder="Type here: brake noise, engine trouble, need oil filter..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 border-green-300 focus:border-green-500"
+                    onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
+                  />
+                  <Button
+                    onClick={handleSearch}
+                    disabled={isLoading || !searchQuery.trim()}
+                    className="bg-green-600 hover:bg-green-700 px-6"
+                  >
+                    <Search className="h-5 w-5 mr-2" />
+                    {isLoading ? 'Finding...' : 'Go!'}
+                  </Button>
+                </div>
               </div>
-              <div className="flex gap-3">
-                <Input
-                  placeholder="Type here: brake noise, engine trouble, need oil filter..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 border-green-300 focus:border-green-500"
-                  onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
-                />
-                <Button 
-                  onClick={handleSearch} 
-                  disabled={isLoading || !searchQuery.trim()}
-                  className="bg-green-600 hover:bg-green-700 px-6"
-                >
-                  <Search className="h-5 w-5 mr-2" />
-                  {isLoading ? 'Finding...' : 'Go!'}
-                </Button>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Automotive Suggestions Strip - Show contextual references and web search */}
       <AutomotiveSuggestions
@@ -411,5 +440,19 @@ function ProblemCard({ problem }: ProblemCardProps) {
         </div>
       </CardContent>
     </Card>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="py-8 space-y-6">
+        <div className="text-center bg-white rounded-lg p-8 shadow-sm">
+          <h1 className="text-4xl font-bold mb-4">Loading...</h1>
+        </div>
+      </div>
+    }>
+      <SearchPageContent />
+    </Suspense>
   )
 }
