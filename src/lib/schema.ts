@@ -14,6 +14,8 @@ export const users = pgTable('users', {
   specialties: json('specialties').$type<string[]>().default([]),
   experienceYears: integer('experience_years').default(0),
   role: varchar('role', { length: 20 }).default('user'), // 'user', 'admin', 'superAdmin'
+  pinterestProfile: text('pinterest_profile'), // Pinterest profile URL
+  pinterestBoards: json('pinterest_boards').$type<Array<{ name: string; url: string }>>().default([]), // User's Pinterest boards
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 })

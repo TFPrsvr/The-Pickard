@@ -8,6 +8,13 @@
       "when": 1759551158941,
       "tag": "0000_stale_changeling",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1759632287933,
+      "tag": "0001_naive_toad",
+      "breakpoints": true
     }
   ]
 }
