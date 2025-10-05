@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,20 +18,12 @@ import {
   getPowersportsMakesByCategory
 } from '@/lib/vehicle-data'
 import { VehicleCategory } from '@/types'
+import { generateMockSearchResults, type QuickSearchResult } from '@/lib/mock-parts-data'
 import {
   Car, Truck, Wrench, Settings, Database, Search,
   Package, AlertTriangle, ExternalLink, CheckCircle,
   Phone, Mail, MapPin, Download, Clock, Users
 } from 'lucide-react'
-
-interface QuickSearchResult {
-  type: 'automotive' | 'diesel' | 'truck' | 'bmw' | 'gm'
-  partNumber: string
-  description: string
-  price: string
-  availability: string
-  supplier: string
-}
 
 interface VehicleSelection {
   category?: VehicleCategory
@@ -53,139 +46,11 @@ export default function PartsPage() {
   const handleQuickSearch = async () => {
     if (!quickSearchQuery) return
 
-    // Enhanced mock search with more realistic results based on query
-    const query = quickSearchQuery.toLowerCase()
-    let mockResults: QuickSearchResult[] = []
-
-    // Generate realistic results based on common part searches
-    if (query.includes('filter') || query.includes('oil') || query.includes('15208')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Oil Filter - Standard',
-          price: '$12.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'gm',
-          partNumber: 'ACDelco-PF46',
-          description: 'Oil Filter (ACDelco OEM)',
-          price: '$18.99',
-          availability: 'In Stock',
-          supplier: 'GM Parts Direct'
-        },
-        {
-          type: 'bmw',
-          partNumber: '11427508969',
-          description: 'BMW Oil Filter Kit',
-          price: '$24.99',
-          availability: 'In Stock',
-          supplier: 'BMW Genuine Parts'
-        }
-      ]
-    } else if (query.includes('brake') || query.includes('pad') || query.includes('rotor')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Brake Pad Set - Front',
-          price: '$59.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'automotive',
-          partNumber: 'AC-' + quickSearchQuery,
-          description: 'Premium Ceramic Brake Pads',
-          price: '$89.99',
-          availability: 'In Stock',
-          supplier: 'Advance Auto Parts'
-        },
-        {
-          type: 'gm',
-          partNumber: 'ACDelco-17D1367CH',
-          description: 'GM OEM Brake Pad Set',
-          price: '$125.99',
-          availability: 'Special Order',
-          supplier: 'GM Parts'
-        }
-      ]
-    } else if (query.includes('spark') || query.includes('plug') || query.includes('ignition')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Spark Plug Set (4-Pack)',
-          price: '$32.99',
-          availability: 'In Stock',
-          supplier: 'O\'Reilly Auto Parts'
-        },
-        {
-          type: 'gm',
-          partNumber: 'ACDelco-41-110',
-          description: 'GM OEM Spark Plugs',
-          price: '$45.99',
-          availability: 'In Stock',
-          supplier: 'GM Parts Direct'
-        }
-      ]
-    } else if (query.includes('engine') || query.includes('mount')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Engine Mount - Front',
-          price: '$89.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'gm',
-          partNumber: 'GM-' + quickSearchQuery,
-          description: 'Engine Mount Assembly (GM OEM)',
-          price: '$145.99',
-          availability: 'Special Order',
-          supplier: 'GM Parts'
-        }
-      ]
-    } else {
-      // Default generic results
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Automotive Part',
-          price: '$45.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'truck',
-          partNumber: 'TRK-' + quickSearchQuery,
-          description: 'Heavy Duty Truck Part',
-          price: '$189.99',
-          availability: 'In Stock',
-          supplier: 'TruckPro'
-        }
-      ]
-    }
-
-    // Add vehicle-specific results if vehicle is selected
-    if (vehicleSelection.make && vehicleSelection.model) {
-      const vehicleSpecificPart: QuickSearchResult = {
-        type: vehicleSelection.make.toLowerCase().includes('bmw') ? 'bmw' : 
-              vehicleSelection.make.toLowerCase().includes('gm') || 
-              vehicleSelection.make.toLowerCase().includes('chevrolet') ? 'gm' : 'automotive',
-        partNumber: `${vehicleSelection.make.substring(0,3).toUpperCase()}-${quickSearchQuery}`,
-        description: `${vehicleSelection.make} ${vehicleSelection.model} Specific Part`,
-        price: '$95.99',
-        availability: 'In Stock',
-        supplier: `${vehicleSelection.make} Dealer Parts`
-      }
-      mockResults.unshift(vehicleSpecificPart)
-    }
+    const mockResults = generateMockSearchResults(
+      quickSearchQuery,
+      vehicleSelection.make,
+      vehicleSelection.model
+    )
 
     setQuickSearchResults(mockResults)
   }
@@ -215,15 +80,15 @@ export default function PartsPage() {
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
       {/* Banner Section */}
-      <div className="relative overflow-hidden rounded-lg mb-8">
-        <div className="absolute inset-0">
-          <img
-            src="/images/banner-background.png"
-            alt="Automotive Background"
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
-        <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white p-8 text-center">
+      <div className="relative overflow-hidden rounded-lg mb-8 h-48">
+        <Image
+          src="/images/banner-background.png"
+          alt="Automotive Background"
+          fill
+          className="object-cover opacity-20"
+          priority
+        />
+        <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white p-8 text-center h-full flex flex-col justify-center">
           <h1 className="text-4xl font-bold mb-2">Parts Database</h1>
           <p className="text-xl opacity-90">
             Search for parts across automotive and powersports databases and find compatible alternatives
