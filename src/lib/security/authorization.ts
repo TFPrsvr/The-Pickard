@@ -2,12 +2,18 @@ import { auth } from '@clerk/nextjs/server';
 import { UserRole, Permission, hasPermission } from '@/types/roles';
 import { NextResponse } from 'next/server';
 
+interface ClerkMetadata {
+  role?: UserRole;
+  permissions?: Permission[];
+}
+
 /**
  * Get user role from Clerk session
  */
 export function getUserRole(): UserRole {
   const { sessionClaims } = auth();
-  const role = sessionClaims?.metadata?.role as UserRole;
+  const metadata = sessionClaims?.metadata as ClerkMetadata | undefined;
+  const role = metadata?.role;
   return role || UserRole.USER; // Default to USER role
 }
 
@@ -16,7 +22,8 @@ export function getUserRole(): UserRole {
  */
 export function getUserPermissions(): Permission[] {
   const { sessionClaims } = auth();
-  const permissions = sessionClaims?.metadata?.permissions as Permission[] || [];
+  const metadata = sessionClaims?.metadata as ClerkMetadata | undefined;
+  const permissions = metadata?.permissions || [];
   return permissions;
 }
 
@@ -34,7 +41,8 @@ export function requireRole(allowedRoles: UserRole[]) {
       );
     }
 
-    const userRole = sessionClaims?.metadata?.role as UserRole || UserRole.USER;
+    const metadata = sessionClaims?.metadata as ClerkMetadata | undefined;
+    const userRole = metadata?.role || UserRole.USER;
 
     if (!allowedRoles.includes(userRole)) {
       return NextResponse.json(
@@ -61,8 +69,9 @@ export function requirePermission(permission: Permission) {
       );
     }
 
-    const userRole = sessionClaims?.metadata?.role as UserRole || UserRole.USER;
-    const userPermissions = sessionClaims?.metadata?.permissions as Permission[] || [];
+    const metadata = sessionClaims?.metadata as ClerkMetadata | undefined;
+    const userRole = metadata?.role || UserRole.USER;
+    const userPermissions = metadata?.permissions || [];
 
     // Check if user has the permission directly or through role
     const hasDirectPermission = userPermissions.includes(permission);
