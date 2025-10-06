@@ -29,18 +29,78 @@ Comprehensive list of all data sources, references, and resources used for vehic
 ## Online Reference Resources
 
 ### General Automotive References
-- **Wikipedia** - Automotive articles, vehicle specifications, manufacturer history
-  - **Orphan Cars** - https://en.wikipedia.org/wiki/Orphan_(car)
-    - Definition of orphan car brands (manufacturers that ceased business entirely)
-    - Historical context for discontinued manufacturers (DeLorean, Studebaker, Tucker, Nash, etc.)
-    - Distinguishes complete manufacturer closures from discontinued marques
-  - **Timeline of Motor Vehicle Brands** - https://en.wikipedia.org/wiki/Timeline_of_motor_vehicle_brands
-    - Chronological timeline from 1852 to present
-    - Tracks manufacturer emergence by year and country
-    - Documents evolution of vehicle types (steam, electric, internal combustion)
-    - Organized by historical eras (Veteran, Brass, Vintage, etc.)
-    - Global coverage (US, France, UK, Germany, Italy, and more)
+
+#### Wikipedia - Comprehensive Automotive Reference
+
+**Historical Timelines & Industry Evolution:**
+- **Timeline of Motor Vehicle Brands** - https://en.wikipedia.org/wiki/Timeline_of_motor_vehicle_brands
+  - Chronological timeline from 1852 to present
+  - Tracks manufacturer emergence by year and country
+  - Documents evolution of vehicle types (steam, electric, internal combustion)
+  - Organized by historical eras (Veteran, Brass, Vintage, etc.)
+  - Global coverage (US, France, UK, Germany, Italy, and more)
+
+- **List of Steam Car Makers** - https://en.wikipedia.org/wiki/List_of_steam_car_makers
+  - Historical catalog of steam car manufacturers (1600s to 1939)
+  - Covers peak steam car production era (1860-1930)
+  - Documents technological transition to internal combustion
+  - Manufacturers listed by country and time period
+
+**Global Manufacturer Directories:**
+- **List of Automobile Manufacturers** - https://en.wikipedia.org/wiki/List_of_automobile_manufacturers
+  - Comprehensive global directory organized by country
+  - Current and defunct manufacturers worldwide
+  - Coverage spanning 50+ countries
+  - Alphabetized listings with historical tracking
+
+- **List of Current Automobile Manufacturers by Country** - https://en.wikipedia.org/wiki/List_of_current_automobile_manufacturers_by_country
+  - Active manufacturers organized geographically
+  - Includes car, bus, and truck manufacturers
+  - Covers established and emerging markets
+  - Major and minor manufacturers categorized
+
+- **List of Current Automobile Marques** - https://en.wikipedia.org/wiki/List_of_current_automobile_marques
+  - Current brands in production worldwide
+  - Foundation year for each marque
+  - Includes automotive alliances
+  - Design companies, parts suppliers, tuning marques
+
+**Regional/Country-Specific References:**
+- **Automotive Industry in the United Kingdom** - https://en.wikipedia.org/wiki/Automotive_industry_in_the_United_Kingdom
+  - UK automotive history from 1880s to present
+  - Production volumes and economic data
+  - Ownership transitions and international investments
+  - Manufacturing plants and major milestones
+
+- **List of Car Manufacturers of the United Kingdom** - https://en.wikipedia.org/wiki/List_of_car_manufacturers_of_the_United_Kingdom
+  - Comprehensive UK manufacturers past and present
+  - Ownership details and parent company information
+  - Current marques (Aston Martin, Bentley, Jaguar, McLaren, etc.)
+  - Historical British automotive manufacturing
+
+**Discontinued Manufacturers:**
+- **Orphan Cars** - https://en.wikipedia.org/wiki/Orphan_(car)
+  - Definition of orphan car brands (manufacturers that ceased business entirely)
+  - Historical context for discontinued manufacturers (DeLorean, Studebaker, Tucker, Nash, etc.)
+  - Distinguishes complete manufacturer closures from discontinued marques
+
+#### Other Online Resources
 - **AutoEvolution.com** - Vehicle specifications, model years, technical data, reviews
+
+- **AutoFiles.com** - https://autofiles.com/generations/
+  - Car generation information and evolution
+  - Details on design, technology, and feature changes between generations
+  - Performance, exterior, interior specifications
+  - Maintenance data across multiple brands
+  - Helps understand specific model iterations and production years
+
+- **Motor Car History** - https://motor-car.net/makes
+  - Comprehensive vehicle database from 1890s to 2010s
+  - Manufacturer listings (A-Z)
+  - Organized by decades and countries/regions
+  - Vehicle types (race cars, sports cars, concept cars)
+  - Technical specifications and manufacturer history
+  - Maintenance guides and automotive innovation
 
 ### Service Manuals & Technical Documentation
 - **Charm.li** - Free service manuals, repair procedures, technical diagrams
