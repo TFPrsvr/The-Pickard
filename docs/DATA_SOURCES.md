@@ -30,6 +30,16 @@ Comprehensive list of all data sources, references, and resources used for vehic
 
 ### General Automotive References
 - **Wikipedia** - Automotive articles, vehicle specifications, manufacturer history
+  - **Orphan Cars** - https://en.wikipedia.org/wiki/Orphan_(car)
+    - Definition of orphan car brands (manufacturers that ceased business entirely)
+    - Historical context for discontinued manufacturers (DeLorean, Studebaker, Tucker, Nash, etc.)
+    - Distinguishes complete manufacturer closures from discontinued marques
+  - **Timeline of Motor Vehicle Brands** - https://en.wikipedia.org/wiki/Timeline_of_motor_vehicle_brands
+    - Chronological timeline from 1852 to present
+    - Tracks manufacturer emergence by year and country
+    - Documents evolution of vehicle types (steam, electric, internal combustion)
+    - Organized by historical eras (Veteran, Brass, Vintage, etc.)
+    - Global coverage (US, France, UK, Germany, Italy, and more)
 - **AutoEvolution.com** - Vehicle specifications, model years, technical data, reviews
 
 ### Service Manuals & Technical Documentation
