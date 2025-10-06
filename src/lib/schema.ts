@@ -16,6 +16,14 @@ export const users = pgTable('users', {
   role: varchar('role', { length: 20 }).default('user'), // 'user', 'admin', 'superAdmin'
   pinterestProfile: text('pinterest_profile'), // Pinterest profile URL
   pinterestBoards: json('pinterest_boards').$type<Array<{ name: string; url: string }>>().default([]), // User's Pinterest boards
+  // Saved vehicle selection
+  savedVehicleCategory: varchar('saved_vehicle_category', { length: 20 }), // 'car', 'truck', '18-wheeler', etc.
+  savedVehicleYear: integer('saved_vehicle_year'),
+  savedVehicleMake: varchar('saved_vehicle_make', { length: 50 }),
+  savedVehicleModel: varchar('saved_vehicle_model', { length: 100 }),
+  savedVehicleEngineType: varchar('saved_vehicle_engine_type', { length: 100 }),
+  savedVehicleDriveType: varchar('saved_vehicle_drive_type', { length: 10 }),
+  savedVehicleSubmodel: varchar('saved_vehicle_submodel', { length: 100 }),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 })

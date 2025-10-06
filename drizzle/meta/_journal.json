@@ -15,6 +15,13 @@
       "when": 1759632287933,
       "tag": "0001_naive_toad",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759711228524,
+      "tag": "0002_zippy_dakota_north",
+      "breakpoints": true
     }
   ]
 }

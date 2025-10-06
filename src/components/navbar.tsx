@@ -163,7 +163,7 @@ export function Navbar() {
           </div>
 
           <MobileNavLink href="/search" icon={<Car className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-            Diagnostic Center
+            Problem Finder
           </MobileNavLink>
           <MobileNavLink href="/parts" icon={<Database className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Parts Database
