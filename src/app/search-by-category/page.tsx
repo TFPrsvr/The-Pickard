@@ -152,10 +152,10 @@ function getCategoryImage(category: VehicleCategory): string {
     truck: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=300&fit=crop',
     '18-wheeler': 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&h=300&fit=crop',
     motorcycle: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400&h=300&fit=crop',
-    atv: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-    utv: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop',
-    snowmobile: 'https://images.unsplash.com/photo-1609011107157-880f57058e1d?w=400&h=300&fit=crop',
-    watercraft: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop',
+    atv: '/images/fourwheeler.webp',
+    utv: '/images/side by side.jpg',
+    snowmobile: '/images/nate-johnston-TBRVu6ScH6c-unsplash.jpg',
+    watercraft: '/images/watercraft.jpg',
     rv: 'https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=400&h=300&fit=crop'
   }
   return images[category] || images.car

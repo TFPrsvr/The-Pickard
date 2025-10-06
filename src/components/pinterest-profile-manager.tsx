@@ -69,7 +69,7 @@ export function PinterestProfileManager({
         {/* Pinterest Profile URL */}
         <div className="space-y-2">
           <Label htmlFor="pinterest-profile" className="text-base font-semibold">
-            Pinterest Profile URL
+            Pinterest Profile URL <span className="text-xs text-muted-foreground font-normal">(Optional)</span>
           </Label>
           <div className="flex gap-2">
             <Input
@@ -93,16 +93,16 @@ export function PinterestProfileManager({
             )}
           </div>
           <p className="text-sm text-muted-foreground">
-            Add your Pinterest profile URL to showcase your automotive resources
+            Optional - Leave blank to only share specific boards below
           </p>
         </div>
 
         {/* Pinterest Boards */}
         <div className="space-y-4">
           <div>
-            <Label className="text-base font-semibold">Pinterest Boards</Label>
+            <Label className="text-base font-semibold">Share Specific Boards or Pins</Label>
             <p className="text-sm text-muted-foreground mt-1">
-              Link specific boards or pins related to automotive repairs and diagnostics
+              Add only the boards/pins you want to share publicly. Your private boards stay private!
             </p>
           </div>
 

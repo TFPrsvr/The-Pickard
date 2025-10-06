@@ -39,25 +39,25 @@ const categories = [
   {
     id: 'atv' as VehicleCategory,
     name: 'ATVs',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+    image: '/images/fourwheeler.webp',
     description: 'All-terrain vehicles and quad bikes'
   },
   {
     id: 'utv' as VehicleCategory,
     name: 'UTVs',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop',
+    image: '/images/side by side.jpg',
     description: 'Side-by-sides and utility vehicles'
   },
   {
     id: 'snowmobile' as VehicleCategory,
     name: 'Snowmobiles',
-    image: 'https://images.unsplash.com/photo-1609011107157-880f57058e1d?w=400&h=300&fit=crop',
+    image: '/images/nate-johnston-TBRVu6ScH6c-unsplash.jpg',
     description: 'Winter recreational vehicles'
   },
   {
     id: 'watercraft' as VehicleCategory,
     name: 'Watercraft',
-    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop',
+    image: '/images/watercraft.jpg',
     description: 'Jet skis, Sea-Doos, WaveRunners'
   },
   {

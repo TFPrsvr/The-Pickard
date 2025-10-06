@@ -7,9 +7,9 @@ import Link from 'next/link'
 
 export function PinterestReferenceSection() {
   return (
-    <section className="py-12 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+    <section className="py-3 mb-0 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
+        <div className="text-center mb-4">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
               <Heart className="h-6 w-6 text-white fill-current" />
