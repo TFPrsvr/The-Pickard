@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useUser } from '@clerk/nextjs'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,23 +16,19 @@ import {
   getModelsForMake,
   getEnginesForMake,
   getModelsForPowersportsMake,
-  getPowersportsMakesByCategory
+  getPowersportsMakesByCategory,
+  getMakesForYear,
+  getModelsForMakeAndYear,
+  getEnginesForMakeAndYear,
+  getPowersportsModelsForMakeAndYear
 } from '@/lib/vehicle-data'
 import { VehicleCategory } from '@/types'
+import { generateMockSearchResults, type QuickSearchResult } from '@/lib/mock-parts-data'
 import {
   Car, Truck, Wrench, Settings, Database, Search,
   Package, AlertTriangle, ExternalLink, CheckCircle,
   Phone, Mail, MapPin, Download, Clock, Users
 } from 'lucide-react'
-
-interface QuickSearchResult {
-  type: 'automotive' | 'diesel' | 'truck' | 'bmw' | 'gm'
-  partNumber: string
-  description: string
-  price: string
-  availability: string
-  supplier: string
-}
 
 interface VehicleSelection {
   category?: VehicleCategory
@@ -46,146 +44,90 @@ interface VehicleSelection {
 }
 
 export default function PartsPage() {
+  const { isSignedIn } = useUser()
   const [quickSearchQuery, setQuickSearchQuery] = useState('')
   const [quickSearchResults, setQuickSearchResults] = useState<QuickSearchResult[]>([])
   const [vehicleSelection, setVehicleSelection] = useState<VehicleSelection>({})
+  const [hasLoadedSavedData, setHasLoadedSavedData] = useState(false)
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Load saved vehicle selection on mount
+  useEffect(() => {
+    if (isSignedIn && !hasLoadedSavedData) {
+      fetch('/api/user/vehicle')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.data) {
+            const savedData = data.data
+            const loadedSelection: VehicleSelection = {}
+
+            if (savedData.category) loadedSelection.category = savedData.category
+            if (savedData.year) loadedSelection.year = savedData.year.toString()
+            if (savedData.make) loadedSelection.make = savedData.make
+            if (savedData.model) loadedSelection.model = savedData.model
+            if (savedData.engineType) loadedSelection.engine = savedData.engineType
+            if (savedData.driveType) loadedSelection.driveType = savedData.driveType
+            if (savedData.submodel) loadedSelection.transmission = savedData.submodel
+
+            setVehicleSelection(loadedSelection)
+          }
+          setHasLoadedSavedData(true)
+        })
+        .catch(err => {
+          console.error('Error loading saved vehicle:', err)
+          setHasLoadedSavedData(true)
+        })
+    }
+  }, [isSignedIn, hasLoadedSavedData])
+
+  // Save vehicle selection when it changes (debounced)
+  useEffect(() => {
+    if (isSignedIn && hasLoadedSavedData && (vehicleSelection.category || vehicleSelection.year || vehicleSelection.make)) {
+      // Clear existing timeout
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current)
+      }
+
+      // Set new timeout to save after 2 seconds of inactivity
+      saveTimeoutRef.current = setTimeout(() => {
+        fetch('/api/user/vehicle', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            category: vehicleSelection.category,
+            year: vehicleSelection.year ? parseInt(vehicleSelection.year) : undefined,
+            make: vehicleSelection.make,
+            model: vehicleSelection.model,
+            engineType: vehicleSelection.engine,
+            driveType: vehicleSelection.driveType,
+            submodel: vehicleSelection.transmission
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              console.log('Vehicle selection saved')
+            }
+          })
+          .catch(err => console.error('Error saving vehicle selection:', err))
+      }, 2000)
+    }
+
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current)
+      }
+    }
+  }, [isSignedIn, hasLoadedSavedData, vehicleSelection.category, vehicleSelection.year, vehicleSelection.make, vehicleSelection.model, vehicleSelection.engine, vehicleSelection.driveType, vehicleSelection.transmission])
 
   const handleQuickSearch = async () => {
     if (!quickSearchQuery) return
 
-    // Enhanced mock search with more realistic results based on query
-    const query = quickSearchQuery.toLowerCase()
-    let mockResults: QuickSearchResult[] = []
-
-    // Generate realistic results based on common part searches
-    if (query.includes('filter') || query.includes('oil') || query.includes('15208')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Oil Filter - Standard',
-          price: '$12.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'gm',
-          partNumber: 'ACDelco-PF46',
-          description: 'Oil Filter (ACDelco OEM)',
-          price: '$18.99',
-          availability: 'In Stock',
-          supplier: 'GM Parts Direct'
-        },
-        {
-          type: 'bmw',
-          partNumber: '11427508969',
-          description: 'BMW Oil Filter Kit',
-          price: '$24.99',
-          availability: 'In Stock',
-          supplier: 'BMW Genuine Parts'
-        }
-      ]
-    } else if (query.includes('brake') || query.includes('pad') || query.includes('rotor')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Brake Pad Set - Front',
-          price: '$59.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'automotive',
-          partNumber: 'AC-' + quickSearchQuery,
-          description: 'Premium Ceramic Brake Pads',
-          price: '$89.99',
-          availability: 'In Stock',
-          supplier: 'Advance Auto Parts'
-        },
-        {
-          type: 'gm',
-          partNumber: 'ACDelco-17D1367CH',
-          description: 'GM OEM Brake Pad Set',
-          price: '$125.99',
-          availability: 'Special Order',
-          supplier: 'GM Parts'
-        }
-      ]
-    } else if (query.includes('spark') || query.includes('plug') || query.includes('ignition')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Spark Plug Set (4-Pack)',
-          price: '$32.99',
-          availability: 'In Stock',
-          supplier: 'O\'Reilly Auto Parts'
-        },
-        {
-          type: 'gm',
-          partNumber: 'ACDelco-41-110',
-          description: 'GM OEM Spark Plugs',
-          price: '$45.99',
-          availability: 'In Stock',
-          supplier: 'GM Parts Direct'
-        }
-      ]
-    } else if (query.includes('engine') || query.includes('mount')) {
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Engine Mount - Front',
-          price: '$89.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'gm',
-          partNumber: 'GM-' + quickSearchQuery,
-          description: 'Engine Mount Assembly (GM OEM)',
-          price: '$145.99',
-          availability: 'Special Order',
-          supplier: 'GM Parts'
-        }
-      ]
-    } else {
-      // Default generic results
-      mockResults = [
-        {
-          type: 'automotive',
-          partNumber: quickSearchQuery.toUpperCase(),
-          description: 'Automotive Part',
-          price: '$45.99',
-          availability: 'In Stock',
-          supplier: 'AutoZone'
-        },
-        {
-          type: 'truck',
-          partNumber: 'TRK-' + quickSearchQuery,
-          description: 'Heavy Duty Truck Part',
-          price: '$189.99',
-          availability: 'In Stock',
-          supplier: 'TruckPro'
-        }
-      ]
-    }
-
-    // Add vehicle-specific results if vehicle is selected
-    if (vehicleSelection.make && vehicleSelection.model) {
-      const vehicleSpecificPart: QuickSearchResult = {
-        type: vehicleSelection.make.toLowerCase().includes('bmw') ? 'bmw' : 
-              vehicleSelection.make.toLowerCase().includes('gm') || 
-              vehicleSelection.make.toLowerCase().includes('chevrolet') ? 'gm' : 'automotive',
-        partNumber: `${vehicleSelection.make.substring(0,3).toUpperCase()}-${quickSearchQuery}`,
-        description: `${vehicleSelection.make} ${vehicleSelection.model} Specific Part`,
-        price: '$95.99',
-        availability: 'In Stock',
-        supplier: `${vehicleSelection.make} Dealer Parts`
-      }
-      mockResults.unshift(vehicleSpecificPart)
-    }
+    const mockResults = generateMockSearchResults(
+      quickSearchQuery,
+      vehicleSelection.make,
+      vehicleSelection.model
+    )
 
     setQuickSearchResults(mockResults)
   }
@@ -215,15 +157,15 @@ export default function PartsPage() {
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
       {/* Banner Section */}
-      <div className="relative overflow-hidden rounded-lg mb-8">
-        <div className="absolute inset-0">
-          <img
-            src="/images/banner-background.png"
-            alt="Automotive Background"
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
-        <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white p-8 text-center">
+      <div className="relative overflow-hidden rounded-lg mb-8 h-48">
+        <Image
+          src="/images/banner-background.png"
+          alt="Automotive Background"
+          fill
+          className="object-cover opacity-20"
+          priority
+        />
+        <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white p-8 text-center h-full flex flex-col justify-center">
           <h1 className="text-4xl font-bold mb-2">Parts Database</h1>
           <p className="text-xl opacity-90">
             Search for parts across automotive and powersports databases and find compatible alternatives
@@ -300,8 +242,13 @@ export default function PartsPage() {
                   </SelectTrigger>
                   <SelectContent>
                     {(['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category)
-                      ? getPowersportsMakesByCategory(vehicleSelection.category as 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft')
-                      : vehicleDatabase.makes
+                      ? getPowersportsMakesByCategory(
+                          vehicleSelection.category as 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft',
+                          vehicleSelection.year ? parseInt(vehicleSelection.year) : undefined
+                        )
+                      : vehicleSelection.year
+                        ? getMakesForYear(parseInt(vehicleSelection.year))
+                        : vehicleDatabase.makes
                     ).map((make: string) => (
                       <SelectItem key={make} value={make}>{make}</SelectItem>
                     ))}
@@ -321,8 +268,14 @@ export default function PartsPage() {
                   </SelectTrigger>
                   <SelectContent>
                     {(['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category)
-                      ? getModelsForPowersportsMake(vehicleSelection.make || '')
-                      : getModelsForMake(vehicleSelection.make || '')
+                      ? getPowersportsModelsForMakeAndYear(
+                          vehicleSelection.make || '',
+                          vehicleSelection.year ? parseInt(vehicleSelection.year) : undefined
+                        )
+                      : getModelsForMakeAndYear(
+                          vehicleSelection.make || '',
+                          vehicleSelection.year ? parseInt(vehicleSelection.year) : undefined
+                        )
                     ).map((model) => (
                       <SelectItem key={model} value={model}>{model}</SelectItem>
                     ))}
@@ -344,7 +297,10 @@ export default function PartsPage() {
                         <SelectValue placeholder={vehicleSelection.make ? "Select engine" : "Select make first"} />
                       </SelectTrigger>
                       <SelectContent>
-                        {getEnginesForMake(vehicleSelection.make || '').map((engine) => (
+                        {getEnginesForMakeAndYear(
+                          vehicleSelection.make || '',
+                          vehicleSelection.year ? parseInt(vehicleSelection.year) : undefined
+                        ).map((engine) => (
                           <SelectItem key={engine} value={engine}>{engine}</SelectItem>
                         ))}
                       </SelectContent>
@@ -488,12 +444,21 @@ export default function PartsPage() {
               <Search className="h-4 w-4 mr-2" />
               Search Parts
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => {
                 setQuickSearchQuery('')
                 setQuickSearchResults([])
                 setVehicleSelection({})
+
+                // Clear saved vehicle data from backend
+                if (isSignedIn) {
+                  fetch('/api/user/vehicle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                  }).catch(err => console.error('Error clearing saved vehicle:', err))
+                }
               }}
             >
               Clear All
@@ -689,55 +654,16 @@ export default function PartsPage() {
         </CardContent>
       </Card>
 
-      {/* Professional Contact Section */}
-      <section className="mt-16 py-12 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-secondary mb-4">
-            NEED HELP FINDING THE RIGHT PART?
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Our certified automotive parts specialists are here to help you find the exact part you need. 
-            Contact us directly for personalized assistance.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          {/* Request Call Back */}
-          <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Phone className="h-8 w-8 text-blue-600" />
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Request Call Back</h3>
-            <p className="text-muted-foreground mb-3">Get a call from our parts experts</p>
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
-              Request Call
-            </button>
-          </div>
-
-          {/* Send Message */}
-          <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Mail className="h-8 w-8 text-green-600" />
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Send Message</h3>
-            <p className="text-muted-foreground mb-3">Send us your parts inquiry</p>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors">
-              Send Message
-            </button>
-          </div>
-        </div>
-
-        {/* Download Catalog */}
-        <div className="text-center">
-          <div className="inline-flex items-center space-x-2 bg-orange-500 text-white px-8 py-4 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
-            <Download className="h-5 w-5" />
-            <span className="font-semibold">DOWNLOAD PARTS CATALOG</span>
-          </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            Complete parts reference guide with compatibility charts
-          </p>
-        </div>
-      </section>
+      {/* Download Catalog Button */}
+      <div className="text-center py-6">
+        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-md">
+          <Download className="h-5 w-5 mr-2" />
+          DOWNLOAD PARTS CATALOG
+        </Button>
+        <p className="text-sm text-muted-foreground mt-2">
+          Complete parts reference guide with compatibility charts
+        </p>
+      </div>
     </div>
   )
 }

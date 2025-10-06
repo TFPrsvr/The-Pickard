@@ -7,11 +7,24 @@ import { Input } from '@/components/ui/input'
 import { useState, useEffect } from 'react'
 import { Camera, Edit, Save, X } from 'lucide-react'
 import { generateUserInitials } from '@/lib/utils'
+import { PinterestProfileManager } from '@/components/pinterest-profile-manager'
 import PropTypes from 'prop-types'
+
+interface PinterestBoard {
+  name: string
+  url: string
+}
 
 export default function ProfilePage() {
   const { user } = useUser()
   const [isEditing, setIsEditing] = useState(false)
+  const [pinterestData, setPinterestData] = useState<{
+    pinterestProfile: string
+    pinterestBoards: PinterestBoard[]
+  }>({
+    pinterestProfile: '',
+    pinterestBoards: [],
+  })
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,6 +44,19 @@ export default function ProfilePage() {
         specialties: (user.publicMetadata?.specialties as string[]) || [],
         experienceYears: (user.publicMetadata?.experienceYears as number) || 0,
       })
+
+      // Fetch Pinterest data
+      fetch('/api/user/pinterest')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setPinterestData({
+              pinterestProfile: data.data.pinterestProfile || '',
+              pinterestBoards: data.data.pinterestBoards || [],
+            })
+          }
+        })
+        .catch(err => console.error('Error fetching Pinterest data:', err))
     }
   }, [user])
 
@@ -77,26 +103,42 @@ export default function ProfilePage() {
     setIsEditing(false)
   }
 
+  const handlePinterestSave = async (data: { pinterestProfile: string; pinterestBoards: PinterestBoard[] }) => {
+    const response = await fetch('/api/user/pinterest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+
+    if (response.ok) {
+      setPinterestData(data)
+    } else {
+      console.error('Failed to save Pinterest settings')
+    }
+  }
+
   if (!user) {
     return <div>Loading...</div>
   }
 
   return (
-    <div className="py-8 max-w-4xl mx-auto">
+    <div className="py-8 max-w-4xl mx-auto space-y-8">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">Profile Settings</h1>
         {!isEditing ? (
-          <Button onClick={() => setIsEditing(true)}>
+          <Button onClick={() => setIsEditing(true)} className="rounded-md">
             <Edit className="h-4 w-4 mr-2" />
             Edit Profile
           </Button>
         ) : (
           <div className="space-x-2">
-            <Button onClick={handleSave}>
+            <Button onClick={handleSave} className="rounded-md">
               <Save className="h-4 w-4 mr-2" />
               Save
             </Button>
-            <Button variant="outline" onClick={handleCancel}>
+            <Button variant="outline" onClick={handleCancel} className="rounded-md">
               <X className="h-4 w-4 mr-2" />
               Cancel
             </Button>
@@ -188,6 +230,16 @@ export default function ProfilePage() {
             />
           </CardContent>
         </Card>
+      </div>
+
+      {/* Pinterest Integration Section */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Pinterest Integration</h2>
+        <PinterestProfileManager
+          initialProfile={pinterestData.pinterestProfile}
+          initialBoards={pinterestData.pinterestBoards}
+          onSave={handlePinterestSave}
+        />
       </div>
     </div>
   )

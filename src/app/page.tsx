@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <main className="py-4">
       {/* Hero Section */}
-      <section className="text-center py-12 mb-16">
+      <section className="text-center py-12 mb-4">
         <div className="flex flex-col items-center mb-6">
           <div className="w-full flex justify-center">
             <Image
@@ -22,7 +22,7 @@ export default function HomePage() {
               priority
             />
           </div>
-          <h1 className="text-3xl text-orange-600 font-normal">
+          <h1 className="text-3xl font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
             Automotive Mechanics Database
           </h1>
         </div>
@@ -32,20 +32,20 @@ export default function HomePage() {
         </p>
 
         {/* Quick Category Access */}
-        <div className="mt-8">
+        <div className="mt-6">
           <Link href="/search-by-category">
-            <Button size="lg" className="text-lg px-8 py-6">
+            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700">
               Select Your Vehicle Type
             </Button>
           </Link>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         <FeatureCard
           icon={<Gauge className="h-10 w-10" />}
-          title="Diagnostic Center"
-          description="Identify problems with your vehicle using our comprehensive diagnostic tools"
+          title="Problem Finder"
+          description="Search our database to identify vehicle issues and find diagnostic information"
           href="/search"
           gradient="from-blue-500 to-blue-700"
           borderColor="border-blue-600"
@@ -78,8 +78,8 @@ export default function HomePage() {
 
 
       {/* Call to Action with Phone Support */}
-      <section className="text-center mb-16">
-        <div className="automotive-card p-12 bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white relative overflow-hidden">
+      <section className="text-center mb-6">
+        <div className="automotive-card p-8 bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full -translate-x-16 -translate-y-16"></div>
@@ -104,29 +104,6 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Phone Support */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-6">
-              <div className="flex items-center space-x-2">
-                <Phone className="h-5 w-5 text-orange-400" />
-                <span className="text-white/90">Contact Us for Support</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="h-5 w-5 text-green-400" />
-                <span className="text-white/90">Always Open</span>
-              </div>
-            </div>
-            
-            {/* Social Media Icons */}
-            <div className="flex justify-center items-center gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <Image src="/images/icons8-facebook-50.svg" alt="Facebook" width={20} height={20} className="hover:scale-110 transition-transform" />
-                <Image src="/images/icons8-instagram-50.svg" alt="Instagram" width={20} height={20} className="hover:scale-110 transition-transform" />
-                <Image src="/images/icons8-twitter-50.svg" alt="Twitter" width={20} height={20} className="hover:scale-110 transition-transform" />
-                <Image src="/images/icons8-youtube-50.svg" alt="YouTube" width={20} height={20} className="hover:scale-110 transition-transform" />
-                <Image src="/images/icons8-linkedin.svg" alt="LinkedIn" width={20} height={20} className="hover:scale-110 transition-transform" />
-              </div>
-            </div>
-            
             <p className="text-white/60 text-sm">
               Professional automotive diagnostics and repair database
             </p>
@@ -136,15 +113,6 @@ export default function HomePage() {
 
       {/* Pinterest Reference Library */}
       <PinterestReferenceSection />
-      
-      {/* Icons8 Attribution */}
-      <footer className="mt-16 py-6 border-t border-gray-200 bg-gray-50">
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Icons by <a href="https://icons8.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Icons8</a>
-          </p>
-        </div>
-      </footer>
     </main>
   )
 }
@@ -185,8 +153,8 @@ function FeatureCard({ icon, title, description, href, gradient, borderColor }: 
         <div className="relative z-10 h-full flex flex-col p-6">
           <div className={`text-white mb-4 p-4 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`}>{icon}</div>
           <h3 className="font-bold mb-3 text-xl text-secondary">{title}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed flex-1">{description}</p>
-          <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+          <p className="text-sm text-muted-foreground leading-snug flex-1">{description}</p>
+          <div className="mt-2 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
             Learn more <span className="ml-1">→</span>
           </div>
         </div>

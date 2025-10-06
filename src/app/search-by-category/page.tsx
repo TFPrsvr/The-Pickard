@@ -6,6 +6,7 @@ import { CategoryAwareVehicleSelector } from '@/components/category-aware-vehicl
 import { VehicleCategory, SearchFilters } from '@/types'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
+import Image from 'next/image'
 
 export default function SearchByCategoryPage() {
   const [selectedCategory, setSelectedCategory] = useState<VehicleCategory | null>(null)
@@ -83,9 +84,15 @@ export default function SearchByCategoryPage() {
 
             {/* Category Badge */}
             <div className="flex items-center gap-4 p-4 bg-muted rounded-md">
-              <span className="text-3xl" role="img" aria-label={`Selected: ${selectedCategory}`}>
-                {getCategoryIcon(selectedCategory)}
-              </span>
+              <div className="relative h-16 w-24 rounded-md overflow-hidden flex-shrink-0">
+                <Image
+                  src={getCategoryImage(selectedCategory)}
+                  alt={selectedCategory}
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                />
+              </div>
               <div>
                 <h2 className="font-semibold text-lg capitalize">{selectedCategory}</h2>
                 <p className="text-sm text-muted-foreground">
@@ -138,18 +145,18 @@ export default function SearchByCategoryPage() {
   )
 }
 
-// Helper function to get category icon
-function getCategoryIcon(category: VehicleCategory): string {
-  const icons: Record<VehicleCategory, string> = {
-    car: '🚗',
-    truck: '🚚',
-    '18-wheeler': '🚛',
-    motorcycle: '🏍️',
-    atv: '🏁',
-    utv: '🚜',
-    snowmobile: '🏔️',
-    watercraft: '🚤',
-    rv: '🏕️'
+// Helper function to get category image
+function getCategoryImage(category: VehicleCategory): string {
+  const images: Record<VehicleCategory, string> = {
+    car: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=400&h=300&fit=crop',
+    truck: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=300&fit=crop',
+    '18-wheeler': 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&h=300&fit=crop',
+    motorcycle: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400&h=300&fit=crop',
+    atv: '/images/fourwheeler.webp',
+    utv: '/images/side by side.jpg',
+    snowmobile: '/images/nate-johnston-TBRVu6ScH6c-unsplash.jpg',
+    watercraft: '/images/watercraft.jpg',
+    rv: 'https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=400&h=300&fit=crop'
   }
-  return icons[category] || '🚗'
+  return images[category] || images.car
 }

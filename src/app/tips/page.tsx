@@ -221,9 +221,9 @@ export default function TipsPage() {
           </p>
         </div>
         <Button asChild>
-          <Link href="/tips/create">
+          <Link href="/tips/create" className="flex items-center">
             <Plus className="h-4 w-4 mr-2" />
-            Share a Tip
+            Share Tip
           </Link>
         </Button>
       </div>
@@ -344,9 +344,9 @@ export default function TipsPage() {
                 </Button>
               )}
               <Button asChild>
-                <Link href="/tips/create">
+                <Link href="/tips/create" className="flex items-center">
                   <Plus className="h-4 w-4 mr-2" />
-                  Share a Tip
+                  Share Tip
                 </Link>
               </Button>
             </div>

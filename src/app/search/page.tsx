@@ -172,7 +172,7 @@ function SearchPageContent() {
       {/* Header Section */}
       <div className="text-center bg-white rounded-lg p-8 shadow-sm">
         <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-          Diagnostic Center
+          Problem Finder
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Find solutions fast! Enter your ride details and get instant help with parts, repairs, and troubleshooting.

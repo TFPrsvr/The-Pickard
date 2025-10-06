@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import { UserRole, Permission, hasPermission } from '@/types/roles';
 import { NextResponse } from 'next/server';
 

@@ -23,7 +23,7 @@ export function Navbar() {
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative" aria-label="Main">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-24 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Left: Hamburger Menu */}
           <div className="flex items-center">
             <button
@@ -163,7 +163,7 @@ export function Navbar() {
           </div>
 
           <MobileNavLink href="/search" icon={<Car className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
-            Diagnostic Center
+            Problem Finder
           </MobileNavLink>
           <MobileNavLink href="/parts" icon={<Database className="h-6 w-6" />} onClick={() => setIsMobileMenuOpen(false)}>
             Parts Database

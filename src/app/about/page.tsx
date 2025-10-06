@@ -23,14 +23,14 @@ export default function AboutPage() {
       <div className="container mx-auto px-4 py-12 space-y-16">
         {/* Mission Statement */}
         <section className="text-center">
-          <Card className="max-w-4xl mx-auto shadow-lg border-0">
-            <CardHeader className="bg-white rounded-t-lg">
-              <CardTitle className="text-3xl text-blue-600 mb-4">Our Mission</CardTitle>
+          <Card className="max-w-4xl mx-auto shadow-lg border-0 rounded-md">
+            <CardHeader className="bg-white rounded-t-md pb-2">
+              <CardTitle className="text-3xl text-blue-600">Our Mission</CardTitle>
             </CardHeader>
             <CardContent className="p-8">
               <p className="text-lg text-gray-700 leading-relaxed">
-                We believe every vehicle deserves expert care and every mechanic deserves the right tools. 
-                The Pickard bridges knowledge gaps with cutting-edge diagnostic databases, comprehensive parts catalogs, 
+                We believe every vehicle deserves expert care and every mechanic deserves the right tools.
+                The Pickard bridges knowledge gaps with cutting-edge diagnostic databases, comprehensive parts catalogs,
                 and proven repair solutions that keep vehicles running safely and efficiently.
               </p>
             </CardContent>
@@ -160,61 +160,6 @@ export default function AboutPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-8">
-          <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Get In Touch</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Call Us</h3>
-              <p className="text-gray-600">Emergency diagnostics available 24/7</p>
-              <Button className="mt-4 bg-blue-600 hover:bg-blue-700">
-                Contact Support
-              </Button>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Email Us</h3>
-              <p className="text-gray-600">Get detailed technical assistance</p>
-              <Button className="mt-4 bg-green-600 hover:bg-green-700">
-                Send Message
-              </Button>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-orange-600" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Visit Us</h3>
-              <p className="text-gray-600">Multiple locations nationwide</p>
-              <Button className="mt-4 bg-orange-600 hover:bg-orange-700">
-                Find Location
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg p-12 text-white">
-          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join thousands of mechanics and vehicle owners who trust The Pickard for reliable automotive solutions.
-          </p>
-          <div className="space-x-4">
-            <Button asChild className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg">
-              <Link href="/sign-up">Register Now</Link>
-            </Button>
-            <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg">
-              <Link href="/search">Try Diagnostic Center</Link>
-            </Button>
           </div>
         </section>
       </div>

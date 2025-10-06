@@ -1,5 +1,25 @@
 // Comprehensive Vehicle Database for Automotive Mechanics and Powersports
 
+export interface YearRange {
+  start: number
+  end?: number // undefined means still in production
+}
+
+export interface MakeData {
+  name: string
+  yearRange: YearRange
+}
+
+export interface ModelData {
+  name: string
+  yearRange: YearRange
+}
+
+export interface EngineData {
+  name: string
+  yearRange?: YearRange
+}
+
 export interface VehicleData {
   years: string[]
   makes: string[]
@@ -7,6 +27,10 @@ export interface VehicleData {
   engines: Record<string, string[]> // engines by make
   driveTypes: string[]
   transmissions: string[]
+  // Year-based metadata for cascading filters
+  makeYearRanges?: Record<string, YearRange>
+  modelYearRanges?: Record<string, Record<string, YearRange>> // make -> model -> yearRange
+  engineYearRanges?: Record<string, Record<string, YearRange>> // make -> engine -> yearRange
 }
 
 export interface PowersportsData {
@@ -20,6 +44,9 @@ export interface PowersportsData {
   driveTypes: string[]
   strokeTypes: string[]
   coolingTypes: string[]
+  // Year-based metadata
+  makeYearRanges?: Record<string, YearRange>
+  modelYearRanges?: Record<string, Record<string, YearRange>>
 }
 
 export const vehicleDatabase: VehicleData = {
@@ -138,19 +165,230 @@ export const vehicleDatabase: VehicleData = {
 
   transmissions: [
     '6-Speed Manual', '7-Speed Manual', '8-Speed Manual',
-    '6-Speed Automatic', '7-Speed Automatic', '8-Speed Automatic', 
+    '6-Speed Automatic', '7-Speed Automatic', '8-Speed Automatic',
     '9-Speed Automatic', '10-Speed Automatic',
     'CVT', // Continuously Variable Transmission
     '6-Speed DCT', '7-Speed DCT' // Dual Clutch Transmission
-  ]
+  ],
+
+  // Year ranges for makes (when they started/ended production for US market)
+  makeYearRanges: {
+    'Acura': { start: 1986 },
+    'Alfa Romeo': { start: 1990 },
+    'Audi': { start: 1970 },
+    'BMW': { start: 1975 },
+    'Buick': { start: 1903 },
+    'Cadillac': { start: 1902 },
+    'Chevrolet': { start: 1911 },
+    'Chrysler': { start: 1924 },
+    'Daewoo': { start: 1998, end: 2002 },
+    'Dodge': { start: 1914 },
+    'Eagle': { start: 1988, end: 1998 },
+    'Fiat': { start: 2011 },
+    'Ford': { start: 1903 },
+    'Geo': { start: 1989, end: 1997 },
+    'GMC': { start: 1911 },
+    'Honda': { start: 1970 },
+    'Hummer': { start: 1992, end: 2010 },
+    'Hyundai': { start: 1986 },
+    'Infiniti': { start: 1989 },
+    'Isuzu': { start: 1981, end: 2009 },
+    'Jeep': { start: 1941 },
+    'Kia': { start: 1992 },
+    'Lexus': { start: 1989 },
+    'Lincoln': { start: 1917 },
+    'Mazda': { start: 1970 },
+    'Mercedes-Benz': { start: 1965 },
+    'Mercury': { start: 1938, end: 2011 },
+    'Mini': { start: 2002 },
+    'Mitsubishi': { start: 1982 },
+    'Nissan': { start: 1958 },
+    'Oldsmobile': { start: 1897, end: 2004 },
+    'Plymouth': { start: 1928, end: 2001 },
+    'Pontiac': { start: 1926, end: 2010 },
+    'Porsche': { start: 1950 },
+    'Ram': { start: 2010 },
+    'Saab': { start: 1949, end: 2011 },
+    'Saturn': { start: 1990, end: 2010 },
+    'Scion': { start: 2003, end: 2016 },
+    'Smart': { start: 2008, end: 2019 },
+    'Subaru': { start: 1968 },
+    'Suzuki': { start: 1985, end: 2012 },
+    'Tesla': { start: 2008 },
+    'Toyota': { start: 1957 },
+    'Volkswagen': { start: 1949 },
+    'Volvo': { start: 1955 },
+    'Yugo': { start: 1985, end: 1992 }
+  },
+
+  // Year ranges for specific models by make
+  modelYearRanges: {
+    'Ford': {
+      'Bronco': { start: 1966, end: 1996 },
+      'Bronco Sport': { start: 2021 },
+      'C-Max': { start: 2013, end: 2018 },
+      'Edge': { start: 2007 },
+      'EcoSport': { start: 2018, end: 2022 },
+      'Escape': { start: 2001 },
+      'Expedition': { start: 1997 },
+      'Explorer': { start: 1991 },
+      'F-150': { start: 1948 },
+      'F-250 Super Duty': { start: 1999 },
+      'F-350 Super Duty': { start: 1999 },
+      'Fiesta': { start: 2011, end: 2019 },
+      'Flex': { start: 2009, end: 2019 },
+      'Focus': { start: 2000, end: 2018 },
+      'Fusion': { start: 2006, end: 2020 },
+      'GT': { start: 2005, end: 2006 },
+      'Maverick': { start: 2022 },
+      'Mustang': { start: 1964 },
+      'Mustang Mach-E': { start: 2021 },
+      'Ranger': { start: 1983 },
+      'Taurus': { start: 1986 },
+      'Transit': { start: 2015 },
+      'Transit Connect': { start: 2010 }
+    },
+    'Chevrolet': {
+      'Blazer': { start: 1969 },
+      'Bolt EV': { start: 2017 },
+      'Bolt EUV': { start: 2022 },
+      'Camaro': { start: 1967 },
+      'Colorado': { start: 2004 },
+      'Corvette': { start: 1953 },
+      'Cruze': { start: 2011, end: 2019 },
+      'Equinox': { start: 2005 },
+      'Express': { start: 1996 },
+      'Impala': { start: 1958 },
+      'Malibu': { start: 1964 },
+      'Silverado 1500': { start: 1999 },
+      'Silverado 2500HD': { start: 2001 },
+      'Silverado 3500HD': { start: 2001 },
+      'Sonic': { start: 2012, end: 2020 },
+      'Spark': { start: 2013, end: 2022 },
+      'Suburban': { start: 1935 },
+      'Tahoe': { start: 1995 },
+      'Trailblazer': { start: 2002 },
+      'Traverse': { start: 2009 },
+      'Trax': { start: 2015 }
+    },
+    'Toyota': {
+      '4Runner': { start: 1984 },
+      'Avalon': { start: 1995 },
+      'Camry': { start: 1983 },
+      'C-HR': { start: 2018 },
+      'Corolla': { start: 1968 },
+      'Highlander': { start: 2001 },
+      'Land Cruiser': { start: 1960, end: 2021 },
+      'Prius': { start: 2001 },
+      'RAV4': { start: 1996 },
+      'Sequoia': { start: 2001 },
+      'Sienna': { start: 1998 },
+      'Tacoma': { start: 1995 },
+      'Tundra': { start: 2000 },
+      'Venza': { start: 2009 },
+      'Yaris': { start: 2007, end: 2020 }
+    },
+    'Honda': {
+      'Accord': { start: 1976 },
+      'Civic': { start: 1973 },
+      'CR-V': { start: 1997 },
+      'HR-V': { start: 2016 },
+      'Insight': { start: 2000 },
+      'Odyssey': { start: 1995 },
+      'Passport': { start: 1994 },
+      'Pilot': { start: 2003 },
+      'Ridgeline': { start: 2006 }
+    },
+    'Ram': {
+      '1500': { start: 2010 },
+      '2500': { start: 2010 },
+      '3500': { start: 2010 },
+      '4500': { start: 2011 },
+      '5500': { start: 2011 },
+      'ProMaster': { start: 2014 },
+      'ProMaster City': { start: 2015 }
+    }
+  },
+
+  // Engine year ranges by make (when specific engines were available)
+  engineYearRanges: {
+    'Ford': {
+      '1.0L EcoBoost I3': { start: 2014 },
+      '1.5L EcoBoost I4': { start: 2015 },
+      '2.0L EcoBoost I4': { start: 2010 },
+      '2.3L EcoBoost I4': { start: 2015 },
+      '2.7L EcoBoost V6': { start: 2015 },
+      '3.0L EcoBoost V6': { start: 2019 },
+      '3.5L EcoBoost V6': { start: 2010 },
+      '5.0L V8': { start: 2011 },
+      '6.2L V8': { start: 2010 },
+      '6.7L Power Stroke V8 Diesel': { start: 2011 }
+    },
+    'Chevrolet': {
+      '1.4L Turbo I4': { start: 2011 },
+      '1.5L Turbo I4': { start: 2016 },
+      '2.0L Turbo I4': { start: 2013 },
+      '5.3L V8': { start: 1999 },
+      '6.2L V8': { start: 2009 },
+      '6.6L Duramax V8 Diesel': { start: 2001 }
+    }
+  }
 }
 
-// Helper function to get models for a specific make
+// Helper function to check if a year is within a year range
+function isYearInRange(year: number, range?: YearRange): boolean {
+  if (!range) return true // No range specified means all years
+  const inRange = year >= range.start && (range.end === undefined || year <= range.end)
+  return inRange
+}
+
+// Get makes available for a specific year
+export function getMakesForYear(year: number): string[] {
+  if (!vehicleDatabase.makeYearRanges) {
+    return vehicleDatabase.makes // Fallback if no year data
+  }
+
+  return vehicleDatabase.makes.filter(make => {
+    const range = vehicleDatabase.makeYearRanges![make]
+    return isYearInRange(year, range)
+  })
+}
+
+// Get models available for a specific make and year
+export function getModelsForMakeAndYear(make: string, year?: number): string[] {
+  const allModels = vehicleDatabase.models[make] || []
+
+  if (!year || !vehicleDatabase.modelYearRanges?.[make]) {
+    return allModels // No year specified or no year data
+  }
+
+  return allModels.filter(model => {
+    const range = vehicleDatabase.modelYearRanges![make]?.[model]
+    return isYearInRange(year, range)
+  })
+}
+
+// Get engines available for a specific make and year
+export function getEnginesForMakeAndYear(make: string, year?: number): string[] {
+  const allEngines = vehicleDatabase.engines[make] || [
+    '1.5L I4', '2.0L I4', '2.4L I4', '2.5L I4', '3.0L V6', '3.5L V6', '3.6L V6', '5.0L V8', '5.3L V8', '5.7L V8'
+  ]
+
+  if (!year || !vehicleDatabase.engineYearRanges?.[make]) {
+    return allEngines // No year specified or no year data
+  }
+
+  return allEngines.filter(engine => {
+    const range = vehicleDatabase.engineYearRanges![make]?.[engine]
+    return isYearInRange(year, range)
+  })
+}
+
+// Legacy helper functions (kept for backward compatibility)
 export function getModelsForMake(make: string): string[] {
   return vehicleDatabase.models[make] || []
 }
 
-// Helper function to get engines for a specific make
 export function getEnginesForMake(make: string): string[] {
   return vehicleDatabase.engines[make] || [
     '1.5L I4', '2.0L I4', '2.4L I4', '2.5L I4', '3.0L V6', '3.5L V6', '3.6L V6', '5.0L V8', '5.3L V8', '5.7L V8'
@@ -332,29 +570,124 @@ export const powersportsDatabase: PowersportsData = {
     'Liquid',  // Most modern powersports
     'Air',     // Older bikes, some cruisers
     'Oil'      // Some Harley-Davidsons
-  ]
+  ],
+
+  // Year ranges for powersports makes
+  makeYearRanges: {
+    'Harley-Davidson': { start: 1903 },
+    'Honda': { start: 1959 },
+    'Yamaha': { start: 1955 },
+    'Kawasaki': { start: 1963 },
+    'Suzuki': { start: 1952 },
+    'Ducati': { start: 1926 },
+    'BMW': { start: 1923 },
+    'KTM': { start: 1992 },
+    'Triumph': { start: 1902 },
+    'Indian': { start: 1901 },
+    'Polaris': { start: 1954 },
+    'Can-Am': { start: 1973 },
+    'Arctic Cat': { start: 1960 },
+    'Ski-Doo (BRP)': { start: 1959 },
+    'Sea-Doo (BRP)': { start: 1988 }
+  },
+
+  // Year ranges for powersports models
+  modelYearRanges: {
+    'Harley-Davidson': {
+      'LiveWire': { start: 2019 },
+      'Pan America': { start: 2021 },
+      'Sportster': { start: 1957 },
+      'Road King': { start: 1994 },
+      'Street Glide': { start: 2006 },
+      'Road Glide': { start: 1998 },
+      'Fat Boy': { start: 1990 }
+    },
+    'Polaris': {
+      'RZR Pro XP': { start: 2020 },
+      'RZR Turbo R': { start: 2022 },
+      'RZR 200': { start: 2017 },
+      'Ranger XP 1000': { start: 2013 },
+      'Sportsman XP 1000': { start: 2015 }
+    },
+    'Can-Am': {
+      'Maverick X3': { start: 2017 },
+      'Defender': { start: 2016 },
+      'Ryker': { start: 2019 },
+      'Spyder F3': { start: 2015 }
+    },
+    'Yamaha': {
+      'YZF-R1': { start: 1998 },
+      'YZF-R6': { start: 1999 },
+      'MT-09': { start: 2014 },
+      'MT-07': { start: 2015 },
+      'Tenere 700': { start: 2020 },
+      'YXZ1000R': { start: 2016 }
+    },
+    'Honda': {
+      'Africa Twin': { start: 1988 },
+      'Gold Wing': { start: 1975 },
+      'CBR1000RR': { start: 2004 },
+      'Talon 1000R': { start: 2019 },
+      'Pioneer 1000': { start: 2016 }
+    }
+  }
 }
 
 // Helper functions for powersports
-export function getModelsForPowersportsMake(make: string): string[] {
-  return powersportsDatabase.models[make] || []
-}
 
-export function getPowersportsMakesByCategory(category: 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft'): string[] {
+// Get powersports makes by category and optional year
+export function getPowersportsMakesByCategory(
+  category: 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft',
+  year?: number
+): string[] {
+  let makes: string[]
   switch (category) {
     case 'motorcycle':
-      return powersportsDatabase.motorcycleMakes
+      makes = powersportsDatabase.motorcycleMakes
+      break
     case 'atv':
-      return powersportsDatabase.atvMakes
+      makes = powersportsDatabase.atvMakes
+      break
     case 'utv':
-      return powersportsDatabase.utvMakes
+      makes = powersportsDatabase.utvMakes
+      break
     case 'snowmobile':
-      return powersportsDatabase.snowmobileMakes
+      makes = powersportsDatabase.snowmobileMakes
+      break
     case 'watercraft':
-      return powersportsDatabase.watercraftMakes
+      makes = powersportsDatabase.watercraftMakes
+      break
     default:
       return []
   }
+
+  if (!year || !powersportsDatabase.makeYearRanges) {
+    return makes
+  }
+
+  return makes.filter(make => {
+    const range = powersportsDatabase.makeYearRanges![make]
+    return isYearInRange(year, range)
+  })
+}
+
+// Get powersports models for a specific make and optional year
+export function getPowersportsModelsForMakeAndYear(make: string, year?: number): string[] {
+  const allModels = powersportsDatabase.models[make] || []
+
+  if (!year || !powersportsDatabase.modelYearRanges?.[make]) {
+    return allModels
+  }
+
+  return allModels.filter(model => {
+    const range = powersportsDatabase.modelYearRanges![make]?.[model]
+    return isYearInRange(year, range)
+  })
+}
+
+// Legacy helper (kept for backward compatibility)
+export function getModelsForPowersportsMake(make: string): string[] {
+  return powersportsDatabase.models[make] || []
 }
 
 export default vehicleDatabase

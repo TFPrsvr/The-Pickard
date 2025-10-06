@@ -4,37 +4,37 @@
 
 @layer base {
   :root {
-    /* Automotive Color Palette */
-    --background: 0 0% 98%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Greyish Silver Color Palette */
+    --background: 0 0% 96%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 15%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 15%;
+
+    /* Silver Gradient Primary */
+    --primary: 0 0% 45%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Darker Grey Secondary */
+    --secondary: 0 0% 30%;
+    --secondary-foreground: 0 0% 98%;
     
-    /* AutoCare Style - Modern Red/Orange Primary */
-    --primary: 0 84% 55%;
-    --primary-foreground: 210 40% 98%;
-    
-    /* Dark Navy Secondary */
-    --secondary: 224 71% 17%;
-    --secondary-foreground: 210 40% 98%;
-    
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    
-    /* Automotive Accent - Electric Blue */
-    --accent: 199 89% 48%;
-    --accent-foreground: 222.2 84% 4.9%;
-    
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 40%;
+
+    /* Silver Grey Accent */
+    --accent: 0 0% 55%;
+    --accent-foreground: 0 0% 10%;
+
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 214 85% 27%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 0 0% 50%;
     --radius: 0.75rem;
-    
-    /* Automotive Status Colors */
+
+    /* Status Colors */
     --success: 142 76% 36%;
     --warning: 45 93% 47%;
     --info: 199 89% 48%;
