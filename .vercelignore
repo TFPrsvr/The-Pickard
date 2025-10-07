@@ -1,0 +1,38 @@
+# Claude configuration files (never deploy)
+CLAUDE.md
+.claude/
+PROJECT_MEMORY.md
+
+# Environment files (managed in Vercel dashboard)
+.env
+.env.local
+.env.development
+.env.staging
+.env.test
+
+# Documentation (not needed in production)
+docs/
+README.md
+CODE_QUALITY_REPORT.md
+
+# Testing files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+coverage/
+.nyc_output/
+
+# Development files
+.vscode/
+.idea/
+*.log
+
+# Media files (screen recordings)
+*.mp4
+*.mov
+*.avi
+
+# Git
+.git/
+.gitignore

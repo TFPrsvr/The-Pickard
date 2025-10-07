@@ -111,6 +111,28 @@ Comprehensive list of all data sources, references, and resources used for vehic
 
 ## Free Parts Databases
 
+### Auto Parts Interchange Databases
+- **Traykin Auto Parts Interchange Database** - https://traykin.com/free-auto-parts-interchange-database-pdf/
+  - Free auto parts interchange database resources
+  - Cross-reference data for interchangeable parts
+
+- **Fire Response Products - Auto Parts Interchange** - https://fireresponseproducts.com/free-auto-parts-interchange-database-pdf/
+  - Auto parts interchange database resources
+  - Parts compatibility and cross-reference information
+
+- **Vehicle Make Model Database (GitHub)** - https://github.com/databases-one/Vehicle-Make-Model-Database-Free
+  - Free vehicle make/model database
+  - Open-source automotive data
+  - GitHub repository with structured data
+
+- **AutoDatabases.com** - https://www.autodatabases.com/
+  - Comprehensive automotive database resources
+  - Vehicle and parts data
+
+- **Usable Databases - US Auto Parts Database** - https://www.usabledatabases.com/database/us-auto-parts-database-by-year-make-model-engine-brand/
+  - US auto parts database organized by year, make, model, engine, brand
+  - Structured parts compatibility data
+
 ### Salvage & Used Parts
 - **Car-Part.com** - Salvage yard search, used parts inventory
 - **LKQ Pick Your Part** - Self-service salvage yard inventory
