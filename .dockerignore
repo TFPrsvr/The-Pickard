@@ -12,7 +12,9 @@ yarn-error.log*
 .env.production
 .env.test
 .env.sample
-.env.example
+
+# Allow .env.example as template (if needed for build)
+# .env.example
 
 # Claude configuration files
 CLAUDE.md

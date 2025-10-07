@@ -31,7 +31,9 @@ yarn-error.log*
 .env.production
 .env.test
 .env.sample
-.env.example
+
+# Allow .env.example to be committed as template
+!.env.example
 
 # Vercel
 .vercel
