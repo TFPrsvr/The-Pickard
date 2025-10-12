@@ -21,11 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${inter.className} antialiased`} suppressHydrationWarning>
-          <div className="relative z-10">
+      <html lang="en" className="h-full">
+        <body className={`${inter.className} antialiased h-full flex flex-col`} suppressHydrationWarning>
+          <div className="relative z-10 flex-1 flex flex-col">
             <Navbar />
-            <main id="main-content" className="min-h-screen bg-background/80 backdrop-blur-sm pb-20 md:pb-8">
+            <main id="main-content" className="flex-1 bg-background/80 backdrop-blur-sm pb-4 md:pb-2">
               <div className="mx-auto max-w-6xl px-12 sm:px-16 lg:px-24 xl:px-32">
                 {children}
               </div>

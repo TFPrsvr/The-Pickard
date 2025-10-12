@@ -68,6 +68,9 @@
   * {
     @apply border-border;
   }
+  html {
+    background-color: rgb(31, 41, 55); /* Match footer dark grey */
+  }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
