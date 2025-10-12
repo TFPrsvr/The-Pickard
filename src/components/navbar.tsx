@@ -3,7 +3,7 @@
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Car, Database, Settings, BookOpen, FileText, Zap, Menu, X, Home, Heart, ChevronDown, ChevronRight } from 'lucide-react'
+import { Car, Database, BookOpen, FileText, Zap, Menu, X, Home, Heart, ChevronDown, ChevronRight, Search, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -28,7 +28,7 @@ export function Navbar() {
           <div className="flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary transition-colors"
+              className="p-1.5 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none transition-colors"
               aria-label="Open navigation menu"
               aria-expanded={mounted ? isMobileMenuOpen : false}
               aria-controls="mobile-navigation-menu"
@@ -83,7 +83,7 @@ export function Navbar() {
         <>
           <div
             id="mobile-navigation-menu"
-            className={`fixed top-0 left-0 h-full w-40 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] flex flex-col ${
+            className={`fixed top-0 left-0 h-full w-36 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] flex flex-col ${
               isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
             role="dialog"
@@ -91,10 +91,10 @@ export function Navbar() {
           >
         <div className="p-1.5">
           <div className="flex items-center justify-between">
-            <h2 className="text-xs font-semibold text-gray-900 ml-6">Menu</h2>
+            <h2 className="text-xs font-semibold text-gray-900 ml-8">Menu</h2>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-0.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center"
               aria-label="Close navigation menu"
             >
               <X className="h-3 w-3" aria-hidden="true" />
@@ -109,11 +109,11 @@ export function Navbar() {
 
           {/* Vehicle Types Expandable Section */}
           <div className="space-y-1">
-            <div className="flex items-center rounded-md">
+            <div className="flex items-stretch rounded-md hover:bg-gray-100 transition-colors">
               <Link
                 href="/search-by-category"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex-1 flex items-center space-x-2 px-2 py-2 text-[10px] font-medium text-gray-900 transition-colors hover:bg-gray-100 hover:text-blue-600 rounded-md"
+                className="flex-1 flex items-center space-x-2 px-2 py-2 text-[10px] font-medium text-gray-900 hover:text-blue-600"
               >
                 <div className="text-blue-600">
                   <Car className="h-3 w-3" aria-hidden="true" />
@@ -122,7 +122,7 @@ export function Navbar() {
               </Link>
               <button
                 onClick={() => setVehicleTypesExpanded(!vehicleTypesExpanded)}
-                className="px-2 py-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md"
+                className="px-2 py-2 text-gray-400 hover:text-gray-600 flex items-center"
                 aria-expanded={vehicleTypesExpanded}
                 aria-controls="vehicle-types-submenu"
                 aria-label="Toggle vehicle categories"
@@ -168,13 +168,13 @@ export function Navbar() {
             )}
           </div>
 
-          <MobileNavLink href="/search" icon={<Car className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/search" icon={<Search className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
             Problem Finder
           </MobileNavLink>
           <MobileNavLink href="/parts" icon={<Database className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
             Parts Database
           </MobileNavLink>
-          <MobileNavLink href="/problems" icon={<Settings className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/problems" icon={<Wrench className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
             Problems & Solutions
           </MobileNavLink>
           <MobileNavLink href="/tips" icon={<BookOpen className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
