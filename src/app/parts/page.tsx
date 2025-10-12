@@ -189,12 +189,12 @@ export default function PartsPage() {
         <CardContent className="space-y-4">
           {/* Vehicle Category Selection */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Vehicle Category</label>
+            <label htmlFor="vehicle-category" className="text-sm font-medium text-gray-700">Vehicle Category</label>
             <Select
               value={vehicleSelection.category || ''}
               onValueChange={(value) => setVehicleSelection({ category: value as VehicleCategory })}
             >
-              <SelectTrigger>
+              <SelectTrigger id="vehicle-category" aria-label="Select vehicle category">
                 <SelectValue placeholder="Select vehicle category" />
               </SelectTrigger>
               <SelectContent>
@@ -215,12 +215,12 @@ export default function PartsPage() {
           {vehicleSelection.category && (
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Year</label>
+                <label htmlFor="parts-year" className="text-sm font-medium text-gray-700">Year</label>
                 <Select
                   value={vehicleSelection.year || ''}
                   onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, year: value, model: '', engine: '' })}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="parts-year" aria-label="Select vehicle year">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
@@ -232,12 +232,12 @@ export default function PartsPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Make</label>
+                <label htmlFor="parts-make" className="text-sm font-medium text-gray-700">Make</label>
                 <Select
                   value={vehicleSelection.make || ''}
                   onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, make: value, model: '', engine: '' })}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="parts-make" aria-label="Select vehicle make">
                     <SelectValue placeholder="Select make" />
                   </SelectTrigger>
                   <SelectContent>
@@ -257,13 +257,13 @@ export default function PartsPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Model</label>
+                <label htmlFor="parts-model" className="text-sm font-medium text-gray-700">Model</label>
                 <Select
                   value={vehicleSelection.model || ''}
                   onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, model: value, engine: '' })}
                   disabled={!vehicleSelection.make}
                 >
-                  <SelectTrigger className="disabled:bg-gray-100 disabled:text-gray-400">
+                  <SelectTrigger id="parts-model" className="disabled:bg-gray-100 disabled:text-gray-400" aria-label="Select vehicle model" aria-disabled={!vehicleSelection.make}>
                     <SelectValue placeholder={vehicleSelection.make ? "Select model" : "Select make first"} />
                   </SelectTrigger>
                   <SelectContent>
@@ -287,13 +287,13 @@ export default function PartsPage() {
               {['car', 'truck', '18-wheeler', 'rv'].includes(vehicleSelection.category) && (
                 <>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Engine</label>
+                    <label htmlFor="parts-engine" className="text-sm font-medium text-gray-700">Engine</label>
                     <Select
                       value={vehicleSelection.engine || ''}
                       onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, engine: value })}
                       disabled={!vehicleSelection.make}
                     >
-                      <SelectTrigger className="disabled:bg-gray-100 disabled:text-gray-400">
+                      <SelectTrigger id="parts-engine" className="disabled:bg-gray-100 disabled:text-gray-400" aria-label="Select engine type" aria-disabled={!vehicleSelection.make}>
                         <SelectValue placeholder={vehicleSelection.make ? "Select engine" : "Select make first"} />
                       </SelectTrigger>
                       <SelectContent>
@@ -308,12 +308,12 @@ export default function PartsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Drive Type</label>
+                    <label htmlFor="parts-drive-type-auto" className="text-sm font-medium text-gray-700">Drive Type</label>
                     <Select
                       value={vehicleSelection.driveType || ''}
                       onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, driveType: value })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="parts-drive-type-auto" aria-label="Select drive type">
                         <SelectValue placeholder="Drive type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -335,12 +335,12 @@ export default function PartsPage() {
               {['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(vehicleSelection.category) && (
                 <>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Displacement (CC)</label>
+                    <label htmlFor="parts-displacement" className="text-sm font-medium text-gray-700">Displacement (CC)</label>
                     <Select
                       value={vehicleSelection.displacement || ''}
                       onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, displacement: value })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="parts-displacement" aria-label="Select engine displacement in cubic centimeters">
                         <SelectValue placeholder="Select CC" />
                       </SelectTrigger>
                       <SelectContent>
@@ -352,12 +352,12 @@ export default function PartsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Stroke Type</label>
+                    <label htmlFor="parts-stroke-type" className="text-sm font-medium text-gray-700">Stroke Type</label>
                     <Select
                       value={vehicleSelection.strokeType || ''}
                       onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, strokeType: value })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="parts-stroke-type" aria-label="Select engine stroke type">
                         <SelectValue placeholder="Stroke type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -369,12 +369,12 @@ export default function PartsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Cooling Type</label>
+                    <label htmlFor="parts-cooling-type" className="text-sm font-medium text-gray-700">Cooling Type</label>
                     <Select
                       value={vehicleSelection.coolingType || ''}
                       onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, coolingType: value })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="parts-cooling-type" aria-label="Select engine cooling type">
                         <SelectValue placeholder="Cooling type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -386,12 +386,12 @@ export default function PartsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Drive Type</label>
+                    <label htmlFor="parts-drive-type-power" className="text-sm font-medium text-gray-700">Drive Type</label>
                     <Select
                       value={vehicleSelection.driveType || ''}
                       onValueChange={(value) => setVehicleSelection({ ...vehicleSelection, driveType: value })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="parts-drive-type-power" aria-label="Select drive type">
                         <SelectValue placeholder="Drive type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -435,17 +435,20 @@ export default function PartsPage() {
           {/* Parts Search */}
           <div className="flex gap-4">
             <Input
+              id="parts-search-input"
               placeholder="Enter OEM part number or part description..."
               value={quickSearchQuery}
               onChange={(e) => setQuickSearchQuery(e.target.value)}
               className="flex-1"
+              aria-label="Enter OEM part number or part description"
             />
-            <Button onClick={handleQuickSearch} disabled={!quickSearchQuery.trim()}>
-              <Search className="h-4 w-4 mr-2" />
+            <Button onClick={handleQuickSearch} disabled={!quickSearchQuery.trim()} aria-label="Search for parts">
+              <Search className="h-4 w-4 mr-2" aria-hidden="true" />
               Search Parts
             </Button>
             <Button
               variant="outline"
+              aria-label="Clear all search filters and vehicle selection"
               onClick={() => {
                 setQuickSearchQuery('')
                 setQuickSearchResults([])
@@ -656,8 +659,8 @@ export default function PartsPage() {
 
       {/* Download Catalog Button */}
       <div className="text-center py-6">
-        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-md">
-          <Download className="h-5 w-5 mr-2" />
+        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-md" aria-label="Download complete parts catalog reference guide">
+          <Download className="h-5 w-5 mr-2" aria-hidden="true" />
           DOWNLOAD PARTS CATALOG
         </Button>
         <p className="text-sm text-muted-foreground mt-2">
