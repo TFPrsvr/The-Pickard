@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { db } from '@/lib/database'
 import { vehicleModels, vehicleMakes, vehicleYearMakeModels } from '@/lib/schema'
 import { eq, and } from 'drizzle-orm'
 

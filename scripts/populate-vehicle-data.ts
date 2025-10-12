@@ -10,7 +10,7 @@
  *   npm run populate-vehicles -- --year-start=2020 --year-end=2025 --makes=Ford,Chevrolet
  */
 
-import { db } from '../src/lib/db'
+import { db } from '../src/lib/database'
 import {
   vehicleMakes,
   vehicleModels,
