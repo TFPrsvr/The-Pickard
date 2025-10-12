@@ -25,8 +25,8 @@ export default function RootLayout({
         <body className={`${inter.className} antialiased`} suppressHydrationWarning>
           <div className="relative z-10">
             <Navbar />
-            <main id="main-content" className="min-h-screen bg-background/80 backdrop-blur-sm px-4 sm:px-6 lg:px-8 pb-20 md:pb-8">
-              <div className="mx-auto max-w-7xl">
+            <main id="main-content" className="min-h-screen bg-background/80 backdrop-blur-sm pb-20 md:pb-8">
+              <div className="mx-auto max-w-6xl px-12 sm:px-16 lg:px-24 xl:px-32">
                 {children}
               </div>
             </main>

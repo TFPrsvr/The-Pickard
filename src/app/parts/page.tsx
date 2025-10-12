@@ -155,7 +155,7 @@ export default function PartsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-6">
+    <div className="py-8 space-y-6">
       {/* Banner Section */}
       <div className="relative overflow-hidden rounded-lg mb-8 h-48">
         <Image

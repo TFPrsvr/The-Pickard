@@ -5,20 +5,21 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import PinterestReferenceSection from '@/components/pinterest-reference-section'
+import MechanicsVideoPlayer from '@/components/mechanics-video-player'
 
 export default function HomePage() {
   return (
     <main className="py-4">
-      {/* Hero Section */}
-      <section className="text-center py-12 mb-4">
+      {/* Hero Section - Centered */}
+      <section className="text-center py-6 mb-8">
         <div className="flex flex-col items-center mb-6">
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center -mx-8 sm:-mx-12 lg:-mx-16">
             <Image
               src="/images/the-pickard-logo.png"
               alt="The Pickard"
               width={1200}
               height={300}
-              className="w-full h-32 object-contain mb-2 opacity-100 contrast-200 brightness-110 saturate-150 drop-shadow-lg"
+              className="w-full max-w-4xl h-32 object-contain mb-3 opacity-100 contrast-200 brightness-110 saturate-150 drop-shadow-lg"
               priority
             />
           </div>
@@ -27,21 +28,38 @@ export default function HomePage() {
           </h1>
         </div>
         <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-          Your comprehensive automotive and powersports database for mechanics. Search through problems, solutions,
-          interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
+          Your comprehensive automotive and powersports database for mechanics.
         </p>
+      </section>
 
-        {/* Quick Category Access */}
-        <div className="mt-6">
-          <Link href="/search-by-category">
-            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
-              Select Your Vehicle Type
-            </Button>
-          </Link>
+      {/* Split Content - Text Left, Video Right */}
+      <section className="mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left: Text Content */}
+          <div className="space-y-6">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
+              Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
+            </p>
+
+            {/* Quick Category Access */}
+            <div>
+              <Link href="/search-by-category">
+                <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
+                  Select Your Vehicle Type
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: Video Player */}
+          <div className="w-full">
+            <MechanicsVideoPlayer />
+          </div>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <FeatureCard
           icon={<Gauge className="h-10 w-10" />}
           title="Problem Finder"
