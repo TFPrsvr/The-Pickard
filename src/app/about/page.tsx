@@ -10,8 +10,8 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16 -mx-6 sm:-mx-8 lg:-mx-12 xl:-mx-16 px-6 sm:px-8 lg:px-12 xl:px-16">
+        <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-5xl font-bold mb-6">About The Pickard</h1>
           <p className="text-xl max-w-3xl mx-auto leading-relaxed">
             Your trusted automotive database and diagnostic center, serving mechanics and vehicle owners 
@@ -20,7 +20,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-12 space-y-16">
+      <div className="max-w-6xl mx-auto py-12 space-y-16">
         {/* Mission Statement */}
         <section className="text-center">
           <Card className="max-w-4xl mx-auto shadow-lg border-0 rounded-md">

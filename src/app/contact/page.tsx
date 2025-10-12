@@ -6,8 +6,8 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8">
-      <div className="container mx-auto px-4 space-y-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8 -mx-6 sm:-mx-8 lg:-mx-12 xl:-mx-16 px-6 sm:px-8 lg:px-12 xl:px-16">
+      <div className="max-w-6xl mx-auto space-y-12">
         {/* Header */}
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
