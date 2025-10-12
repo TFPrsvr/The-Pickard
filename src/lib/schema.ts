@@ -155,6 +155,76 @@ export const webSearchResults = pgTable('web_search_results', {
   updatedAt: timestamp('updated_at').defaultNow(),
 })
 
+// ========================================
+// VEHICLE SPECIFICATIONS TABLES
+// These tables store accurate year/make/model/engine combinations
+// for cascading dropdown functionality
+// ========================================
+
+// Vehicle Makes - Master list of all manufacturers
+export const vehicleMakes = pgTable('vehicle_makes', {
+  id: serial('id').primaryKey(),
+  makeId: integer('make_id').unique(), // NHTSA vPIC Make ID
+  makeName: varchar('make_name', { length: 100 }).notNull().unique(),
+  category: varchar('category', { length: 20 }).notNull(), // 'automotive', 'powersports'
+  yearStart: integer('year_start'), // First year this make was available
+  yearEnd: integer('year_end'), // Last year (null if still in production)
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+})
+
+// Vehicle Models - All models for each make
+export const vehicleModels = pgTable('vehicle_models', {
+  id: serial('id').primaryKey(),
+  makeId: integer('make_id').references(() => vehicleMakes.id).notNull(),
+  modelId: integer('model_id'), // NHTSA vPIC Model ID
+  modelName: varchar('model_name', { length: 150 }).notNull(),
+  category: varchar('category', { length: 20 }).notNull(), // 'car', 'truck', '18-wheeler', etc.
+  yearStart: integer('year_start'), // First year this model was available
+  yearEnd: integer('year_end'), // Last year (null if still in production)
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+})
+
+// Vehicle Year Make Model combinations - Valid year/make/model combinations
+export const vehicleYearMakeModels = pgTable('vehicle_year_make_models', {
+  id: serial('id').primaryKey(),
+  year: integer('year').notNull(),
+  makeId: integer('make_id').references(() => vehicleMakes.id).notNull(),
+  modelId: integer('model_id').references(() => vehicleModels.id).notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+})
+
+// Vehicle Engines - Engine specifications for year/make/model combinations
+export const vehicleEngines = pgTable('vehicle_engines', {
+  id: serial('id').primaryKey(),
+  yearMakeModelId: integer('year_make_model_id').references(() => vehicleYearMakeModels.id).notNull(),
+  engineName: varchar('engine_name', { length: 150 }).notNull(), // e.g., "5.0L V8", "2.3L I4 EcoBoost"
+  displacement: varchar('displacement', { length: 50 }), // e.g., "5.0L", "2300cc"
+  cylinders: integer('cylinders'),
+  configuration: varchar('configuration', { length: 20 }), // V6, V8, I4, etc.
+  fuelType: varchar('fuel_type', { length: 50 }), // Gasoline, Diesel, Electric, Hybrid
+  horsepower: integer('horsepower'),
+  torque: integer('torque'),
+  createdAt: timestamp('created_at').defaultNow(),
+})
+
+// Vehicle Drive Types - Drive type options for year/make/model/engine combinations
+export const vehicleDriveTypes = pgTable('vehicle_drive_types', {
+  id: serial('id').primaryKey(),
+  engineId: integer('engine_id').references(() => vehicleEngines.id).notNull(),
+  driveType: varchar('drive_type', { length: 20 }).notNull(), // FWD, RWD, AWD, 4WD
+  createdAt: timestamp('created_at').defaultNow(),
+})
+
+// Vehicle Trim Levels / Submodels
+export const vehicleTrims = pgTable('vehicle_trims', {
+  id: serial('id').primaryKey(),
+  yearMakeModelId: integer('year_make_model_id').references(() => vehicleYearMakeModels.id).notNull(),
+  trimName: varchar('trim_name', { length: 100 }).notNull(), // e.g., "Limited", "Sport", "XLT"
+  createdAt: timestamp('created_at').defaultNow(),
+})
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   tips: many(tips),
@@ -217,5 +287,54 @@ export const webSearchResultsRelations = relations(webSearchResults, ({ one }) =
   user: one(users, {
     fields: [webSearchResults.userId],
     references: [users.id],
+  }),
+}))
+
+// Vehicle Specifications Relations
+export const vehicleMakesRelations = relations(vehicleMakes, ({ many }) => ({
+  models: many(vehicleModels),
+  yearMakeModels: many(vehicleYearMakeModels),
+}))
+
+export const vehicleModelsRelations = relations(vehicleModels, ({ one, many }) => ({
+  make: one(vehicleMakes, {
+    fields: [vehicleModels.makeId],
+    references: [vehicleMakes.id],
+  }),
+  yearMakeModels: many(vehicleYearMakeModels),
+}))
+
+export const vehicleYearMakeModelsRelations = relations(vehicleYearMakeModels, ({ one, many }) => ({
+  make: one(vehicleMakes, {
+    fields: [vehicleYearMakeModels.makeId],
+    references: [vehicleMakes.id],
+  }),
+  model: one(vehicleModels, {
+    fields: [vehicleYearMakeModels.modelId],
+    references: [vehicleModels.id],
+  }),
+  engines: many(vehicleEngines),
+  trims: many(vehicleTrims),
+}))
+
+export const vehicleEnginesRelations = relations(vehicleEngines, ({ one, many }) => ({
+  yearMakeModel: one(vehicleYearMakeModels, {
+    fields: [vehicleEngines.yearMakeModelId],
+    references: [vehicleYearMakeModels.id],
+  }),
+  driveTypes: many(vehicleDriveTypes),
+}))
+
+export const vehicleDriveTypesRelations = relations(vehicleDriveTypes, ({ one }) => ({
+  engine: one(vehicleEngines, {
+    fields: [vehicleDriveTypes.engineId],
+    references: [vehicleEngines.id],
+  }),
+}))
+
+export const vehicleTrimsRelations = relations(vehicleTrims, ({ one }) => ({
+  yearMakeModel: one(vehicleYearMakeModels, {
+    fields: [vehicleTrims.yearMakeModelId],
+    references: [vehicleYearMakeModels.id],
   }),
 }))
