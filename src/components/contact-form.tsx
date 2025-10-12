@@ -82,8 +82,8 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
       </CardHeader>
       <CardContent className="p-6">
         {submitStatus === 'success' && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md flex items-center space-x-3">
-            <CheckCircle className="h-5 w-5 text-green-600" />
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md flex items-center space-x-3" role="alert" aria-live="polite">
+            <CheckCircle className="h-5 w-5 text-green-600" aria-hidden="true" />
             <div>
               <p className="text-green-800 font-medium">Message sent successfully!</p>
               <p className="text-green-600 text-sm">We&apos;ll get back to you within 24 hours.</p>
@@ -92,8 +92,8 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
         )}
 
         {submitStatus === 'error' && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md flex items-center space-x-3">
-            <AlertCircle className="h-5 w-5 text-red-600" />
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md flex items-center space-x-3" role="alert" aria-live="assertive">
+            <AlertCircle className="h-5 w-5 text-red-600" aria-hidden="true" />
             <div>
               <p className="text-red-800 font-medium">Failed to send message</p>
               <p className="text-red-600 text-sm">Please try again or contact us directly.</p>
@@ -114,6 +114,7 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 required
+                aria-required="true"
                 className="border-gray-300 focus:border-blue-500"
               />
             </div>
@@ -129,6 +130,7 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 required
+                aria-required="true"
                 className="border-gray-300 focus:border-blue-500"
               />
             </div>
@@ -153,8 +155,8 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
               <label htmlFor="subject" className="text-sm font-medium text-gray-700">
                 Subject *
               </label>
-              <Select value={formData.subject} onValueChange={(value) => handleInputChange('subject', value)}>
-                <SelectTrigger className="border-gray-300 focus:border-blue-500">
+              <Select value={formData.subject} onValueChange={(value) => handleInputChange('subject', value)} required>
+                <SelectTrigger className="border-gray-300 focus:border-blue-500" aria-required="true">
                   <SelectValue placeholder="Select a subject" />
                 </SelectTrigger>
                 <SelectContent>
@@ -180,6 +182,7 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
               required
+              aria-required="true"
               rows={5}
               className="border-gray-300 focus:border-blue-500 resize-none"
             />

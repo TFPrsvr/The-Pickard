@@ -105,18 +105,20 @@ export default function ContactPage() {
             Our certified technicians are standing by to help you get back on the road safely.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="tel:5551234567" 
+            <a
+              href="tel:5551234567"
               className="inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+              aria-label="Call emergency hotline at 555-123-4567"
             >
-              <Phone className="h-5 w-5 mr-2" />
+              <Phone className="h-5 w-5 mr-2" aria-hidden="true" />
               Emergency Hotline
             </a>
-            <a 
-              href="mailto:support@thepickard.com" 
+            <a
+              href="mailto:support@thepickard.com"
               className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              aria-label="Send email to support at thepickard.com"
             >
-              <Mail className="h-5 w-5 mr-2" />
+              <Mail className="h-5 w-5 mr-2" aria-hidden="true" />
               Email Support
             </a>
           </div>

@@ -34,7 +34,7 @@ export default function HomePage() {
         {/* Quick Category Access */}
         <div className="mt-6">
           <Link href="/search-by-category">
-            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700">
+            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
               Select Your Vehicle Type
             </Button>
           </Link>
@@ -96,10 +96,10 @@ export default function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <Link href="/sign-up" className="automotive-button bg-primary hover:bg-primary/90 border-0 px-8 py-4 rounded-md font-semibold transition-colors">
+              <Link href="/sign-up" className="automotive-button bg-primary hover:bg-primary/90 border-0 px-8 py-4 rounded-md font-semibold transition-colors" aria-label="Register for a new account to access all features">
                 Register Now
               </Link>
-              <Link href="/search" className="px-8 py-4 rounded-md border-2 border-white/30 text-white hover:bg-white/10 transition-colors font-semibold">
+              <Link href="/search" className="px-8 py-4 rounded-md border-2 border-white/30 text-white hover:bg-white/10 transition-colors font-semibold" aria-label="Explore the automotive database without registration">
                 Explore Database
               </Link>
             </div>
@@ -148,13 +148,13 @@ function FeatureCard({ icon, title, description, href, gradient, borderColor }: 
   }
 
   return (
-    <Link href={href}>
+    <Link href={href} aria-label={`${title}: ${description}`}>
       <div className={`service-card group cursor-pointer relative overflow-hidden border-2 border-transparent ${getBorderColorClass()} ${getBackgroundGradient()} transition-all duration-300 h-full rounded-lg`}>
         <div className="relative z-10 h-full flex flex-col p-6">
-          <div className={`text-white mb-4 p-4 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`}>{icon}</div>
+          <div className={`text-white mb-4 p-4 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`} aria-hidden="true">{icon}</div>
           <h3 className="font-bold mb-3 text-xl text-secondary">{title}</h3>
           <p className="text-sm text-muted-foreground leading-snug flex-1">{description}</p>
-          <div className="mt-2 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="mt-2 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
             Learn more <span className="ml-1">→</span>
           </div>
         </div>

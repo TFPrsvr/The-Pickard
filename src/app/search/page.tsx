@@ -188,8 +188,8 @@ function SearchPageContent() {
               For the best search experience, select your vehicle category to see relevant options
             </p>
             <Link href="/search-by-category">
-              <Button size="lg" className="text-lg px-8 py-6">
-                <Car className="h-5 w-5 mr-2" />
+              <Button size="lg" className="text-lg px-8 py-6" aria-label="Go to category selection page to select your vehicle type">
+                <Car className="h-5 w-5 mr-2" aria-hidden="true" />
                 Select Vehicle Type
               </Button>
             </Link>
@@ -226,18 +226,21 @@ function SearchPageContent() {
                 </div>
                 <div className="flex gap-3">
                   <Input
+                    id="problem-search-input"
                     placeholder="Type here: brake noise, engine trouble, need oil filter..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="flex-1 border-green-300 focus:border-green-500"
                     onKeyDown={(e) => e.key === 'Enter' && searchQuery.trim() && handleSearch()}
+                    aria-label="Describe your vehicle problem or part needed"
                   />
                   <Button
                     onClick={handleSearch}
                     disabled={isLoading || !searchQuery.trim()}
                     className="bg-green-600 hover:bg-green-700 px-6"
+                    aria-label="Search for vehicle problem solutions"
                   >
-                    <Search className="h-5 w-5 mr-2" />
+                    <Search className="h-5 w-5 mr-2" aria-hidden="true" />
                     {isLoading ? 'Finding...' : 'Go!'}
                   </Button>
                 </div>
@@ -273,45 +276,59 @@ function SearchPageContent() {
       {/* Search Results */}
       {(searchResults.length > 0 || problemResults.length > 0) && (
         <div className="space-y-6">
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap" role="tablist" aria-label="Search result categories">
             <Button
               variant={searchType === 'vehicles' ? 'default' : 'outline'}
               onClick={() => setSearchType('vehicles')}
+              role="tab"
+              aria-selected={searchType === 'vehicles'}
+              aria-controls="search-results-panel"
+              aria-label={`View vehicle results, ${searchResults.length} found`}
             >
-              <Car className="h-4 w-4 mr-2" />
+              <Car className="h-4 w-4 mr-2" aria-hidden="true" />
               Vehicles ({searchResults.length})
             </Button>
             <Button
               variant={searchType === 'problems' ? 'default' : 'outline'}
               onClick={() => setSearchType('problems')}
+              role="tab"
+              aria-selected={searchType === 'problems'}
+              aria-controls="search-results-panel"
+              aria-label={`View problem results, ${problemResults.length} found`}
             >
-              <Wrench className="h-4 w-4 mr-2" />
+              <Wrench className="h-4 w-4 mr-2" aria-hidden="true" />
               Problems ({problemResults.length})
             </Button>
             <Button
               variant={searchType === 'web' ? 'default' : 'outline'}
               onClick={() => setSearchType('web')}
+              role="tab"
+              aria-selected={searchType === 'web'}
+              aria-controls="search-results-panel"
+              aria-label="View web search results"
             >
-              <Globe className="h-4 w-4 mr-2" />
+              <Globe className="h-4 w-4 mr-2" aria-hidden="true" />
               Web Search
             </Button>
           </div>
 
-          {searchType === 'vehicles' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {searchResults.map((vehicle) => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} />
-              ))}
-            </div>
-          )}
+          <div id="search-results-panel" role="tabpanel" aria-label="Search results">
+            {searchType === 'vehicles' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {searchResults.map((vehicle) => (
+                  <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                ))}
+              </div>
+            )}
 
-          {searchType === 'problems' && (
-            <div className="space-y-4">
-              {problemResults.map((problem) => (
-                <ProblemCard key={problem.id} problem={problem} />
-              ))}
-            </div>
-          )}
+            {searchType === 'problems' && (
+              <div className="space-y-4">
+                {problemResults.map((problem) => (
+                  <ProblemCard key={problem.id} problem={problem} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -329,7 +346,7 @@ function SearchPageContent() {
             <p className="text-muted-foreground mb-4">
               Try adjusting your search criteria or filters
             </p>
-            <Button onClick={handleReset} variant="outline">
+            <Button onClick={handleReset} variant="outline" aria-label="Clear all search filters">
               Clear all filters
             </Button>
           </CardContent>
@@ -376,8 +393,8 @@ function VehicleCard({ vehicle }: VehicleCardProps) {
         </div>
         <div className="pt-2">
           <Link href={`/problems?vehicle=${vehicle.id}`}>
-            <Button variant="outline" size="sm" className="w-full">
-              <ExternalLink className="h-4 w-4 mr-2" />
+            <Button variant="outline" size="sm" className="w-full" aria-label={`View problems for ${vehicle.year} ${vehicle.make} ${vehicle.model}`}>
+              <ExternalLink className="h-4 w-4 mr-2" aria-hidden="true" />
               View Problems
             </Button>
           </Link>
@@ -431,8 +448,8 @@ function ProblemCard({ problem }: ProblemCardProps) {
               Est. time: {problem.estimatedTime}
             </span>
             <Link href={`/problems/${problem.id}`}>
-              <Button size="sm">
-                <ExternalLink className="h-4 w-4 mr-2" />
+              <Button size="sm" aria-label={`View solutions for ${problem.title}`}>
+                <ExternalLink className="h-4 w-4 mr-2" aria-hidden="true" />
                 View Solutions
               </Button>
             </Link>
