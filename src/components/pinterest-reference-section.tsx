@@ -7,87 +7,88 @@ import Link from 'next/link'
 
 export function PinterestReferenceSection() {
   return (
-    <section className="py-3 mb-0 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-4">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-              <Heart className="h-6 w-6 text-white fill-current" />
+    <section className="py-2 mb-1 bg-gradient-to-r from-purple-50 to-pink-50 rounded-md">
+      <div className="mx-auto px-3">
+        <div className="text-center mb-2">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center">
+              <Heart className="h-3 w-3 text-white fill-current" />
             </div>
-            <h2 className="text-4xl font-bold text-gray-800">Pinterest Reference Library</h2>
+            <h2 className="text-sm font-bold text-gray-800">Pinterest Reference Library</h2>
           </div>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Access curated automotive resources and repair guides from our Pinterest collection. 
+          <p className="text-xs text-gray-600 max-w-xl mx-auto leading-relaxed">
+            Access curated automotive resources and repair guides from our Pinterest collection.
             Real-world solutions from automotive professionals and experts.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardHeader className="text-center p-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Bookmark className="h-8 w-8 text-blue-600" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3 max-w-3xl mx-auto">
+          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-blue-600 to-blue-700">
+            <CardHeader className="text-center p-2">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-1.5">
+                <Bookmark className="h-4 w-4 text-white" />
               </div>
-              <CardTitle className="text-xl text-blue-600">Diagnostic Guides</CardTitle>
+              <CardTitle className="text-xs text-white">Diagnostic Guides</CardTitle>
             </CardHeader>
-            <CardContent className="p-6 pt-0 text-center">
-              <p className="text-gray-600 mb-4">
+            <CardContent className="p-2 pt-0 text-center">
+              <p className="text-[10px] text-white/90 mb-2 leading-relaxed">
                 Step-by-step diagnostic flowcharts, troubleshooting guides, and repair procedures pinned from trusted sources.
               </p>
-              <p className="text-sm text-purple-600 font-medium">50+ Diagnostic Pins</p>
+              <p className="text-[10px] text-white font-medium">50+ Diagnostic Pins</p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardHeader className="text-center p-6">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Eye className="h-8 w-8 text-green-600" />
+          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-green-600 to-emerald-700">
+            <CardHeader className="text-center p-2">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-1.5">
+                <Eye className="h-4 w-4 text-white" />
               </div>
-              <CardTitle className="text-xl text-green-600">Visual References</CardTitle>
+              <CardTitle className="text-xs text-white">Visual References</CardTitle>
             </CardHeader>
-            <CardContent className="p-6 pt-0 text-center">
-              <p className="text-gray-600 mb-4">
+            <CardContent className="p-2 pt-0 text-center">
+              <p className="text-[10px] text-white/90 mb-2 leading-relaxed">
                 Component diagrams, wiring schematics, and visual guides for complex automotive systems and repairs.
               </p>
-              <p className="text-sm text-purple-600 font-medium">75+ Visual Guides</p>
+              <p className="text-[10px] text-white font-medium">75+ Visual Guides</p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardHeader className="text-center p-6">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-orange-600 fill-current" />
+          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-orange-600 to-red-700">
+            <CardHeader className="text-center p-2">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-1.5">
+                <Heart className="h-4 w-4 text-white fill-current" />
               </div>
-              <CardTitle className="text-xl text-orange-600">Curated Tips</CardTitle>
+              <CardTitle className="text-xs text-white">Curated Tips</CardTitle>
             </CardHeader>
-            <CardContent className="p-6 pt-0 text-center">
-              <p className="text-gray-600 mb-4">
+            <CardContent className="p-2 pt-0 text-center">
+              <p className="text-[10px] text-white/90 mb-2 leading-relaxed">
                 Professional tips, tricks, and best practices from experienced mechanics and automotive experts.
               </p>
-              <p className="text-sm text-purple-600 font-medium">100+ Expert Tips</p>
+              <p className="text-[10px] text-white font-medium">100+ Expert Tips</p>
             </CardContent>
           </Card>
         </div>
 
-        <div className="text-center space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="text-center space-y-1">
+          <div className="flex flex-col sm:flex-row gap-1 justify-center">
             <Link href="/pinterest">
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3">
-                <Bookmark className="h-5 w-5 mr-2" />
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 text-[10px]" aria-label="Browse Pinterest automotive reference library">
+                <Bookmark className="h-2.5 w-2.5 mr-0.5" aria-hidden="true" />
                 Browse Pinterest Library
               </Button>
             </Link>
-            <Button 
-              variant="outline" 
-              className="border-purple-600 text-purple-600 hover:bg-purple-50 px-8 py-3"
+            <Button
+              variant="outline"
+              className="border-purple-600 text-purple-600 hover:bg-purple-50 px-2 py-1 text-[10px]"
               onClick={() => window.open('https://pinterest.com', '_blank')}
+              aria-label="Visit Pinterest website"
             >
-              <ExternalLink className="h-5 w-5 mr-2" />
+              <ExternalLink className="h-2.5 w-2.5 mr-0.5" aria-hidden="true" />
               Visit Pinterest
             </Button>
           </div>
-          
-          <p className="text-sm text-gray-500 italic">
+
+          <p className="text-[9px] text-gray-500 italic">
             Pinterest integration provides additional reference material to complement our database
           </p>
         </div>

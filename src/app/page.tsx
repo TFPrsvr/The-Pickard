@@ -1,49 +1,99 @@
 'use client'
 
+import { useState } from 'react'
 import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen, Phone, MapPin, Download, Users, Clock, Mail, Gauge, WrenchIcon, Cog, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import PinterestReferenceSection from '@/components/pinterest-reference-section'
+import MechanicsVideoPlayer from '@/components/mechanics-video-player'
+
+const TOTAL_VIDEOS = 8
 
 export default function HomePage() {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+
   return (
     <main className="py-4">
-      {/* Hero Section */}
-      <section className="text-center py-12 mb-4">
-        <div className="flex flex-col items-center mb-6">
-          <div className="w-full flex justify-center">
+      {/* Hero Section - Centered */}
+      <section className="text-center py-2 mb-3">
+        <div className="flex flex-col items-center mb-2">
+          <div className="w-full flex justify-center -mx-8 sm:-mx-12 lg:-mx-16">
             <Image
               src="/images/the-pickard-logo.png"
               alt="The Pickard"
-              width={1200}
-              height={300}
-              className="w-full h-32 object-contain mb-2 opacity-100 contrast-200 brightness-110 saturate-150 drop-shadow-lg"
+              width={1000}
+              height={250}
+              className="w-full max-w-5xl h-28 object-contain mb-2 opacity-100 contrast-200 brightness-110 saturate-150 drop-shadow-lg"
               priority
             />
           </div>
-          <h1 className="text-3xl font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
+          <h1 className="text-sm font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
             Automotive Mechanics Database
           </h1>
         </div>
-        <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-          Your comprehensive automotive and powersports database for mechanics. Search through problems, solutions,
-          interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
+        <p className="text-xs text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          Your comprehensive automotive and powersports database for mechanics.
         </p>
+      </section>
 
-        {/* Quick Category Access */}
-        <div className="mt-6">
-          <Link href="/search-by-category">
-            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
-              Select Your Vehicle Type
-            </Button>
-          </Link>
+      {/* Split Content - Text Left, Video Right */}
+      <section className="mb-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+          {/* Left: Text Content */}
+          <div className="space-y-2">
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
+              Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
+            </p>
+
+            {/* Quick Category Access */}
+            <div className="ml-8">
+              <Link href="/search-by-category">
+                <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
+                  Select Your Vehicle Type
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: Video Player */}
+          <div className="w-full space-y-2">
+            <MechanicsVideoPlayer videoIndex={currentVideoIndex} />
+
+            {/* Video Navigation */}
+            <div className="flex items-center justify-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentVideoIndex((prev) => (prev === 0 ? TOTAL_VIDEOS - 1 : prev - 1))}
+                className="text-[10px] px-2 py-0.5 h-5 flex items-center gap-1"
+                aria-label="Previous video"
+              >
+                <span>←</span>
+                <span>Prev</span>
+              </Button>
+              <span className="text-[10px] text-muted-foreground">
+                {currentVideoIndex + 1} / {TOTAL_VIDEOS}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentVideoIndex((prev) => (prev === TOTAL_VIDEOS - 1 ? 0 : prev + 1))}
+                className="text-[10px] px-2 py-0.5 h-5 flex items-center gap-1"
+                aria-label="Next video"
+              >
+                <span>Next</span>
+                <span>→</span>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
         <FeatureCard
-          icon={<Gauge className="h-10 w-10" />}
+          icon={<Gauge className="h-4 w-4" />}
           title="Problem Finder"
           description="Search our database to identify vehicle issues and find diagnostic information"
           href="/search"
@@ -51,7 +101,7 @@ export default function HomePage() {
           borderColor="border-blue-600"
         />
         <FeatureCard
-          icon={<Wrench className="h-10 w-10" />}
+          icon={<Wrench className="h-4 w-4" />}
           title="Problems & Solutions"
           description="Find common and uncommon problems with detailed solutions"
           href="/problems"
@@ -59,7 +109,7 @@ export default function HomePage() {
           borderColor="border-orange-600"
         />
         <FeatureCard
-          icon={<Cog className="h-10 w-10" />}
+          icon={<Cog className="h-4 w-4" />}
           title="Parts Database"
           description="Discover which vehicle parts are interchangeable"
           href="/parts"
@@ -67,7 +117,7 @@ export default function HomePage() {
           borderColor="border-green-600"
         />
         <FeatureCard
-          icon={<GraduationCap className="h-10 w-10" />}
+          icon={<GraduationCap className="h-4 w-4" />}
           title="Expert Tips"
           description="Access tips, tools recommendations, and how-to guides"
           href="/tips"
@@ -78,33 +128,33 @@ export default function HomePage() {
 
 
       {/* Call to Action with Phone Support */}
-      <section className="text-center mb-6">
-        <div className="automotive-card p-8 bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white relative overflow-hidden">
+      <section className="text-center mb-3">
+        <div className="automotive-card p-3 bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full -translate-x-16 -translate-y-16"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-primary/50 rounded-full translate-x-20 translate-y-20"></div>
-            <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-orange-400/20 rounded-full -translate-x-12 -translate-y-12"></div>
+            <div className="absolute top-0 left-0 w-20 h-20 bg-primary rounded-full -translate-x-10 -translate-y-10"></div>
+            <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/50 rounded-full translate-x-12 translate-y-12"></div>
+            <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-orange-400/20 rounded-full -translate-x-8 -translate-y-8"></div>
           </div>
-          
+
           <div className="relative z-10">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-base font-bold mb-2">
               Ready to Get Started?
             </h2>
-            <p className="text-white/80 mb-10 text-xl max-w-lg mx-auto leading-relaxed">
+            <p className="text-white/80 mb-3 text-xs max-w-sm mx-auto leading-relaxed">
               Join thousands of mechanics who trust The Pickard for automotive diagnostics and repairs
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <Link href="/sign-up" className="automotive-button bg-primary hover:bg-primary/90 border-0 px-8 py-4 rounded-md font-semibold transition-colors" aria-label="Register for a new account to access all features">
+
+            <div className="flex flex-col sm:flex-row gap-1.5 justify-center items-center mb-2">
+              <Link href="/sign-up" className="bg-primary hover:bg-primary/90 border-0 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors flex items-center justify-center" aria-label="Register for a new account to access all features">
                 Register Now
               </Link>
-              <Link href="/search" className="px-8 py-4 rounded-md border-2 border-white/30 text-white hover:bg-white/10 transition-colors font-semibold" aria-label="Explore the automotive database without registration">
+              <Link href="/search" className="px-3 py-1.5 rounded-md border-2 border-white/30 text-white hover:bg-white/10 transition-colors text-xs font-semibold flex items-center justify-center" aria-label="Explore the automotive database without registration">
                 Explore Database
               </Link>
             </div>
 
-            <p className="text-white/60 text-sm">
+            <p className="text-white/60 text-[10px]">
               Professional automotive diagnostics and repair database
             </p>
           </div>
@@ -150,11 +200,11 @@ function FeatureCard({ icon, title, description, href, gradient, borderColor }: 
   return (
     <Link href={href} aria-label={`${title}: ${description}`}>
       <div className={`service-card group cursor-pointer relative overflow-hidden border-2 border-transparent ${getBorderColorClass()} ${getBackgroundGradient()} transition-all duration-300 h-full rounded-lg`}>
-        <div className="relative z-10 h-full flex flex-col p-6">
-          <div className={`text-white mb-4 p-4 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`} aria-hidden="true">{icon}</div>
-          <h3 className="font-bold mb-3 text-xl text-secondary">{title}</h3>
-          <p className="text-sm text-muted-foreground leading-snug flex-1">{description}</p>
-          <div className="mt-2 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
+        <div className="relative z-10 h-full flex flex-col p-2">
+          <div className={`text-white mb-1.5 p-1.5 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`} aria-hidden="true">{icon}</div>
+          <h3 className="font-bold mb-1.5 text-xs text-secondary">{title}</h3>
+          <p className="text-[10px] text-muted-foreground leading-snug flex-1">{description}</p>
+          <div className="mt-1 flex items-center text-blue-600 text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
             Learn more <span className="ml-1">→</span>
           </div>
         </div>
