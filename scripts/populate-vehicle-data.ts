@@ -37,7 +37,7 @@ import * as nhtsaAPI from '../src/lib/nhtsa-vpic-api'
 import { eq, and } from 'drizzle-orm'
 
 // Configuration
-const DEFAULT_YEAR_START = 2015
+const DEFAULT_YEAR_START = 2010
 const DEFAULT_YEAR_END = new Date().getFullYear() + 1
 
 // Popular makes to prioritize (must match exact NHTSA names in database)
