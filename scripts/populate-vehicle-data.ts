@@ -10,6 +10,20 @@
  *   npm run populate-vehicles -- --year-start=2020 --year-end=2025 --makes=Ford,Chevrolet
  */
 
+// Load environment variables FIRST using require() to avoid import hoisting
+import { config } from 'dotenv'
+import { join } from 'path'
+import { existsSync } from 'fs'
+
+// Try to load .env.local before any other imports
+const envLocalPath = join(process.cwd(), '.env.local')
+if (existsSync(envLocalPath)) {
+  config({ path: envLocalPath })
+  console.log('✅ Loaded environment variables from .env.local')
+} else {
+  console.log('⚠️  .env.local not found, using system environment variables')
+}
+
 import { db } from '../src/lib/database'
 import {
   vehicleMakes,
@@ -26,10 +40,10 @@ import { eq, and } from 'drizzle-orm'
 const DEFAULT_YEAR_START = 2015
 const DEFAULT_YEAR_END = new Date().getFullYear() + 1
 
-// Popular makes to prioritize (you can expand this list)
+// Popular makes to prioritize (must match exact NHTSA names in database)
 const POPULAR_MAKES = [
-  'Ford', 'Chevrolet', 'Toyota', 'Honda', 'Nissan', 'Ram', 'GMC', 'Jeep',
-  'Hyundai', 'Kia', 'Subaru', 'BMW', 'Mercedes-Benz', 'Audi', 'Lexus'
+  'FORD', 'CHEVROLET', 'TOYOTA', 'HONDA', 'NISSAN', 'RAM', 'GMC', 'JEEP',
+  'HYUNDAI', 'KIA', 'SUBARU', 'BMW', 'MERCEDES-BENZ', 'AUDI', 'LEXUS'
 ]
 
 interface PopulationStats {

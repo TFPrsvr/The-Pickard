@@ -54,10 +54,33 @@ export function CategoryAwareVehicleSelector({
         setAvailableMakes(getPowersportsMakesByCategory(powersportsCategory, selectedYear))
       }
     } else if (isAutomotive) {
+      // Fetch real makes from database API
       if (selectedYear) {
-        setAvailableMakes(getMakesForYear(selectedYear))
+        fetch(`/api/vehicles/makes?year=${selectedYear}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.data) {
+              setAvailableMakes(data.data.map((make: any) => make.makeName))
+            }
+          })
+          .catch(err => {
+            console.error('Error fetching makes:', err)
+            // Fallback to local data
+            setAvailableMakes(getMakesForYear(selectedYear))
+          })
       } else {
-        setAvailableMakes(vehicleDatabase.makes)
+        // Fetch all makes without year filter
+        fetch('/api/vehicles/makes')
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.data) {
+              setAvailableMakes(data.data.map((make: any) => make.makeName))
+            }
+          })
+          .catch(err => {
+            console.error('Error fetching makes:', err)
+            setAvailableMakes(vehicleDatabase.makes)
+          })
       }
     }
   }, [category, isPowersports, isAutomotive, filters.year])
@@ -71,14 +94,26 @@ export function CategoryAwareVehicleSelector({
       if (isPowersports) {
         const models = getPowersportsModelsForMakeAndYear(selectedMake, selectedYear)
         setAvailableModels(models)
-      } else {
-        const models = getModelsForMakeAndYear(selectedMake, selectedYear)
-        setAvailableModels(models)
+      } else if (isAutomotive) {
+        // Fetch real models from database API
+        const yearParam = selectedYear ? `&year=${selectedYear}` : ''
+        fetch(`/api/vehicles/models?make=${encodeURIComponent(selectedMake)}${yearParam}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.data) {
+              setAvailableModels(data.data.map((model: any) => model.modelName))
+            }
+          })
+          .catch(err => {
+            console.error('Error fetching models:', err)
+            // Fallback to local data
+            setAvailableModels(getModelsForMakeAndYear(selectedMake, selectedYear))
+          })
       }
     } else {
       setAvailableModels([])
     }
-  }, [filters.make, filters.year, isPowersports])
+  }, [filters.make, filters.year, isPowersports, isAutomotive])
 
   // Load saved vehicle selection on mount
   useEffect(() => {
