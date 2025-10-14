@@ -32,10 +32,14 @@ export function CategoryAwareVehicleSelector({
   const [availableMakes, setAvailableMakes] = useState<string[]>([])
   const [availableModels, setAvailableModels] = useState<string[]>([])
   const [hasLoadedSavedData, setHasLoadedSavedData] = useState(false)
+  const [isLoadingMakes, setIsLoadingMakes] = useState(false)
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const isPowersports = ['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(category)
   const isAutomotive = ['car', 'truck', '18-wheeler', 'rv'].includes(category)
+
+  // Map specific category to API category
+  const apiCategory = isPowersports ? 'powersports' : isAutomotive ? 'automotive' : undefined
 
   // Update available makes based on category and year (cascading filter)
   useEffect(() => {
@@ -54,9 +58,12 @@ export function CategoryAwareVehicleSelector({
         setAvailableMakes(getPowersportsMakesByCategory(powersportsCategory, selectedYear))
       }
     } else if (isAutomotive) {
-      // Fetch real makes from database API
+      // Fetch real makes from database API with category filter
+      const categoryParam = apiCategory ? `&category=${apiCategory}` : ''
+      setIsLoadingMakes(true)
+
       if (selectedYear) {
-        fetch(`/api/vehicles/makes?year=${selectedYear}`)
+        fetch(`/api/vehicles/makes?year=${selectedYear}${categoryParam}`)
           .then(res => res.json())
           .then(data => {
             if (data.success && data.data) {
@@ -68,9 +75,10 @@ export function CategoryAwareVehicleSelector({
             // Fallback to local data
             setAvailableMakes(getMakesForYear(selectedYear))
           })
+          .finally(() => setIsLoadingMakes(false))
       } else {
-        // Fetch all makes without year filter
-        fetch('/api/vehicles/makes')
+        // Fetch all makes without year filter but with category filter
+        fetch(`/api/vehicles/makes?category=${apiCategory}`)
           .then(res => res.json())
           .then(data => {
             if (data.success && data.data) {
@@ -81,9 +89,10 @@ export function CategoryAwareVehicleSelector({
             console.error('Error fetching makes:', err)
             setAvailableMakes(vehicleDatabase.makes)
           })
+          .finally(() => setIsLoadingMakes(false))
       }
     }
-  }, [category, isPowersports, isAutomotive, filters.year])
+  }, [category, filters.year])
 
   // Update available models when make or year changes (cascading filter)
   useEffect(() => {
@@ -119,9 +128,19 @@ export function CategoryAwareVehicleSelector({
   useEffect(() => {
     if (isSignedIn && !hasLoadedSavedData) {
       fetch('/api/user/vehicle')
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            // 404 means no saved data yet, not an error
+            if (res.status === 404) {
+              setHasLoadedSavedData(true)
+              return null
+            }
+            throw new Error('Failed to fetch saved vehicle')
+          }
+          return res.json()
+        })
         .then(data => {
-          if (data.success && data.data) {
+          if (data && data.success && data.data) {
             const savedData = data.data
             if (savedData.category === category) {
               // Only load if category matches
@@ -243,9 +262,10 @@ export function CategoryAwareVehicleSelector({
           <Select
             value={filters.make?.[0] || ''}
             onValueChange={(value) => handleFilterChange('make', value)}
+            disabled={isLoadingMakes}
           >
             <SelectTrigger id="make" aria-label="Select vehicle make">
-              <SelectValue placeholder="Select make" />
+              <SelectValue placeholder={isLoadingMakes ? "Loading makes..." : "Select make"} />
             </SelectTrigger>
             <SelectContent className="max-h-[300px]">
               {availableMakes.map((make) => (

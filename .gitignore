@@ -45,3 +45,9 @@ next-env.d.ts
 # Claude configuration files
 CLAUDE.md
 .claude/
+
+# Temporary files and logs
+scripts/temp/
+docs/media/
+*.log
+nul
