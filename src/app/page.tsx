@@ -39,37 +39,35 @@ export default function HomePage() {
 
       {/* Split Content - Text Left, Video Right */}
       <section className="mb-3">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
           {/* Left: Text Content */}
-          <div className="flex flex-col justify-between h-full">
-            <div className="flex-1 flex flex-col justify-center space-y-4">
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
-                Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
-              </p>
+          <div className="flex flex-col space-y-3">
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
+              Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
+            </p>
 
-              {/* Quick Category Access */}
-              <div className="ml-8">
-                <Link href="/search-by-category">
-                  <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
-                    Select Your Vehicle Type
-                  </Button>
-                </Link>
-              </div>
+            {/* Quick Category Access */}
+            <div>
+              <Link href="/search-by-category">
+                <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
+                  Select Your Vehicle Type
+                </Button>
+              </Link>
             </div>
           </div>
 
           {/* Right: Video Player */}
-          <div className="w-full flex flex-col">
+          <div className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto flex flex-col">
             <MechanicsVideoPlayer videoIndex={currentVideoIndex} />
 
             {/* Video Navigation - Arrows Only */}
-            <div className="flex items-center justify-center gap-3 mt-2">
+            <div className="flex items-center justify-center gap-8 mt-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentVideoIndex((prev) => (prev === 0 ? TOTAL_VIDEOS - 1 : prev - 1))}
-                className="text-lg px-3 py-2 h-9 flex items-center justify-center min-w-[44px]"
+                className="text-xl px-4 py-2 h-10 flex items-center justify-center min-w-[44px]"
                 aria-label="Previous video"
               >
                 ←
@@ -78,7 +76,7 @@ export default function HomePage() {
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentVideoIndex((prev) => (prev === TOTAL_VIDEOS - 1 ? 0 : prev + 1))}
-                className="text-lg px-3 py-2 h-9 flex items-center justify-center min-w-[44px]"
+                className="text-xl px-4 py-2 h-10 flex items-center justify-center min-w-[44px]"
                 aria-label="Next video"
               >
                 →
