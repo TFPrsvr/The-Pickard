@@ -10,8 +10,8 @@ interface ClerkMetadata {
 /**
  * Get user role from Clerk session
  */
-export function getUserRole(): UserRole {
-  const { sessionClaims } = auth();
+export async function getUserRole(): Promise<UserRole> {
+  const { sessionClaims } = await auth();
   const metadata = sessionClaims?.metadata as ClerkMetadata | undefined;
   const role = metadata?.role;
   return role || UserRole.USER; // Default to USER role
@@ -20,8 +20,8 @@ export function getUserRole(): UserRole {
 /**
  * Get user permissions from Clerk session
  */
-export function getUserPermissions(): Permission[] {
-  const { sessionClaims } = auth();
+export async function getUserPermissions(): Promise<Permission[]> {
+  const { sessionClaims } = await auth();
   const metadata = sessionClaims?.metadata as ClerkMetadata | undefined;
   const permissions = metadata?.permissions || [];
   return permissions;
@@ -32,7 +32,7 @@ export function getUserPermissions(): Permission[] {
  */
 export function requireRole(allowedRoles: UserRole[]) {
   return async (): Promise<NextResponse | null> => {
-    const { userId, sessionClaims } = auth();
+    const { userId, sessionClaims } = await auth();
 
     if (!userId) {
       return NextResponse.json(
@@ -60,7 +60,7 @@ export function requireRole(allowedRoles: UserRole[]) {
  */
 export function requirePermission(permission: Permission) {
   return async (): Promise<NextResponse | null> => {
-    const { userId, sessionClaims } = auth();
+    const { userId, sessionClaims } = await auth();
 
     if (!userId) {
       return NextResponse.json(
@@ -93,7 +93,7 @@ export function requirePermission(permission: Permission) {
  */
 export function requireAuth() {
   return async (): Promise<NextResponse | null> => {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return NextResponse.json(
@@ -109,15 +109,15 @@ export function requireAuth() {
 /**
  * Helper to check if user is admin
  */
-export function isAdmin(): boolean {
-  const role = getUserRole();
+export async function isAdmin(): Promise<boolean> {
+  const role = await getUserRole();
   return role === UserRole.ADMIN;
 }
 
 /**
  * Helper to check if user is mechanic or admin
  */
-export function isMechanicOrAdmin(): boolean {
-  const role = getUserRole();
+export async function isMechanicOrAdmin(): Promise<boolean> {
+  const role = await getUserRole();
   return role === UserRole.MECHANIC || role === UserRole.ADMIN;
 }

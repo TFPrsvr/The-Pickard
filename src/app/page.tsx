@@ -18,13 +18,13 @@ export default function HomePage() {
       {/* Hero Section - Centered */}
       <section className="text-center py-2 mb-3">
         <div className="flex flex-col items-center mb-2">
-          <div className="w-full flex justify-center -mx-8 sm:-mx-12 lg:-mx-16">
+          <div className="flex justify-center">
             <Image
               src="/images/the-pickard-logo.png"
               alt="The Pickard"
-              width={1000}
-              height={250}
-              className="w-full max-w-5xl h-28 object-contain mb-2 opacity-100 contrast-200 brightness-110 saturate-150 drop-shadow-lg"
+              width={800}
+              height={180}
+              className="h-20 w-auto object-contain mb-2"
               priority
             />
           </div>
@@ -130,13 +130,6 @@ export default function HomePage() {
       {/* Call to Action with Phone Support */}
       <section className="text-center mb-3">
         <div className="automotive-card p-3 bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white relative overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-20 h-20 bg-primary rounded-full -translate-x-10 -translate-y-10"></div>
-            <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/50 rounded-full translate-x-12 translate-y-12"></div>
-            <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-orange-400/20 rounded-full -translate-x-8 -translate-y-8"></div>
-          </div>
-
           <div className="relative z-10">
             <h2 className="text-base font-bold mb-2">
               Ready to Get Started?

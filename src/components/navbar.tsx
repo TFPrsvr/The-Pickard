@@ -62,7 +62,7 @@ export function Navbar() {
                 <span className="hidden sm:block text-[10px] text-muted-foreground">
                   Welcome, {user?.firstName || user?.username || 'User'}!
                 </span>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton signOutForceRedirectUrl="/" />
               </div>
             ) : (
               <div className="space-x-1">
