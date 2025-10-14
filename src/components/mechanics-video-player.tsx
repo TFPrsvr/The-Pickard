@@ -129,16 +129,6 @@ export default function MechanicsVideoPlayer({ videoIndex = 0, onVideoChange }: 
           allowFullScreen
         />
       </div>
-
-      {/* Video Description */}
-      <div className="text-center mt-1 bg-transparent">
-        <p className="text-[10px] font-medium text-foreground bg-transparent">
-          {currentVideo.title}
-        </p>
-        <p className="text-[9px] text-muted-foreground bg-transparent">
-          {currentVideo.channel}
-        </p>
-      </div>
     </div>
   )
 }

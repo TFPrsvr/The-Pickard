@@ -24,7 +24,7 @@ export default function HomePage() {
               alt="The Pickard"
               width={800}
               height={180}
-              className="h-20 w-auto object-contain mb-2"
+              className="h-24 w-auto object-contain mb-2 opacity-90 contrast-125"
               priority
             />
           </div>
@@ -39,52 +39,49 @@ export default function HomePage() {
 
       {/* Split Content - Text Left, Video Right */}
       <section className="mb-3">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Left: Text Content */}
-          <div className="space-y-2">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
-              Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
-            </p>
+          <div className="flex flex-col justify-between h-full">
+            <div className="flex-1 flex flex-col justify-center space-y-4">
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
+                Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
+              </p>
 
-            {/* Quick Category Access */}
-            <div className="ml-8">
-              <Link href="/search-by-category">
-                <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
-                  Select Your Vehicle Type
-                </Button>
-              </Link>
+              {/* Quick Category Access */}
+              <div className="ml-8">
+                <Link href="/search-by-category">
+                  <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
+                    Select Your Vehicle Type
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 
           {/* Right: Video Player */}
-          <div className="w-full space-y-2">
+          <div className="w-full flex flex-col">
             <MechanicsVideoPlayer videoIndex={currentVideoIndex} />
 
-            {/* Video Navigation */}
-            <div className="flex items-center justify-center gap-2">
+            {/* Video Navigation - Arrows Only */}
+            <div className="flex items-center justify-center gap-3 mt-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentVideoIndex((prev) => (prev === 0 ? TOTAL_VIDEOS - 1 : prev - 1))}
-                className="text-[10px] px-2 py-0.5 h-5 flex items-center gap-1"
+                className="text-lg px-3 py-2 h-9 flex items-center justify-center min-w-[44px]"
                 aria-label="Previous video"
               >
-                <span>←</span>
-                <span>Prev</span>
+                ←
               </Button>
-              <span className="text-[10px] text-muted-foreground">
-                {currentVideoIndex + 1} / {TOTAL_VIDEOS}
-              </span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentVideoIndex((prev) => (prev === TOTAL_VIDEOS - 1 ? 0 : prev + 1))}
-                className="text-[10px] px-2 py-0.5 h-5 flex items-center gap-1"
+                className="text-lg px-3 py-2 h-9 flex items-center justify-center min-w-[44px]"
                 aria-label="Next video"
               >
-                <span>Next</span>
-                <span>→</span>
+                →
               </Button>
             </div>
           </div>
@@ -130,6 +127,10 @@ export default function HomePage() {
       {/* Call to Action with Phone Support */}
       <section className="text-center mb-3">
         <div className="automotive-card p-3 bg-gradient-to-br from-secondary via-secondary/95 to-secondary/90 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-20 h-20 bg-primary rounded-full -translate-x-10 -translate-y-10"></div>
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary rounded-full translate-x-16 translate-y-16"></div>
+          </div>
           <div className="relative z-10">
             <h2 className="text-base font-bold mb-2">
               Ready to Get Started?
