@@ -25,8 +25,8 @@ export default function RootLayout({
         <body className={`${inter.className} antialiased h-full flex flex-col`} suppressHydrationWarning>
           <div className="relative z-10 flex-1 flex flex-col">
             <Navbar />
-            <main id="main-content" className="flex-1 bg-background/80 backdrop-blur-sm pb-4 md:pb-2">
-              <div className="mx-auto max-w-6xl px-12 sm:px-16 lg:px-24 xl:px-32">
+            <main id="main-content" className="flex-1 bg-background pb-4 md:pb-2">
+              <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 {children}
               </div>
             </main>
