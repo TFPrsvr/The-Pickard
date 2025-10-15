@@ -7,20 +7,21 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tip, User } from '@/types'
-import { 
-  Lightbulb, 
-  Search, 
-  Filter, 
-  Plus, 
-  Heart, 
-  MessageCircle, 
-  Share2, 
+import {
+  Lightbulb,
+  Search,
+  Filter,
+  Plus,
+  Heart,
+  MessageCircle,
+  Share2,
   Play,
   FileImage,
   Mic,
   Calendar,
   ThumbsUp,
-  Tag
+  Tag,
+  Bookmark
 } from 'lucide-react'
 import Link from 'next/link'
 import { generateUserInitials } from '@/lib/utils'
@@ -34,6 +35,8 @@ export default function TipsPage() {
   const [vehicleTypeFilter, setVehicleTypeFilter] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [likedTips, setLikedTips] = useState<Set<string>>(new Set())
+  const [showPinterestSubmit, setShowPinterestSubmit] = useState(false)
+  const [pinterestUrl, setPinterestUrl] = useState('')
 
   // Mock data for tips
   const mockTips: Tip[] = [
@@ -210,6 +213,42 @@ export default function TipsPage() {
     )
   }
 
+  const handleSubmitPinterestPin = async () => {
+    if (!pinterestUrl.trim()) {
+      alert('Please enter a Pinterest URL')
+      return
+    }
+
+    // Validate Pinterest URL
+    if (!pinterestUrl.includes('pinterest.com')) {
+      alert('Please enter a valid Pinterest URL')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/pinterest-pins', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pinterestUrl }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert('Thank you! Your Pinterest pin has been submitted for review and will be added to The Pickard Reference Library.')
+        setPinterestUrl('')
+        setShowPinterestSubmit(false)
+      } else {
+        alert(`Error: ${data.error}`)
+      }
+    } catch (error) {
+      console.error('Error submitting Pinterest pin:', error)
+      alert('Failed to submit Pinterest pin. Please try again.')
+    }
+  }
+
   return (
     <div className="py-8 space-y-6">
       {/* Header */}
@@ -220,13 +259,72 @@ export default function TipsPage() {
             Learn from experienced mechanics and share your own knowledge
           </p>
         </div>
-        <Button asChild>
-          <Link href="/tips/create" className="flex items-center">
-            <Plus className="h-4 w-4 mr-2" />
-            Share Tip
-          </Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setShowPinterestSubmit(!showPinterestSubmit)}
+            className="flex items-center gap-2 bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
+          >
+            <Heart className="h-4 w-4 fill-current" />
+            Add Pinterest Pin
+          </Button>
+          <Button asChild>
+            <Link href="/tips/create" className="flex items-center">
+              <Plus className="h-4 w-4 mr-2" />
+              Share Tip
+            </Link>
+          </Button>
+        </div>
       </div>
+
+      {/* Pinterest Pin Submission Form */}
+      {showPinterestSubmit && (
+        <Card className="border-red-200 bg-red-50/50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-red-900">
+              <Heart className="h-5 w-5 fill-current" />
+              Submit Your Pinterest Pin to The Pickard Library
+            </CardTitle>
+            <CardDescription>
+              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we'll add it to The Pickard Reference Library.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="pinterest-url" className="text-sm font-medium">
+                Pinterest Pin URL
+              </label>
+              <Input
+                id="pinterest-url"
+                placeholder="https://www.pinterest.com/pin/..."
+                value={pinterestUrl}
+                onChange={(e) => setPinterestUrl(e.target.value)}
+                className="bg-white"
+              />
+              <p className="text-xs text-muted-foreground">
+                Example: https://www.pinterest.com/pin/123456789/
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleSubmitPinterestPin}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Submit to Library
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowPinterestSubmit(false)
+                  setPinterestUrl('')
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Search and Filters */}
       <Card>
@@ -364,6 +462,17 @@ interface TipCardProps {
 }
 
 function TipCard({ tip, isLiked, onLike }: TipCardProps) {
+  const handleSaveToPinterest = () => {
+    // Create Pinterest pin data
+    const pinterestUrl = 'https://www.pinterest.com/pin/create/button/'
+    const params = new URLSearchParams({
+      url: window.location.href,
+      media: tip.media[0]?.url || '',
+      description: `${tip.title} - ${tip.description}`
+    })
+
+    window.open(`${pinterestUrl}?${params.toString()}`, '_blank', 'width=750,height=550')
+  }
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardHeader>
@@ -475,7 +584,7 @@ function TipCard({ tip, isLiked, onLike }: TipCardProps) {
 
         {/* Actions */}
         <div className="flex items-center justify-between pt-4 border-t">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <Button
               variant={isLiked ? "default" : "outline"}
               size="sm"
@@ -490,10 +599,22 @@ function TipCard({ tip, isLiked, onLike }: TipCardProps) {
               Comment
             </Button>
           </div>
-          <Button variant="outline" size="sm">
-            <Share2 className="h-4 w-4 mr-2" />
-            Share
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSaveToPinterest}
+              className="gap-2 bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
+              aria-label="Save to Pinterest"
+            >
+              <Heart className="h-4 w-4 fill-current" />
+              Pin It
+            </Button>
+            <Button variant="outline" size="sm">
+              <Share2 className="h-4 w-4 mr-2" />
+              Share
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

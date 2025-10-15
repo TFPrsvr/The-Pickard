@@ -24,7 +24,7 @@ export default function HomePage() {
               alt="The Pickard"
               width={800}
               height={180}
-              className="h-24 w-auto object-contain mb-2 opacity-90 contrast-125"
+              className="h-24 w-full max-w-2xl object-contain mb-2 opacity-90 contrast-125"
               priority
             />
           </div>
@@ -32,8 +32,8 @@ export default function HomePage() {
             Automotive Mechanics Database
           </h1>
         </div>
-        <p className="text-xs text-muted-foreground max-w-xl mx-auto leading-relaxed">
-          Your comprehensive automotive and powersports database for mechanics.
+        <p className="text-xs text-muted-foreground leading-relaxed text-center">
+          Your comprehensive automotive and powersports<br />database for mechanics.
         </p>
       </section>
 
@@ -43,12 +43,13 @@ export default function HomePage() {
           {/* Left: Text Content */}
           <div className="flex flex-col space-y-3">
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Search through problems, solutions, interchangeable parts, and expert tips for cars, trucks, motorcycles, ATVs, UTVs, and more.
-              Our database covers everything from basic maintenance to advanced diagnostics, helping mechanics of all skill levels find the information they need quickly and efficiently.
+              Find solutions to complex problems, discover interchangeable parts, access expert tips, or share your own knowledge with the community.
+              Explore comprehensive wiring diagrams, collaborate with fellow mechanics to solve rare issues, and contribute to our growing database.
+              Whether you're tackling routine maintenance or diagnosing that elusive problem no one has figured out yet, The Pickard connects you with the resources and expertise you need.
             </p>
 
             {/* Quick Category Access */}
-            <div>
+            <div className="pl-20">
               <Link href="/search-by-category">
                 <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
                   Select Your Vehicle Type
@@ -58,7 +59,7 @@ export default function HomePage() {
           </div>
 
           {/* Right: Video Player */}
-          <div className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto flex flex-col">
+          <div className="w-full max-w-xs mx-auto lg:mx-0 lg:ml-auto flex flex-col">
             <MechanicsVideoPlayer videoIndex={currentVideoIndex} />
 
             {/* Video Navigation - Arrows Only */}

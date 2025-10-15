@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,10 +8,50 @@ import { Search, Filter, Heart, ExternalLink, User, Calendar, Tag, Car } from 'l
 import PinterestIntegration from '@/components/pinterest-integration'
 import Image from 'next/image'
 
+interface PinterestPin {
+  id: number
+  userId: number
+  pinterestUrl: string
+  title: string | null
+  description: string | null
+  imageUrl: string | null
+  category: string | null
+  vehicleTypes: string[]
+  tags: string[]
+  status: string
+  reviewedBy: number | null
+  reviewedAt: string | null
+  rejectionReason: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 export default function PinterestPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
-  
+  const [submittedPins, setSubmittedPins] = useState<PinterestPin[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Fetch approved Pinterest pins
+  useEffect(() => {
+    const fetchApprovedPins = async () => {
+      try {
+        const response = await fetch('/api/pinterest-pins?status=approved')
+        const data = await response.json()
+
+        if (data.success) {
+          setSubmittedPins(data.pins)
+        }
+      } catch (error) {
+        console.error('Error fetching approved pins:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchApprovedPins()
+  }, [])
+
   const handleSearch = () => {
     if (!searchQuery.trim()) return
     // TODO: Implement actual search functionality with Pinterest integration
@@ -140,11 +180,142 @@ export default function PinterestPage() {
           ))}
         </div>
 
+        {/* Community Submitted Pins */}
+        {submittedPins.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Community Contributions</h2>
+                <p className="text-gray-600">Pinterest pins submitted by The Pickard community members</p>
+              </div>
+              <div className="flex items-center gap-2 text-purple-600">
+                <Heart className="h-5 w-5 fill-current" />
+                <span className="font-semibold">{submittedPins.length} pins</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {submittedPins.map((pin) => (
+                <Card
+                  key={pin.id}
+                  className="group hover:shadow-xl transition-shadow cursor-pointer border-2 border-purple-100 hover:border-purple-300"
+                  onClick={() => window.open(pin.pinterestUrl, '_blank')}
+                >
+                  <CardContent className="p-0">
+                    {/* Pin Image or Placeholder */}
+                    <div className="relative w-full h-64 bg-gradient-to-br from-purple-100 to-pink-100 rounded-t-lg overflow-hidden">
+                      {pin.imageUrl ? (
+                        <Image
+                          src={pin.imageUrl}
+                          alt={pin.title || 'Pinterest pin'}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Heart className="h-16 w-16 text-purple-300" />
+                        </div>
+                      )}
+                      <div className="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                        <ExternalLink className="h-3 w-3" />
+                        Pinterest
+                      </div>
+                    </div>
+
+                    {/* Pin Details */}
+                    <div className="p-4">
+                      <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-purple-600 transition-colors">
+                        {pin.title || 'View on Pinterest'}
+                      </h3>
+
+                      {pin.description && (
+                        <p className="text-sm text-gray-600 line-clamp-3 mb-3">
+                          {pin.description}
+                        </p>
+                      )}
+
+                      {/* Tags */}
+                      {pin.tags && pin.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {pin.tags.slice(0, 3).map((tag, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-700"
+                            >
+                              <Tag className="h-3 w-3 mr-1" />
+                              {tag}
+                            </span>
+                          ))}
+                          {pin.tags.length > 3 && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600">
+                              +{pin.tags.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Vehicle Types */}
+                      {pin.vehicleTypes && pin.vehicleTypes.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {pin.vehicleTypes.map((type, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700"
+                            >
+                              <Car className="h-3 w-3 mr-1" />
+                              {type}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Category */}
+                      {pin.category && (
+                        <div className="text-xs text-gray-500 flex items-center gap-1">
+                          <Filter className="h-3 w-3" />
+                          {pin.category}
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Loading State */}
+        {isLoading && (
+          <div className="bg-white rounded-lg p-8 shadow-lg mb-8 text-center">
+            <div className="flex items-center justify-center gap-3">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+              <p className="text-gray-600">Loading community pins...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && submittedPins.length === 0 && (
+          <div className="bg-white rounded-lg p-8 shadow-lg mb-8 text-center">
+            <Heart className="h-16 w-16 text-purple-300 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">No Community Pins Yet</h3>
+            <p className="text-gray-600 mb-4">
+              Be the first to share your automotive Pinterest pins with the community!
+            </p>
+            <Button
+              className="bg-purple-600 hover:bg-purple-700"
+              onClick={() => window.location.href = '/tips'}
+            >
+              Submit a Pin
+            </Button>
+          </div>
+        )}
+
         {/* Pinterest Integration Component */}
         <div className="bg-white rounded-lg p-8 shadow-lg">
-          <PinterestIntegration 
-            category={selectedCategory === 'all' ? undefined : selectedCategory} 
-            maxPins={12} 
+          <PinterestIntegration
+            category={selectedCategory === 'all' ? undefined : selectedCategory}
+            maxPins={12}
           />
         </div>
 

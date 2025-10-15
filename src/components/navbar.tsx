@@ -49,7 +49,7 @@ export function Navbar() {
                 alt="The Pickard"
                 width={800}
                 height={180}
-                className="h-10 w-auto max-w-md opacity-90 contrast-125"
+                className="h-10 w-full max-w-xl opacity-90 contrast-125"
                 priority
               />
             </Link>

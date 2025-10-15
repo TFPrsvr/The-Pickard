@@ -53,7 +53,7 @@ export function PinterestReferenceSection() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-orange-600 to-red-700">
+          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-purple-600 to-indigo-700">
             <CardHeader className="text-center p-2">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-1.5">
                 <Heart className="h-4 w-4 text-white fill-current" />
@@ -72,9 +72,9 @@ export function PinterestReferenceSection() {
         <div className="text-center space-y-1">
           <div className="flex flex-col sm:flex-row gap-1 justify-center">
             <Link href="/pinterest">
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 text-[10px]" aria-label="Browse Pinterest automotive reference library">
-                <Bookmark className="h-2.5 w-2.5 mr-0.5" aria-hidden="true" />
-                Browse Pinterest Library
+              <Button className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-[10px]" aria-label="Browse Pinterest automotive reference library">
+                <Heart className="h-2.5 w-2.5 mr-0.5 fill-current" aria-hidden="true" />
+                Reference Library
               </Button>
             </Link>
             <Button

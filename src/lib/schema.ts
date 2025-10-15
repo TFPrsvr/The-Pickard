@@ -128,6 +128,25 @@ export const media = pgTable('media', {
   createdAt: timestamp('created_at').defaultNow(),
 })
 
+// Pinterest Pins table - User-submitted Pinterest pins for The Pickard Reference Library
+export const pinterestPins = pgTable('pinterest_pins', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id).notNull(), // Who submitted the pin
+  pinterestUrl: text('pinterest_url').notNull(), // URL to the Pinterest pin
+  title: varchar('title', { length: 255 }), // Pin title (fetched from Pinterest or user-provided)
+  description: text('description'), // Pin description
+  imageUrl: text('image_url'), // Pin image URL
+  category: varchar('category', { length: 50 }), // 'diagnostic', 'visual-reference', 'tips', etc.
+  vehicleTypes: json('vehicle_types').$type<string[]>().default([]), // Applicable vehicle types
+  tags: json('tags').$type<string[]>().default([]), // Search tags
+  status: varchar('status', { length: 20 }).default('pending'), // 'pending', 'approved', 'rejected'
+  reviewedBy: integer('reviewed_by').references(() => users.id), // Admin who reviewed
+  reviewedAt: timestamp('reviewed_at'),
+  rejectionReason: text('rejection_reason'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+})
+
 // References table
 export const references = pgTable('references', {
   id: serial('id').primaryKey(),
@@ -229,6 +248,7 @@ export const vehicleTrims = pgTable('vehicle_trims', {
 export const usersRelations = relations(users, ({ many }) => ({
   tips: many(tips),
   webSearchResults: many(webSearchResults),
+  pinterestPins: many(pinterestPins),
 }))
 
 export const vehiclesRelations = relations(vehicles, ({ many }) => ({
@@ -336,5 +356,16 @@ export const vehicleTrimsRelations = relations(vehicleTrims, ({ one }) => ({
   yearMakeModel: one(vehicleYearMakeModels, {
     fields: [vehicleTrims.yearMakeModelId],
     references: [vehicleYearMakeModels.id],
+  }),
+}))
+
+export const pinterestPinsRelations = relations(pinterestPins, ({ one }) => ({
+  user: one(users, {
+    fields: [pinterestPins.userId],
+    references: [users.id],
+  }),
+  reviewer: one(users, {
+    fields: [pinterestPins.reviewedBy],
+    references: [users.id],
   }),
 }))
