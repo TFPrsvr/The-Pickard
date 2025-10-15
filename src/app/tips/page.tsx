@@ -288,7 +288,7 @@ export default function TipsPage() {
               Submit Your Pinterest Pin to The Pickard Library
             </CardTitle>
             <CardDescription>
-              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we'll add it to The Pickard Reference Library.
+              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we&apos;ll add it to The Pickard Reference Library.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

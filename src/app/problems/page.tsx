@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -63,7 +63,7 @@ export default function ProblemsPage() {
   }
 
   // Mock data
-  const mockProblems: Problem[] = [
+  const mockProblems: Problem[] = useMemo(() => [
     {
       id: '1',
       vehicleId: '1',
@@ -128,9 +128,9 @@ export default function ProblemsPage() {
       difficulty: 'medium',
       estimatedTime: '1-3 hours'
     }
-  ]
+  ], [])
 
-  const mockVehicle: Vehicle = {
+  const mockVehicle: Vehicle = useMemo(() => ({
     id: '1',
     year: 2019,
     make: 'Ford',
@@ -139,7 +139,7 @@ export default function ProblemsPage() {
     driveType: '4WD',
     category: 'truck',
     specialty: 'SuperCrew'
-  }
+  }), [])
 
   const loadProblems = useCallback(() => {
     setIsLoading(true)
