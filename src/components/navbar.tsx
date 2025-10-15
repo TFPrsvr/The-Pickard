@@ -28,15 +28,15 @@ export function Navbar() {
           <div className="flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none transition-colors"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none transition-colors"
               aria-label="Open navigation menu"
               aria-expanded={mounted ? isMobileMenuOpen : false}
               aria-controls="mobile-navigation-menu"
             >
               {mounted && isMobileMenuOpen ? (
-                <X className="h-4 w-4" aria-hidden="true" />
+                <X className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <Menu className="h-4 w-4" aria-hidden="true" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -49,7 +49,7 @@ export function Navbar() {
                 alt="The Pickard"
                 width={800}
                 height={180}
-                className="h-10 w-auto max-w-md opacity-90 contrast-125"
+                className="h-10 w-full max-w-xl opacity-90 contrast-125"
                 priority
               />
             </Link>

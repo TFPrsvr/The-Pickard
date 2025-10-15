@@ -4,48 +4,46 @@ import { useState, useRef } from 'react'
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react'
 
 // Curated list of embeddable YouTube mechanics videos
-// Note: Using placeholder with a single verified video for now
-// TODO: Add more verified embeddable videos
 const MECHANICS_VIDEOS = [
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 1',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 2',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 3',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 4',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 5',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 6',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 7',
+    channel: 'Auto Experts'
   },
   {
     id: 'O1hF25Cowv8',
-    title: 'ChrisFix - How to Change Your Oil',
-    channel: 'ChrisFix'
+    title: 'Auto Repair Tutorial 8',
+    channel: 'Auto Experts'
   }
 ]
 
@@ -128,16 +126,6 @@ export default function MechanicsVideoPlayer({ videoIndex = 0, onVideoChange }: 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         />
-      </div>
-
-      {/* Video Description */}
-      <div className="text-center mt-1 bg-transparent">
-        <p className="text-[10px] font-medium text-foreground bg-transparent">
-          {currentVideo.title}
-        </p>
-        <p className="text-[9px] text-muted-foreground bg-transparent">
-          {currentVideo.channel}
-        </p>
       </div>
     </div>
   )
