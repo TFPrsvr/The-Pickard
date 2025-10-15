@@ -43,7 +43,7 @@ export function Navbar() {
 
           {/* Center: Logo */}
           <div className="flex-1 flex justify-center">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center" aria-label="The Pickard home page">
               <Image
                 src="/images/the-pickard-logo.png"
                 alt="The Pickard"
@@ -67,10 +67,10 @@ export function Navbar() {
             ) : (
               <div className="space-x-1">
                 <Button variant="ghost" asChild className="hidden sm:inline-flex text-[10px] px-2 py-1 h-7">
-                  <Link href="/sign-in">Sign In</Link>
+                  <Link href="/sign-in" aria-label="Sign in to your account">Sign In</Link>
                 </Button>
                 <Button asChild className="text-[10px] px-2 py-1 h-7">
-                  <Link href="/sign-up">Sign Up</Link>
+                  <Link href="/sign-up" aria-label="Create a new account">Sign Up</Link>
                 </Button>
               </div>
             )}
@@ -103,7 +103,7 @@ export function Navbar() {
         </div>
 
         <nav className="px-3 py-1 space-y-1 flex-1 overflow-y-auto" aria-label="Main navigation">
-          <MobileNavLink href="/" icon={<Home className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/" icon={<Home className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Home
           </MobileNavLink>
 
@@ -114,6 +114,7 @@ export function Navbar() {
                 href="/search-by-category"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex-1 flex items-center space-x-2 px-2 py-2 text-[10px] font-medium text-gray-900 hover:text-blue-600"
+                aria-label="Search by vehicle category"
               >
                 <div className="text-blue-600">
                   <Car className="h-3 w-3" aria-hidden="true" />
@@ -168,25 +169,25 @@ export function Navbar() {
             )}
           </div>
 
-          <MobileNavLink href="/search" icon={<Search className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/search" icon={<Search className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Problem Finder
           </MobileNavLink>
-          <MobileNavLink href="/parts" icon={<Database className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/parts" icon={<Database className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Parts Database
           </MobileNavLink>
-          <MobileNavLink href="/problems" icon={<Wrench className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/problems" icon={<Wrench className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Problems & Solutions
           </MobileNavLink>
-          <MobileNavLink href="/tips" icon={<BookOpen className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/tips" icon={<BookOpen className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Expert Tips
           </MobileNavLink>
-          <MobileNavLink href="/guides" icon={<FileText className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/guides" icon={<FileText className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             How-to Guides
           </MobileNavLink>
-          <MobileNavLink href="/diagrams" icon={<Zap className="h-3 w-3" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/diagrams" icon={<Zap className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Wiring Diagrams
           </MobileNavLink>
-          <MobileNavLink href="/pinterest" icon={<Heart className="h-3 w-3 text-red-500 fill-current" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/pinterest" icon={<Heart className="h-3 w-3 text-red-500 fill-current" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Pinterest Library
           </MobileNavLink>
         </nav>
