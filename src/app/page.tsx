@@ -45,7 +45,7 @@ export default function HomePage() {
             <p className="text-xs text-muted-foreground leading-relaxed">
               Find solutions to complex problems, discover interchangeable parts, access expert tips, or share your own knowledge with the community.
               Explore comprehensive wiring diagrams, collaborate with fellow mechanics to solve rare issues, and contribute to our growing database.
-              Whether you're tackling routine maintenance or diagnosing that elusive problem no one has figured out yet, The Pickard connects you with the resources and expertise you need.
+              Whether you&apos;re tackling routine maintenance or diagnosing that elusive problem no one has figured out yet, The Pickard connects you with the resources and expertise you need.
             </p>
 
             {/* Quick Category Access */}
