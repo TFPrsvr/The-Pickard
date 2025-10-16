@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -39,7 +39,7 @@ export default function TipsPage() {
   const [pinterestUrl, setPinterestUrl] = useState('')
 
   // Mock data for tips
-  const mockTips: Tip[] = [
+  const mockTips: Tip[] = useMemo(() => [
     {
       id: '1',
       title: 'Quick Oil Change Tool Organization',
@@ -138,30 +138,22 @@ export default function TipsPage() {
       likes: 203,
       tags: ['brakes', 'repair', 'maintenance']
     }
-  ]
+  ], [])
 
   const categories = ['tools', 'technique', 'safety', 'time-saver', 'lesson-learned']
   const vehicleTypes = ['car', 'truck', '18-wheeler']
 
-  useEffect(() => {
-    loadTips()
-  }, [])
-
-  useEffect(() => {
-    filterTips()
-  }, [tips, searchQuery, categoryFilter, vehicleTypeFilter])
-
-  const loadTips = () => {
+  const loadTips = useCallback(() => {
     setIsLoading(true)
-    
+
     // Simulate API call
     setTimeout(() => {
       setTips(mockTips)
       setIsLoading(false)
     }, 1000)
-  }
+  }, [mockTips])
 
-  const filterTips = () => {
+  const filterTips = useCallback(() => {
     let filtered = tips
 
     if (searchQuery) {
@@ -183,7 +175,15 @@ export default function TipsPage() {
     }
 
     setFilteredTips(filtered)
-  }
+  }, [tips, searchQuery, categoryFilter, vehicleTypeFilter])
+
+  useEffect(() => {
+    loadTips()
+  }, [loadTips])
+
+  useEffect(() => {
+    filterTips()
+  }, [filterTips])
 
   const resetFilters = () => {
     setSearchQuery('')
@@ -264,13 +264,15 @@ export default function TipsPage() {
             variant="outline"
             onClick={() => setShowPinterestSubmit(!showPinterestSubmit)}
             className="flex items-center gap-2 bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
+            aria-label={showPinterestSubmit ? "Close Pinterest pin submission form" : "Open Pinterest pin submission form"}
+            aria-expanded={showPinterestSubmit}
           >
-            <Heart className="h-4 w-4 fill-current" />
+            <Heart className="h-4 w-4 fill-current" aria-hidden="true" />
             Add Pinterest Pin
           </Button>
           <Button asChild>
-            <Link href="/tips/create" className="flex items-center">
-              <Plus className="h-4 w-4 mr-2" />
+            <Link href="/tips/create" className="flex items-center" aria-label="Share your mechanic tip with the community">
+              <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
               Share Tip
             </Link>
           </Button>
@@ -282,11 +284,11 @@ export default function TipsPage() {
         <Card className="border-red-200 bg-red-50/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-red-900">
-              <Heart className="h-5 w-5 fill-current" />
+              <Heart className="h-5 w-5 fill-current" aria-hidden="true" />
               Submit Your Pinterest Pin to The Pickard Library
             </CardTitle>
             <CardDescription>
-              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we'll add it to The Pickard Reference Library.
+              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we&apos;ll add it to The Pickard Reference Library.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -309,6 +311,7 @@ export default function TipsPage() {
               <Button
                 onClick={handleSubmitPinterestPin}
                 className="bg-red-600 hover:bg-red-700"
+                aria-label="Submit Pinterest pin to The Pickard Reference Library"
               >
                 Submit to Library
               </Button>
@@ -318,6 +321,7 @@ export default function TipsPage() {
                   setShowPinterestSubmit(false)
                   setPinterestUrl('')
                 }}
+                aria-label="Cancel Pinterest pin submission"
               >
                 Cancel
               </Button>

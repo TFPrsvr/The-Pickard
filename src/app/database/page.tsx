@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -42,7 +42,7 @@ export default function DatabasePage() {
   }
 
   // Mock data for parts database
-  const mockParts: Part[] = [
+  const mockParts: Part[] = useMemo(() => [
     {
       id: '1',
       name: 'Brake Rotor - Front',
@@ -91,7 +91,7 @@ export default function DatabasePage() {
       price: 28.99,
       interchangeableWith: ['FRAM-G7333', 'BALDWIN-BF7633', 'NAPA-3533']
     }
-  ]
+  ], [])
 
   const compatibilityData = {
     '1': [ // Brake Rotor
@@ -121,25 +121,17 @@ export default function DatabasePage() {
     'Body Parts'
   ]
 
-  useEffect(() => {
-    loadParts()
-  }, [])
-
-  useEffect(() => {
-    filterParts()
-  }, [parts, searchQuery, categoryFilter, vehicleFilters])
-
-  const loadParts = () => {
+  const loadParts = useCallback(() => {
     setIsLoading(true)
-    
+
     // Simulate API call
     setTimeout(() => {
       setParts(mockParts)
       setIsLoading(false)
     }, 1000)
-  }
+  }, [mockParts])
 
-  const filterParts = () => {
+  const filterParts = useCallback(() => {
     let filtered = parts
 
     if (searchQuery) {
@@ -171,7 +163,15 @@ export default function DatabasePage() {
     }
 
     setFilteredParts(filtered)
-  }
+  }, [parts, searchQuery, categoryFilter, vehicleFilters])
+
+  useEffect(() => {
+    loadParts()
+  }, [loadParts])
+
+  useEffect(() => {
+    filterParts()
+  }, [filterParts])
 
   const resetFilters = () => {
     setSearchQuery('')

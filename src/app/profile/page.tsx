@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 import { Camera, Edit, Save, X } from 'lucide-react'
 import { generateUserInitials } from '@/lib/utils'
 import { PinterestProfileManager } from '@/components/pinterest-profile-manager'
+import Image from 'next/image'
 import PropTypes from 'prop-types'
 
 interface PinterestBoard {
@@ -157,10 +158,12 @@ export default function ProfilePage() {
           <CardContent className="flex flex-col items-center">
             <div className="relative">
               {user.imageUrl ? (
-                <img
+                <Image
                   src={user.imageUrl}
                   alt="Profile"
-                  className="w-32 h-32 rounded-full object-cover"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
                 />
               ) : (
                 <div className="w-32 h-32 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-2xl font-bold">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Problem, Vehicle } from '@/types'
 import { Wrench, Search, Filter, ExternalLink, Clock, AlertTriangle, RotateCcw, Phone, Mail, MapPin, Download, Users } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface VehicleFilters {
   year?: string
@@ -62,7 +63,7 @@ export default function ProblemsPage() {
   }
 
   // Mock data
-  const mockProblems: Problem[] = [
+  const mockProblems: Problem[] = useMemo(() => [
     {
       id: '1',
       vehicleId: '1',
@@ -127,9 +128,9 @@ export default function ProblemsPage() {
       difficulty: 'medium',
       estimatedTime: '1-3 hours'
     }
-  ]
+  ], [])
 
-  const mockVehicle: Vehicle = {
+  const mockVehicle: Vehicle = useMemo(() => ({
     id: '1',
     year: 2019,
     make: 'Ford',
@@ -138,36 +139,25 @@ export default function ProblemsPage() {
     driveType: '4WD',
     category: 'truck',
     specialty: 'SuperCrew'
-  }
+  }), [])
 
-  useEffect(() => {
-    loadProblems()
-    if (vehicleId) {
-      setSelectedVehicle(mockVehicle)
-    }
-  }, [vehicleId])
-
-  useEffect(() => {
-    filterProblems()
-  }, [problems, searchQuery, commonalityFilter, difficultyFilter, vehicleFilters])
-
-  const loadProblems = () => {
+  const loadProblems = useCallback(() => {
     setIsLoading(true)
-    
+
     // Simulate API call
     setTimeout(() => {
       let results = mockProblems
-      
+
       if (vehicleId) {
         results = results.filter(problem => problem.vehicleId === vehicleId)
       }
-      
+
       setProblems(results)
       setIsLoading(false)
     }, 1000)
-  }
+  }, [vehicleId, mockProblems])
 
-  const filterProblems = () => {
+  const filterProblems = useCallback(() => {
     let filtered = problems
 
     if (searchQuery) {
@@ -195,7 +185,18 @@ export default function ProblemsPage() {
     }
 
     setFilteredProblems(filtered)
-  }
+  }, [problems, searchQuery, commonalityFilter, difficultyFilter, vehicleFilters])
+
+  useEffect(() => {
+    loadProblems()
+    if (vehicleId) {
+      setSelectedVehicle(mockVehicle)
+    }
+  }, [loadProblems, vehicleId, mockVehicle])
+
+  useEffect(() => {
+    filterProblems()
+  }, [filterProblems])
 
   const resetFilters = () => {
     setSearchQuery('')
@@ -234,10 +235,12 @@ export default function ProblemsPage() {
         {/* Banner Section */}
         <div className="relative overflow-hidden rounded-lg mb-8">
           <div className="absolute inset-0">
-            <img
+            <Image
               src="/images/banner-background.png"
               alt="Automotive Background"
-              className="w-full h-full object-cover opacity-20"
+              fill
+              className="object-cover opacity-20"
+              priority
             />
           </div>
           <div className="relative bg-gradient-to-r from-orange-600/90 to-red-600/90 text-white p-8 text-center">

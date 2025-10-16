@@ -177,7 +177,7 @@ export default function PartsPage() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5" />
+            <Search className="h-5 w-5" aria-hidden="true" />
             Find Your Parts
           </CardTitle>
           <CardDescription>
@@ -411,7 +411,7 @@ export default function PartsPage() {
             <Card className="bg-green-50 border-green-200">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <CheckCircle className="h-5 w-5 text-green-600" aria-hidden="true" />
                   <h4 className="font-medium text-green-800">Selected Vehicle Specifications</h4>
                 </div>
                 <div className="text-sm text-green-700">
@@ -502,7 +502,7 @@ export default function PartsPage() {
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Car className="h-6 w-6 text-primary" />
+              <Car className="h-6 w-6 text-primary" aria-hidden="true" />
               Parts Database
             </CardTitle>
           </CardHeader>
@@ -538,7 +538,7 @@ export default function PartsPage() {
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Database className="h-6 w-6 text-green-600" />
+              <Database className="h-6 w-6 text-green-600" aria-hidden="true" />
               Service Manuals
             </CardTitle>
           </CardHeader>
@@ -649,7 +649,7 @@ export default function PartsPage() {
             </div>
           </div>
           <div className="flex items-center gap-2 mt-4 pt-4 border-t">
-            <AlertTriangle className="h-4 w-4 text-orange-600" />
+            <AlertTriangle className="h-4 w-4 text-orange-600" aria-hidden="true" />
             <span className="text-sm text-muted-foreground">
               Always verify part compatibility before installation. Prices and availability subject to change.
             </span>

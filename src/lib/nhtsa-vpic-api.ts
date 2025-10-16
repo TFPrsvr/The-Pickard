@@ -339,7 +339,7 @@ export function mapVehicleTypeToCategory(vehicleTypeName: string): string {
   return 'car' // default
 }
 
-export default {
+const nhtsaVpicApi = {
   getAllMakes,
   getModelsForMake,
   getMakesForYear,
@@ -352,3 +352,5 @@ export default {
   extractDriveType,
   mapVehicleTypeToCategory
 }
+
+export default nhtsaVpicApi
