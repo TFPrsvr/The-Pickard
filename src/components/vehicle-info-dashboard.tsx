@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -38,11 +38,7 @@ export function VehicleInfoDashboard({ year, make, model }: VehicleInfoDashboard
   const [maintenance, setMaintenance] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    loadVehicleData()
-  }, [year, make, model])
-
-  const loadVehicleData = async () => {
+  const loadVehicleData = useCallback(async () => {
     setLoading(true)
     try {
       // Load all data in parallel
@@ -64,7 +60,11 @@ export function VehicleInfoDashboard({ year, make, model }: VehicleInfoDashboard
     } finally {
       setLoading(false)
     }
-  }
+  }, [year, make, model])
+
+  useEffect(() => {
+    loadVehicleData()
+  }, [loadVehicleData])
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {

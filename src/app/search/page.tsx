@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { VehicleSelector } from '@/components/vehicle-selector'
 import { CategoryAwareVehicleSelector } from '@/components/category-aware-vehicle-selector'
@@ -29,8 +29,8 @@ function SearchPageContent() {
   const [searchType, setSearchType] = useState<'vehicles' | 'problems' | 'web'>('vehicles')
   const [selectedCategory, setSelectedCategory] = useState<VehicleCategory | null>(categoryParam)
 
-  // Mock data for demonstration
-  const mockVehicles: Vehicle[] = [
+  // Mock data for demonstration - wrapped in useMemo
+  const mockVehicles: Vehicle[] = useMemo(() => [
     {
       id: '1',
       year: 2019,
@@ -59,9 +59,9 @@ function SearchPageContent() {
       driveType: '2WD',
       category: 'car'
     }
-  ]
+  ], [])
 
-  const mockProblems: Problem[] = [
+  const mockProblems: Problem[] = useMemo(() => [
     {
       id: '1',
       vehicleId: '1',
@@ -73,9 +73,9 @@ function SearchPageContent() {
       difficulty: 'hard',
       estimatedTime: '4-6 hours'
     }
-  ]
+  ], [])
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     if (!searchQuery.trim()) {
       return
     }
@@ -147,25 +147,25 @@ function SearchPageContent() {
       setProblemResults(mockProblems)
       setIsLoading(false)
     }, 1000)
-  }
+  }, [searchQuery, filters, mockVehicles, mockProblems])
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setFilters({})
     setSearchQuery('')
     setSearchResults([])
     setProblemResults([])
-  }
+  }, [])
 
-  const handleWebSearchResult = (result: SearchResult) => {
+  const handleWebSearchResult = useCallback((result: SearchResult) => {
     // TODO: Implement database save functionality for search results
-  }
+  }, [])
 
   useEffect(() => {
     // Auto-search when filters change
     if (Object.keys(filters).some(key => filters[key as keyof SearchFilters]?.length)) {
       handleSearch()
     }
-  }, [filters])
+  }, [filters, handleSearch])
 
   return (
     <div className="py-8 space-y-6 bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">

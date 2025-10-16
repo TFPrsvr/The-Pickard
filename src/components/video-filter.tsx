@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 interface Video {
   id: string
@@ -19,8 +19,8 @@ export default function VideoFilter({ position, className = '' }: VideoFilterPro
   const [currentVideoIndex, setCurrentVideoIndex] = useState(position === 'left' ? 0 : 1)
   const [loading, setLoading] = useState(true)
 
-  // Left side - Engine & Diagnostic videos (ChrisFix channel)
-  const leftSideVideos: Video[] = [
+  // Left side - Engine & Diagnostic videos (ChrisFix channel) - memoized
+  const leftSideVideos: Video[] = useMemo(() => [
     {
       id: 'L1',
       title: 'How to Diagnose Engine Problems',
@@ -45,10 +45,10 @@ export default function VideoFilter({ position, className = '' }: VideoFilterPro
       embedUrl: 'https://www.youtube.com/embed/uI_PX6AZDWc',
       platform: 'youtube'
     }
-  ]
+  ], [])
 
-  // Right side - Maintenance & Repair videos (Various automotive channels)
-  const rightSideVideos: Video[] = [
+  // Right side - Maintenance & Repair videos (Various automotive channels) - memoized
+  const rightSideVideos: Video[] = useMemo(() => [
     {
       id: 'R1',
       title: 'How to Replace Brake Pads',
@@ -73,7 +73,7 @@ export default function VideoFilter({ position, className = '' }: VideoFilterPro
       embedUrl: 'https://www.youtube.com/embed/ZNzKgHn6SbA',
       platform: 'youtube'
     }
-  ]
+  ], [])
 
   useEffect(() => {
     const videoSet = position === 'left' ? leftSideVideos : rightSideVideos
@@ -89,9 +89,9 @@ export default function VideoFilter({ position, className = '' }: VideoFilterPro
     const interval = setInterval(() => {
       setCurrentVideoIndex(prev => (prev + 1) % videoSet.length)
     }, cycleTime)
-    
+
     return () => clearInterval(interval)
-  }, [position])
+  }, [position, leftSideVideos, rightSideVideos])
 
   if (loading || videos.length === 0) {
     return (

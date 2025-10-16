@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
@@ -44,8 +44,11 @@ export function CategoryAwareVehicleSelector({
   // Update available makes based on category and year (cascading filter)
   useEffect(() => {
     const selectedYear = filters.year?.[0]
+    const powersports = ['motorcycle', 'atv', 'utv', 'snowmobile', 'watercraft'].includes(category)
+    const automotive = ['car', 'truck', '18-wheeler', 'rv'].includes(category)
+    const apiCat = powersports ? 'powersports' : automotive ? 'automotive' : undefined
 
-    if (isPowersports) {
+    if (powersports) {
       const categoryMap: Record<string, 'motorcycle' | 'atv' | 'utv' | 'snowmobile' | 'watercraft'> = {
         'motorcycle': 'motorcycle',
         'atv': 'atv',
@@ -57,9 +60,9 @@ export function CategoryAwareVehicleSelector({
       if (powersportsCategory) {
         setAvailableMakes(getPowersportsMakesByCategory(powersportsCategory, selectedYear))
       }
-    } else if (isAutomotive) {
+    } else if (automotive) {
       // Fetch real makes from database API with category filter
-      const categoryParam = apiCategory ? `&category=${apiCategory}` : ''
+      const categoryParam = apiCat ? `&category=${apiCat}` : ''
       setIsLoadingMakes(true)
 
       if (selectedYear) {
@@ -78,7 +81,7 @@ export function CategoryAwareVehicleSelector({
           .finally(() => setIsLoadingMakes(false))
       } else {
         // Fetch all makes without year filter but with category filter
-        fetch(`/api/vehicles/makes?category=${apiCategory}`)
+        fetch(`/api/vehicles/makes?category=${apiCat}`)
           .then(res => res.json())
           .then(data => {
             if (data.success && data.data) {
@@ -125,6 +128,12 @@ export function CategoryAwareVehicleSelector({
   }, [filters.make, filters.year, isPowersports, isAutomotive])
 
   // Load saved vehicle selection on mount
+  // Memoize the ref to track if we've already loaded data
+  const onFiltersChangeRef = useRef(onFiltersChange)
+  useEffect(() => {
+    onFiltersChangeRef.current = onFiltersChange
+  }, [onFiltersChange])
+
   useEffect(() => {
     if (isSignedIn && !hasLoadedSavedData) {
       fetch('/api/user/vehicle')
@@ -152,7 +161,7 @@ export function CategoryAwareVehicleSelector({
               if (savedData.driveType) loadedFilters.driveType = [savedData.driveType]
               if (savedData.submodel) loadedFilters.submodel = [savedData.submodel]
 
-              onFiltersChange(loadedFilters)
+              onFiltersChangeRef.current(loadedFilters)
             }
           }
           setHasLoadedSavedData(true)
@@ -162,7 +171,7 @@ export function CategoryAwareVehicleSelector({
           setHasLoadedSavedData(true)
         })
     }
-  }, [isSignedIn, hasLoadedSavedData, category, onFiltersChange])
+  }, [isSignedIn, hasLoadedSavedData, category])
 
   // Save vehicle selection when filters change (debounced)
   useEffect(() => {

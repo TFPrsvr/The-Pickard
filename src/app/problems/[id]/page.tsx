@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -32,8 +32,8 @@ export default function ProblemDetailPage() {
   const [selectedSolutionId, setSelectedSolutionId] = useState<string>('')
   const [isSaved, setIsSaved] = useState(false)
 
-  // Mock data
-  const mockProblem: Problem = {
+  // Mock data - wrapped in useMemo
+  const mockProblem: Problem = useMemo(() => ({
     id: '1',
     vehicleId: '1',
     title: 'Transmission Slipping Between Gears',
@@ -50,9 +50,9 @@ export default function ProblemDetailPage() {
     commonality: 'common',
     difficulty: 'hard',
     estimatedTime: '4-8 hours'
-  }
+  }), [])
 
-  const mockVehicle: Vehicle = {
+  const mockVehicle: Vehicle = useMemo(() => ({
     id: '1',
     year: 2019,
     make: 'Ford',
@@ -61,9 +61,9 @@ export default function ProblemDetailPage() {
     driveType: '4WD',
     category: 'truck',
     specialty: 'SuperCrew'
-  }
+  }), [])
 
-  const mockSolutions: Solution[] = [
+  const mockSolutions: Solution[] = useMemo(() => [
     {
       id: '1',
       description: 'Check and replace transmission fluid - Often the simplest and most cost-effective solution',
@@ -136,13 +136,9 @@ export default function ProblemDetailPage() {
         { id: '3', title: 'Complete Transmission Service Guide', url: 'https://example.com/service-guide', type: 'manual' }
       ]
     }
-  ]
+  ], [])
 
-  useEffect(() => {
-    loadProblemDetails()
-  }, [problemId])
-
-  const loadProblemDetails = () => {
+  const loadProblemDetails = useCallback(() => {
     setIsLoading(true)
     
     // Simulate API call
@@ -153,7 +149,11 @@ export default function ProblemDetailPage() {
       setSelectedSolutionId(mockSolutions[0]?.id || '')
       setIsLoading(false)
     }, 1000)
-  }
+  }, [mockProblem, mockVehicle, mockSolutions])
+
+  useEffect(() => {
+    loadProblemDetails()
+  }, [problemId, loadProblemDetails])
 
   const selectedSolution = solutions.find(s => s.id === selectedSolutionId)
   const totalCost = selectedSolution?.parts.reduce((sum, part) => sum + (part.price || 0), 0) || 0

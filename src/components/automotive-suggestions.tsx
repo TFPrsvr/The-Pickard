@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -31,12 +31,13 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
   const [webSearchQuery, setWebSearchQuery] = useState('')
   const [isSearching, setIsSearching] = useState(false)
 
-  // Build vehicle string for searches
-  const vehicleString = vehicleInfo ? 
-    [vehicleInfo.year, vehicleInfo.make, vehicleInfo.model].filter(Boolean).join(' ') : ''
+  // Build vehicle string for searches - memoized
+  const vehicleString = useMemo(() =>
+    vehicleInfo ? [vehicleInfo.year, vehicleInfo.make, vehicleInfo.model].filter(Boolean).join(' ') : ''
+  , [vehicleInfo])
 
-  // Predefined automotive reference sites
-  const referenceSites = [
+  // Predefined automotive reference sites - memoized
+  const referenceSites = useMemo(() => [
     {
       title: 'Dave\'s Auto Center (YouTube)',
       url: 'https://www.youtube.com/channel/UCPPHkxoGlbECGQ7Bc3J3D_w',
@@ -93,7 +94,7 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
       description: 'Advanced diagnostic techniques and troubleshooting',
       icon: <Youtube className="h-4 w-4" />
     }
-  ]
+  ], [])
 
   useEffect(() => {
     // Generate contextual suggestions based on vehicle info and search query
@@ -141,9 +142,9 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
 
     // Combine contextual suggestions with reference sites
     setSuggestions([...contextualSuggestions, ...referenceSites])
-  }, [vehicleInfo, searchQuery, vehicleString])
+  }, [vehicleInfo, searchQuery, vehicleString, referenceSites])
 
-  const handleWebSearch = async () => {
+  const handleWebSearch = useCallback(async () => {
     if (!webSearchQuery.trim()) return
 
     setIsSearching(true)
@@ -153,11 +154,11 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
 
     window.open(searchUrl, '_blank')
     setIsSearching(false)
-  }
+  }, [vehicleString, webSearchQuery])
 
-  const handleSuggestionClick = (suggestion: Suggestion) => {
+  const handleSuggestionClick = useCallback((suggestion: Suggestion) => {
     window.open(suggestion.url, '_blank')
-  }
+  }, [])
 
   const getTypeColor = (type: string) => {
     switch (type) {

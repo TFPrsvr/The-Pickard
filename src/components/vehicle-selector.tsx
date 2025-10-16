@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { SearchFilters } from '@/types'
 import PropTypes from 'prop-types'
@@ -113,6 +113,11 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
   const selectedSubmodel = filters.submodel?.[0]
   const selectedEngine = filters.engineType?.[0]
 
+  // Use ref to avoid recreating functions unnecessarily
+  const onFiltersChangeRef = useRef(onFiltersChange)
+  useEffect(() => {
+    onFiltersChangeRef.current = onFiltersChange
+  }, [onFiltersChange])
 
   // Update available options based on selections
   useEffect(() => {
@@ -127,7 +132,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
       
       // Reset dependent fields
       if (!makes.includes(selectedMake || '')) {
-        onFiltersChange({
+        onFiltersChangeRef.current({
           ...filters,
           make: undefined,
           model: undefined,
@@ -139,7 +144,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
     } else {
       setAvailableMakes([])
     }
-  }, [selectedYear])
+  }, [selectedYear, selectedMake, filters])
 
 
   useEffect(() => {
@@ -167,7 +172,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
       
       // Reset dependent fields
       if (!models.includes(selectedModel || '')) {
-        onFiltersChange({
+        onFiltersChangeRef.current({
           ...filters,
           model: undefined,
           submodel: undefined,
@@ -176,7 +181,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
         })
       }
     }
-  }, [selectedYear, selectedMake])
+  }, [selectedYear, selectedMake, selectedModel, filters])
 
   useEffect(() => {
     if (selectedYear && selectedMake && selectedModel) {
@@ -219,7 +224,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
       
       // Reset dependent fields
       if (submodels.length > 0 && !submodels.includes(selectedSubmodel || '')) {
-        onFiltersChange({
+        onFiltersChangeRef.current({
           ...filters,
           submodel: undefined,
           engineType: undefined,
@@ -227,7 +232,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
         })
       }
     }
-  }, [selectedYear, selectedMake, selectedModel])
+  }, [selectedYear, selectedMake, selectedModel, selectedSubmodel, filters])
 
   useEffect(() => {
     if (selectedYear && selectedMake && selectedModel && (selectedSubmodel || availableSubmodels.length === 0)) {
@@ -344,14 +349,14 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
       
       // Reset dependent fields
       if (!engines.includes(selectedEngine || '')) {
-        onFiltersChange({
+        onFiltersChangeRef.current({
           ...filters,
           engineType: undefined,
           driveType: undefined
         })
       }
     }
-  }, [selectedYear, selectedMake, selectedModel, selectedSubmodel, availableSubmodels])
+  }, [selectedYear, selectedMake, selectedModel, selectedSubmodel, availableSubmodels, selectedEngine, filters])
 
   useEffect(() => {
     if (selectedEngine && selectedModel) {
