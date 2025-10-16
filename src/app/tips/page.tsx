@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -39,7 +39,7 @@ export default function TipsPage() {
   const [pinterestUrl, setPinterestUrl] = useState('')
 
   // Mock data for tips
-  const mockTips: Tip[] = [
+  const mockTips: Tip[] = useMemo(() => [
     {
       id: '1',
       title: 'Quick Oil Change Tool Organization',
@@ -138,30 +138,22 @@ export default function TipsPage() {
       likes: 203,
       tags: ['brakes', 'repair', 'maintenance']
     }
-  ]
+  ], [])
 
   const categories = ['tools', 'technique', 'safety', 'time-saver', 'lesson-learned']
   const vehicleTypes = ['car', 'truck', '18-wheeler']
 
-  useEffect(() => {
-    loadTips()
-  }, [])
-
-  useEffect(() => {
-    filterTips()
-  }, [tips, searchQuery, categoryFilter, vehicleTypeFilter])
-
-  const loadTips = () => {
+  const loadTips = useCallback(() => {
     setIsLoading(true)
-    
+
     // Simulate API call
     setTimeout(() => {
       setTips(mockTips)
       setIsLoading(false)
     }, 1000)
-  }
+  }, [mockTips])
 
-  const filterTips = () => {
+  const filterTips = useCallback(() => {
     let filtered = tips
 
     if (searchQuery) {
@@ -183,7 +175,15 @@ export default function TipsPage() {
     }
 
     setFilteredTips(filtered)
-  }
+  }, [tips, searchQuery, categoryFilter, vehicleTypeFilter])
+
+  useEffect(() => {
+    loadTips()
+  }, [loadTips])
+
+  useEffect(() => {
+    filterTips()
+  }, [filterTips])
 
   const resetFilters = () => {
     setSearchQuery('')
