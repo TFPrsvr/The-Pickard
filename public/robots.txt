@@ -1,0 +1,50 @@
+# Robots.txt for The Pickard - Automotive Mechanics Database
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location (update with your production domain)
+Sitemap: https://thepickard.com/sitemap.xml
+
+# Crawl delay to be respectful
+Crawl-delay: 1
+
+# Block access to API routes
+Disallow: /api/
+
+# Block access to private user areas
+Disallow: /dashboard
+Disallow: /profile
+
+# Block access to authentication pages
+Disallow: /sign-in
+Disallow: /sign-up
+
+# Allow access to all public content
+Allow: /search
+Allow: /parts
+Allow: /problems
+Allow: /tips
+Allow: /guides
+Allow: /diagrams
+Allow: /pinterest
+Allow: /search-by-category
+Allow: /privacy
+Allow: /terms
+Allow: /about
+Allow: /contact
+
+# Googlebot specific rules
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /profile
+
+# Bingbot specific rules
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /profile

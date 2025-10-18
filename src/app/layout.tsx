@@ -10,8 +10,24 @@ import Image from 'next/image'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Pickard - Mechanics Database',
-  description: 'Comprehensive automotive database for mechanics, covering cars, trucks, and 18-wheelers',
+  title: 'The Pickard - Professional Automotive Mechanics Database',
+  description: 'Professional automotive diagnostics and repair database for mechanics and technicians. Search vehicle problems, find interchangeable parts, access expert tips, and collaborate with fellow mechanics. Comprehensive coverage for cars, trucks, 18-wheelers, motorcycles, ATVs, UTVs, snowmobiles, watercraft, and RVs.',
+  keywords: ['automotive', 'mechanics', 'diagnostics', 'repair', 'parts database', 'vehicle troubleshooting', 'auto repair', 'mechanic tools'],
+  authors: [{ name: 'The Pickard Team' }],
+  openGraph: {
+    title: 'The Pickard - Automotive Mechanics Database',
+    description: 'Professional automotive diagnostics and repair database for mechanics',
+    type: 'website',
+    locale: 'en_US',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 }
 
 export default function RootLayout({
