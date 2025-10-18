@@ -17,12 +17,29 @@ import Link from 'next/link'
 // Lazy load heavy search components for better performance
 const AutomotiveWebSearch = dynamic(
   () => import('@/components/automotive-web-search').then(mod => ({ default: mod.AutomotiveWebSearch })),
-  { ssr: false }
+  {
+    loading: () => (
+      <div className="flex flex-col items-center justify-center py-12 space-y-4 border-2 border-coral-300 rounded-lg bg-coral-50">
+        <div className="w-14 h-14 border-4 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-coral-600 font-semibold text-base">Loading Web Search...</p>
+        <p className="text-coral-500 text-sm">Initializing search engine</p>
+      </div>
+    ),
+    ssr: false
+  }
 )
 
 const ExternalPartsSearch = dynamic(
   () => import('@/components/external-parts-search').then(mod => ({ default: mod.ExternalPartsSearch })),
-  { ssr: false }
+  {
+    loading: () => (
+      <div className="flex flex-col items-center justify-center py-10 space-y-3 border-2 border-coral-300 rounded-lg bg-coral-50">
+        <div className="w-12 h-12 border-4 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-coral-600 font-semibold text-sm">Loading Parts Search...</p>
+      </div>
+    ),
+    ssr: false
+  }
 )
 
 function SearchPageContent() {

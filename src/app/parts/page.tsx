@@ -35,12 +35,12 @@ const PartsInterchange = dynamic(
   () => import('@/components/parts-interchange'),
   {
     loading: () => (
-      <Card>
+      <Card className="border-2 border-coral-300">
         <CardContent className="py-12">
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-200 rounded w-1/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-            <div className="h-64 bg-gray-200 rounded"></div>
+          <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="w-16 h-16 border-4 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-coral-600 font-semibold text-base">Loading Parts Database...</p>
+            <p className="text-coral-500 text-sm">Fetching interchange data</p>
           </div>
         </CardContent>
       </Card>

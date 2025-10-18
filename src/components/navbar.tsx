@@ -43,13 +43,13 @@ export function Navbar() {
 
           {/* Center: Logo */}
           <div className="flex-1 flex justify-center">
-            <Link href="/" className="flex items-center" aria-label="The Pickard home page">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/images/the-pickard-logo.png"
                 alt="The Pickard"
                 width={800}
                 height={180}
-                className="h-10 w-full max-w-xl opacity-90 contrast-125"
+                className="h-10 w-auto max-w-md opacity-90 contrast-125"
                 priority
               />
             </Link>

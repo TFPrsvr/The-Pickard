@@ -10,12 +10,28 @@ import dynamic from 'next/dynamic'
 // Lazy load heavy components for better performance
 const PinterestReferenceSection = dynamic(
   () => import('@/components/pinterest-reference-section'),
-  { ssr: false }
+  {
+    loading: () => (
+      <div className="flex flex-col items-center justify-center py-12 space-y-4 border-2 border-coral-300 rounded-lg bg-coral-50">
+        <div className="w-12 h-12 border-4 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-coral-600 font-semibold text-sm">Loading Pinterest Library...</p>
+      </div>
+    ),
+    ssr: false
+  }
 )
 
 const MechanicsVideoPlayer = dynamic(
   () => import('@/components/mechanics-video-player'),
-  { ssr: true }
+  {
+    loading: () => (
+      <div className="flex flex-col items-center justify-center py-8 space-y-3 border-2 border-coral-300 rounded-lg bg-coral-50">
+        <div className="w-10 h-10 border-4 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-coral-600 font-semibold text-xs">Loading Video Player...</p>
+      </div>
+    ),
+    ssr: true
+  }
 )
 
 const TOTAL_VIDEOS = 8

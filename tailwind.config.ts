@@ -51,6 +51,12 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        coral: {
+          300: "#fca5a5", // Light coral for borders
+          400: "#f87171", // Medium coral for spinner
+          500: "#ef4444", // Darker coral for text
+          600: "#dc2626", // Dark coral for headings
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

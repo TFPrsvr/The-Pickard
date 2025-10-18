@@ -71,23 +71,19 @@ export function BottomNavigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center justify-center py-2 transition-colors",
-                  "active:scale-95 active:bg-muted/50",
-                  isActive ? item.activeColor : "text-muted-foreground"
+                  "flex flex-col items-center justify-center py-2 transition-all duration-200",
+                  "active:scale-95",
+                  isActive ? `${item.activeColor} scale-110` : "text-muted-foreground scale-100 hover:scale-105"
                 )}
-                aria-label={`Navigate to ${item.name}`}
                 aria-current={isActive ? "page" : undefined}
               >
-                <Icon className={cn("h-5 w-5 mb-1", isActive && "scale-110")} aria-hidden="true" />
+                <Icon className="h-5 w-5 mb-1" />
                 <span className={cn(
                   "text-xs font-medium",
                   isActive && "font-semibold"
                 )}>
                   {item.name}
                 </span>
-                {isActive && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary rounded-b-full" aria-hidden="true"></div>
-                )}
               </Link>
             )
           })}
@@ -141,10 +137,10 @@ function FloatingActionButton() {
           "hover:scale-110 active:scale-95",
           isOpen && "rotate-45 bg-red-500"
         )}
-        aria-label={isOpen ? "Close quick actions" : "Open quick actions"}
+        aria-label="Quick actions menu"
         aria-expanded={isOpen}
       >
-        <Zap className={cn("h-6 w-6 transition-transform", isOpen && "rotate-45")} aria-hidden="true" />
+        <Zap className={cn("h-6 w-6 transition-transform", isOpen && "rotate-45")} />
       </button>
     </div>
   )
@@ -177,16 +173,14 @@ export function TopTabNavigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-4 border-b-2 transition-colors whitespace-nowrap",
-                  "hover:text-primary hover:border-primary/50",
+                  "flex items-center gap-2 px-4 py-4 transition-all duration-200 whitespace-nowrap",
                   isActive
-                    ? "text-primary border-primary font-medium"
-                    : "text-muted-foreground border-transparent"
+                    ? "text-primary font-medium scale-110"
+                    : "text-muted-foreground scale-100 hover:scale-105 hover:text-primary"
                 )}
-                aria-label={`Navigate to ${item.name}`}
                 aria-current={isActive ? "page" : undefined}
               >
-                <Icon className="h-4 w-4" aria-hidden="true" />
+                <Icon className="h-4 w-4" />
                 {item.name}
               </Link>
             )
