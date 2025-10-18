@@ -3,13 +3,13 @@
 import { useState, useEffect, useRef } from 'react'
 import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import PartsInterchange from "@/components/parts-interchange"
 import {
   vehicleDatabase,
   powersportsDatabase,
@@ -29,6 +29,25 @@ import {
   Package, AlertTriangle, ExternalLink, CheckCircle,
   Phone, Mail, MapPin, Download, Clock, Users
 } from 'lucide-react'
+
+// Lazy load heavy PartsInterchange component
+const PartsInterchange = dynamic(
+  () => import('@/components/parts-interchange'),
+  {
+    loading: () => (
+      <Card>
+        <CardContent className="py-12">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 bg-gray-200 rounded w-1/4"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+            <div className="h-64 bg-gray-200 rounded"></div>
+          </div>
+        </CardContent>
+      </Card>
+    ),
+    ssr: true
+  }
+)
 
 interface VehicleSelection {
   category?: VehicleCategory
