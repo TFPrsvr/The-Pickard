@@ -325,8 +325,8 @@ export default function Loading() {
 3. ✅ Run Lighthouse - verify 80%+ (15 min)
 
 ### Day 2 (High Priority):
-4. Lazy load home page sections (30 min)
-5. Optimize remaining heavy components (30 min)
+4. ✅ Lazy load home page sections (30 min)
+5. ✅ Optimize remaining heavy components (30 min)
 6. Run final Lighthouse - target 90%+ (15 min)
 
 ### Day 3 (Polish):

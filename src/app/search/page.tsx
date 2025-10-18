@@ -2,10 +2,9 @@
 
 import { useState, useEffect, Suspense, useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import { VehicleSelector } from '@/components/vehicle-selector'
 import { CategoryAwareVehicleSelector } from '@/components/category-aware-vehicle-selector'
-import { AutomotiveWebSearch } from '@/components/automotive-web-search'
-import { ExternalPartsSearch } from '@/components/external-parts-search'
 import { AutomotiveSuggestions } from '@/components/automotive-suggestions'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -14,6 +13,17 @@ import { SearchFilters, Vehicle, Problem, VehicleCategory } from '@/types'
 import { SearchResult } from '@/lib/web-search'
 import { Search, Car, Wrench, ExternalLink, Globe } from 'lucide-react'
 import Link from 'next/link'
+
+// Lazy load heavy search components for better performance
+const AutomotiveWebSearch = dynamic(
+  () => import('@/components/automotive-web-search').then(mod => ({ default: mod.AutomotiveWebSearch })),
+  { ssr: false }
+)
+
+const ExternalPartsSearch = dynamic(
+  () => import('@/components/external-parts-search').then(mod => ({ default: mod.ExternalPartsSearch })),
+  { ssr: false }
+)
 
 function SearchPageContent() {
   const searchParams = useSearchParams()

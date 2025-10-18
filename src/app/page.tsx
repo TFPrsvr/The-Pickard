@@ -5,8 +5,18 @@ import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen,
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import PinterestReferenceSection from '@/components/pinterest-reference-section'
-import MechanicsVideoPlayer from '@/components/mechanics-video-player'
+import dynamic from 'next/dynamic'
+
+// Lazy load heavy components for better performance
+const PinterestReferenceSection = dynamic(
+  () => import('@/components/pinterest-reference-section'),
+  { ssr: false }
+)
+
+const MechanicsVideoPlayer = dynamic(
+  () => import('@/components/mechanics-video-player'),
+  { ssr: true }
+)
 
 const TOTAL_VIDEOS = 8
 
