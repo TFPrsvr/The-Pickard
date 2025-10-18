@@ -454,7 +454,7 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
         <div className="space-y-2">
           <div className="relative">
             <Select onValueChange={handleYearChange} value={selectedYear || ''}>
-              <SelectTrigger className="h-12 border-2 border-gray-300 rounded-lg">
+              <SelectTrigger className="h-12 border-2 border-gray-300 rounded-lg" aria-label="Select vehicle year">
                 <SelectValue placeholder="" />
               </SelectTrigger>
               <SelectContent className="max-h-[300px] overflow-y-auto">
@@ -474,13 +474,13 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
         {/* 2 | Make */}
         <div className="space-y-2">
           <div className="relative">
-            <Select 
-              onValueChange={handleMakeChange} 
-              value={selectedMake || ''} 
+            <Select
+              onValueChange={handleMakeChange}
+              value={selectedMake || ''}
               disabled={!selectedYear}
               key={`make-${selectedYear}-${availableMakes.length}`}
             >
-              <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedYear ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`}>
+              <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedYear ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`} aria-label="Select vehicle make">
                 <SelectValue placeholder="" />
               </SelectTrigger>
               <SelectContent 
@@ -511,12 +511,12 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
         {/* 3 | Model */}
         <div className="space-y-2">
           <div className="relative">
-            <Select 
-              onValueChange={handleModelChange} 
-              value={selectedModel || ''} 
+            <Select
+              onValueChange={handleModelChange}
+              value={selectedModel || ''}
               disabled={!selectedMake}
             >
-              <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedMake ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`}>
+              <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedMake ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`} aria-label="Select vehicle model">
                 <SelectValue placeholder="" />
               </SelectTrigger>
               <SelectContent className="max-h-[300px] overflow-y-auto">
@@ -536,12 +536,12 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
         {/* 4 | Engine */}
         <div className="space-y-2">
           <div className="relative">
-            <Select 
-              onValueChange={handleEngineChange} 
-              value={selectedEngine || ''} 
+            <Select
+              onValueChange={handleEngineChange}
+              value={selectedEngine || ''}
               disabled={!selectedModel || (availableSubmodels.length > 0 && !selectedSubmodel)}
             >
-              <SelectTrigger className={`h-12 border-2 rounded-lg ${(!selectedModel || (availableSubmodels.length > 0 && !selectedSubmodel)) ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`}>
+              <SelectTrigger className={`h-12 border-2 rounded-lg ${(!selectedModel || (availableSubmodels.length > 0 && !selectedSubmodel)) ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`} aria-label="Select vehicle engine type">
                 <SelectValue placeholder="" />
               </SelectTrigger>
               <SelectContent className="max-h-[300px] overflow-y-auto">
@@ -574,12 +574,12 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
           {availableSubmodels.length > 0 && (
             <div className="space-y-2">
               <div className="relative">
-                <Select 
-                  onValueChange={handleSubmodelChange} 
-                  value={selectedSubmodel || ''} 
+                <Select
+                  onValueChange={handleSubmodelChange}
+                  value={selectedSubmodel || ''}
                   disabled={!selectedModel}
                 >
-                  <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedModel ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`}>
+                  <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedModel ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`} aria-label="Select vehicle submodel or trim">
                     <SelectValue placeholder="" />
                   </SelectTrigger>
                   <SelectContent className="max-h-[300px] overflow-y-auto">
@@ -601,12 +601,12 @@ export function VehicleSelector({ filters, onFiltersChange }: VehicleSelectorPro
           {availableDriveTypes.length > 0 && selectedEngine && (
             <div className="space-y-2">
               <div className="relative">
-                <Select 
-                  onValueChange={handleDriveTypeChange} 
-                  value={filters.driveType?.[0] || ''} 
+                <Select
+                  onValueChange={handleDriveTypeChange}
+                  value={filters.driveType?.[0] || ''}
                   disabled={!selectedEngine}
                 >
-                  <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedEngine ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`}>
+                  <SelectTrigger className={`h-12 border-2 rounded-lg ${!selectedEngine ? 'border-gray-200 bg-gray-50' : 'border-gray-300'}`} aria-label="Select vehicle drive type (2WD, 4WD, AWD)">
                     <SelectValue placeholder="" />
                   </SelectTrigger>
                   <SelectContent className="max-h-[300px] overflow-y-auto">

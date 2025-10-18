@@ -75,8 +75,10 @@ export function BottomNavigation() {
                   "active:scale-95 active:bg-muted/50",
                   isActive ? item.activeColor : "text-muted-foreground"
                 )}
+                aria-label={`Navigate to ${item.name}`}
+                aria-current={isActive ? "page" : undefined}
               >
-                <Icon className={cn("h-5 w-5 mb-1", isActive && "scale-110")} />
+                <Icon className={cn("h-5 w-5 mb-1", isActive && "scale-110")} aria-hidden="true" />
                 <span className={cn(
                   "text-xs font-medium",
                   isActive && "font-semibold"
@@ -84,7 +86,7 @@ export function BottomNavigation() {
                   {item.name}
                 </span>
                 {isActive && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary rounded-b-full"></div>
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary rounded-b-full" aria-hidden="true"></div>
                 )}
               </Link>
             )
@@ -121,8 +123,9 @@ function FloatingActionButton() {
                 animationDelay: `${index * 50}ms`,
                 animation: 'slideInRight 0.3s ease-out forwards'
               }}
+              aria-label={action.name}
             >
-              <action.icon className="h-5 w-5" />
+              <action.icon className="h-5 w-5" aria-hidden="true" />
               <span className="text-sm font-medium whitespace-nowrap">{action.name}</span>
             </button>
           ))}
@@ -139,8 +142,9 @@ function FloatingActionButton() {
           isOpen && "rotate-45 bg-red-500"
         )}
         aria-label={isOpen ? "Close quick actions" : "Open quick actions"}
+        aria-expanded={isOpen}
       >
-        <Zap className={cn("h-6 w-6 transition-transform", isOpen && "rotate-45")} />
+        <Zap className={cn("h-6 w-6 transition-transform", isOpen && "rotate-45")} aria-hidden="true" />
       </button>
     </div>
   )
@@ -175,12 +179,14 @@ export function TopTabNavigation() {
                 className={cn(
                   "flex items-center gap-2 px-4 py-4 border-b-2 transition-colors whitespace-nowrap",
                   "hover:text-primary hover:border-primary/50",
-                  isActive 
-                    ? "text-primary border-primary font-medium" 
+                  isActive
+                    ? "text-primary border-primary font-medium"
                     : "text-muted-foreground border-transparent"
                 )}
+                aria-label={`Navigate to ${item.name}`}
+                aria-current={isActive ? "page" : undefined}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-4 w-4" aria-hidden="true" />
                 {item.name}
               </Link>
             )

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -19,10 +19,10 @@ interface VehicleFilters {
   driveType?: string
 }
 
-export default function ProblemsPage() {
+function ProblemsPageContent() {
   const searchParams = useSearchParams()
   const vehicleId = searchParams?.get('vehicle')
-  
+
   const [problems, setProblems] = useState<Problem[]>([])
   const [filteredProblems, setFilteredProblems] = useState<Problem[]>([])
   const [searchQuery, setSearchQuery] = useState('')
@@ -601,5 +601,12 @@ function ProblemCard({ problem }: ProblemCardProps) {
         </div>
       </CardContent>
     </Card>
+  )
+}
+export default function ProblemsPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-12"><div className="animate-spin h-8 w-8 border-2 border-red-600 border-t-transparent rounded-full mx-auto mb-4"></div><p className="text-gray-600">Loading...</p></div>}>
+      <ProblemsPageContent />
+    </Suspense>
   )
 }

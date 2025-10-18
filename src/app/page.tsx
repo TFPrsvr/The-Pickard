@@ -195,7 +195,7 @@ function FeatureCard({ icon, title, description, href, gradient, borderColor }: 
       <div className={`service-card group cursor-pointer relative overflow-hidden border-2 border-transparent ${getBorderColorClass()} ${getBackgroundGradient()} transition-all duration-300 h-full rounded-lg`}>
         <div className="relative z-10 h-full flex flex-col p-2">
           <div className={`text-white mb-1.5 p-1.5 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`} aria-hidden="true">{icon}</div>
-          <h3 className="font-bold mb-1.5 text-xs text-secondary">{title}</h3>
+          <h2 className="font-bold mb-1.5 text-xs text-secondary">{title}</h2>
           <p className="text-[10px] text-muted-foreground leading-snug flex-1">{description}</p>
           <div className="mt-1 flex items-center text-blue-600 text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
             Learn more <span className="ml-1">→</span>

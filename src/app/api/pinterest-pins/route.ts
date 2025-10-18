@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
-import { db } from '@/lib/db'
+import { db } from '@/lib/database'
 import { pinterestPins, users } from '@/lib/schema'
 import { eq } from 'drizzle-orm'
 import { isAdmin } from '@/lib/security/authorization'
@@ -75,13 +75,12 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status') // 'pending', 'approved', 'rejected', or null for all
 
-    let query = db.select().from(pinterestPins)
-
+    let pins
     if (status && ['pending', 'approved', 'rejected'].includes(status)) {
-      query = query.where(eq(pinterestPins.status, status as any))
+      pins = await db.select().from(pinterestPins).where(eq(pinterestPins.status, status as any))
+    } else {
+      pins = await db.select().from(pinterestPins)
     }
-
-    const pins = await query
 
     return NextResponse.json({
       success: true,

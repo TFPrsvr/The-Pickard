@@ -144,12 +144,13 @@ function VehicleCard({ vehicle, isSelected, onClick }: VehicleCardProps) {
         </div>
 
         {/* Action Button */}
-        <button 
+        <button
           className="w-full mt-4 bg-primary/10 hover:bg-primary hover:text-white text-primary font-medium py-2 px-4 rounded-xl transition-colors"
           onClick={(e) => {
             e.stopPropagation()
             // Handle contact dealer action
           }}
+          aria-label={`Contact ${vehicle.dealer.name} about ${vehicle.year} ${vehicle.make} ${vehicle.model}`}
         >
           Contact Dealer
         </button>

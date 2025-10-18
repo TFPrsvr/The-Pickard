@@ -62,15 +62,15 @@ export function Navbar() {
                 <span className="hidden sm:block text-[10px] text-muted-foreground">
                   Welcome, {user?.firstName || user?.username || 'User'}!
                 </span>
-                <UserButton signOutForceRedirectUrl="/" />
+                <UserButton afterSignOutUrl="/" />
               </div>
             ) : (
               <div className="space-x-1">
                 <Button variant="ghost" asChild className="hidden sm:inline-flex text-[10px] px-2 py-1 h-7">
-                  <Link href="/sign-in" aria-label="Sign in to your account">Sign In</Link>
+                  <Link href="/sign-in">Sign In</Link>
                 </Button>
                 <Button asChild className="text-[10px] px-2 py-1 h-7">
-                  <Link href="/sign-up" aria-label="Create a new account">Sign Up</Link>
+                  <Link href="/sign-up">Sign Up</Link>
                 </Button>
               </div>
             )}
