@@ -78,7 +78,7 @@ export function PinterestReferenceSection() {
               </Button>
             </Link>
             <Button
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-2 py-1 text-[10px] border-0"
+              className="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white px-2 py-1 text-[10px] border-0"
               onClick={() => window.open('https://pinterest.com', '_blank')}
               aria-label="Visit Pinterest website"
             >
