@@ -53,7 +53,7 @@ export function PinterestReferenceSection() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-purple-600 to-indigo-700">
+          <Card className="shadow-md border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-orange-500 to-amber-600">
             <CardHeader className="text-center p-2">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-1.5">
                 <Heart className="h-4 w-4 text-white fill-current" />
@@ -78,8 +78,7 @@ export function PinterestReferenceSection() {
               </Button>
             </Link>
             <Button
-              variant="outline"
-              className="border-purple-600 text-purple-600 hover:bg-purple-50 px-2 py-1 text-[10px]"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-2 py-1 text-[10px] border-0"
               onClick={() => window.open('https://pinterest.com', '_blank')}
               aria-label="Visit Pinterest website"
             >
