@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-The Pickard has successfully implemented comprehensive accessibility features to ensure WCAG 2.1 AA compliance. All interactive elements now include proper ARIA labels, semantic HTML is used throughout, and the application is fully keyboard navigable with visible focus indicators.
+The Mechanic has successfully implemented comprehensive accessibility features to ensure WCAG 2.1 AA compliance. All interactive elements now include proper ARIA labels, semantic HTML is used throughout, and the application is fully keyboard navigable with visible focus indicators.
 
 ---
 
@@ -387,7 +387,7 @@ public/
 
 For accessibility-related questions or to report issues:
 - **GitHub Issues**: Tag with `accessibility` label
-- **Email**: accessibility@thepickard.com (to be set up)
+- **Email**: accessibility@themechanic.com (to be set up)
 - **In-app**: Use contact form with "Accessibility" category
 
 ---

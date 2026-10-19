@@ -97,7 +97,7 @@ export default function PinterestPage() {
                 </div>
               </div>
               <div className="flex-1">
-                <h2 className="text-3xl font-bold mb-2">The Pickard Team</h2>
+                <h2 className="text-3xl font-bold mb-2">The Mechanic Team</h2>
                 <p className="text-purple-100 text-lg mb-4">
                   Curated auto repair guides from industry professionals
                 </p>
@@ -186,7 +186,7 @@ export default function PinterestPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">Community Contributions</h2>
-                <p className="text-gray-600">Pinterest pins submitted by The Pickard community members</p>
+                <p className="text-gray-600">Pinterest pins submitted by The Mechanic community members</p>
               </div>
               <div className="flex items-center gap-2 text-purple-600">
                 <Heart className="h-5 w-5 fill-current" />

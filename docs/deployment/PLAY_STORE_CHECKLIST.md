@@ -2,7 +2,7 @@
 
 ## Overview
 
-This checklist ensures all required assets and documentation are ready before submitting The Pickard to Google Play Store and Apple App Store.
+This checklist ensures all required assets and documentation are ready before submitting The Mechanic to Google Play Store and Apple App Store.
 
 ---
 
@@ -84,7 +84,7 @@ Generate the following icon sizes:
   - ✅ Third-party services (Clerk, Neon Database, Google Custom Search)
   - ✅ User rights (GDPR, CCPA compliance - access, correction, deletion, portability)
   - ✅ Data retention policies
-  - ✅ Contact information (thepickard@support.com)
+  - ✅ Contact information (themechanic@support.com)
 
 #### Terms of Service ✅
 - [x] Create `docs/legal/TERMS_OF_SERVICE.md` ✅
@@ -112,7 +112,7 @@ Generate the following icon sizes:
 **File**: `docs/developers/CONTRIBUTING.md`
 
 - [ ] Replace `YOUR_ORG` with actual GitHub organization/username
-- [ ] Update line 18: `git clone https://github.com/YOUR_ORG/the-pickard.git`
+- [ ] Update line 18: `git clone https://github.com/YOUR_ORG/the-mechanic.git`
 - [ ] Verify repository is public or properly licensed
 
 **Current Status**: Contains placeholder `YOUR_ORG`
@@ -130,7 +130,7 @@ Generate the following icon sizes:
 ### 6. App Store Metadata
 
 #### Google Play Store
-- [ ] **App Name**: "The Pickard - Auto Mechanics"
+- [ ] **App Name**: "The Mechanic - Auto Mechanics"
 - [ ] **Short Description** (80 chars): "Professional automotive diagnostic and repair database"
 - [ ] **Full Description** (4000 chars): Write compelling app description
 - [ ] **Category**: Business or Productivity
@@ -139,7 +139,7 @@ Generate the following icon sizes:
 - [ ] **Privacy Policy URL**: https://your-domain.com/privacy
 
 #### Apple App Store
-- [ ] **App Name**: "The Pickard"
+- [ ] **App Name**: "The Mechanic"
 - [ ] **Subtitle** (30 chars): "Auto Mechanics Database"
 - [ ] **Description** (4000 chars): Same as Google Play
 - [ ] **Keywords** (100 chars): "automotive,mechanic,diagnostic,repair,parts,database"
@@ -155,7 +155,7 @@ Generate the following icon sizes:
 
 #### APK/AAB Generation
 - [ ] Install Capacitor: `npm install @capacitor/core @capacitor/cli`
-- [ ] Initialize: `npx cap init "The Pickard" "com.pickard.app"`
+- [ ] Initialize: `npx cap init "The Mechanic" "com.themechanic.app"`
 - [ ] Add Android: `npx cap add android`
 - [ ] Build: `npm run build && npx cap sync`
 - [ ] Generate release AAB in Android Studio
@@ -181,7 +181,7 @@ Generate the following icon sizes:
 - [ ] Add iOS: `npx cap add ios`
 - [ ] Open Xcode: `npx cap open ios`
 - [ ] Configure:
-  - Bundle identifier: `com.pickard.app`
+  - Bundle identifier: `com.themechanic.app`
   - Signing certificates
   - Deployment target: iOS 14+
   - Required permissions in Info.plist

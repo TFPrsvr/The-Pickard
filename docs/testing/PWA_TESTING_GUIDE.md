@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide explains how to test Progressive Web App (PWA) installation on Android and iOS devices to ensure The Pickard app can be installed and functions properly as a standalone application.
+This guide explains how to test Progressive Web App (PWA) installation on Android and iOS devices to ensure The Mechanic app can be installed and functions properly as a standalone application.
 
 ---
 
@@ -69,7 +69,7 @@ vercel --prod
 
 **Step 2: Access Production URL**
 1. Open Chrome on Android device
-2. Navigate to your production URL (e.g., `https://the-pickard.vercel.app`)
+2. Navigate to your production URL (e.g., `https://the-mechanic.vercel.app`)
 3. Wait for page to fully load
 
 **Step 3: Install PWA**
@@ -81,7 +81,7 @@ vercel --prod
 
 - [ ] **Install prompt appears** automatically or in menu
 - [ ] **App icon displays correctly** on home screen
-- [ ] **App name shows** as "The Pickard" (not URL)
+- [ ] **App name shows** as "The Mechanic" (not URL)
 - [ ] **Icon is not cut off** (maskable icon safe area working)
 - [ ] **Splash screen appears** when launching app (uses 512x512 icon)
 - [ ] **App opens in standalone mode** (no browser UI/address bar)
@@ -145,7 +145,7 @@ vercel --prod
 **Step 3: Install PWA**
 1. Tap the **Share button** (square with arrow pointing up)
 2. Scroll down and tap **"Add to Home Screen"**
-3. Edit app name if needed (default: "The Pickard")
+3. Edit app name if needed (default: "The Mechanic")
 4. Tap **"Add"** in top-right corner
 
 ### iOS Installation Verification Checklist
@@ -202,8 +202,8 @@ open -a Simulator
 - [ ] Run `npm run dev`
 - [ ] Open Chrome → F12 → **Application** tab
 - [ ] Verify **Manifest** section shows:
-  - ✅ Name: "The Pickard - Automotive Mechanics Database"
-  - ✅ Short name: "The Pickard"
+  - ✅ Name: "The Mechanic - Automotive Mechanics Database"
+  - ✅ Short name: "The Mechanic"
   - ✅ Start URL: "/"
   - ✅ Display: "standalone"
   - ✅ Theme color: "#3b82f6"

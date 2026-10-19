@@ -10,12 +10,12 @@ import Image from 'next/image'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Pickard - Professional Automotive Mechanics Database',
+  title: 'The Mechanic - Professional Automotive Mechanics Database',
   description: 'Professional automotive diagnostics and repair database for mechanics and technicians. Search vehicle problems, find interchangeable parts, access expert tips, and collaborate with fellow mechanics. Comprehensive coverage for cars, trucks, 18-wheelers, motorcycles, ATVs, UTVs, snowmobiles, watercraft, and RVs.',
   keywords: ['automotive', 'mechanics', 'diagnostics', 'repair', 'parts database', 'vehicle troubleshooting', 'auto repair', 'mechanic tools'],
-  authors: [{ name: 'The Pickard Team' }],
+  authors: [{ name: 'The Mechanic Team' }],
   openGraph: {
-    title: 'The Pickard - Automotive Mechanics Database',
+    title: 'The Mechanic - Automotive Mechanics Database',
     description: 'Professional automotive diagnostics and repair database for mechanics',
     type: 'website',
     locale: 'en_US',

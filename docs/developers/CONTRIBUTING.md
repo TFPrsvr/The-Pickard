@@ -1,8 +1,8 @@
-# Contributing Guide - The Pickard
+# Contributing Guide - The Mechanic
 
 ## Overview
 
-Thank you for your interest in contributing to The Pickard! This guide outlines the development workflow, coding standards, and best practices for contributors.
+Thank you for your interest in contributing to The Mechanic! This guide outlines the development workflow, coding standards, and best practices for contributors.
 
 ## Development Environment
 
@@ -15,8 +15,8 @@ Thank you for your interest in contributing to The Pickard! This guide outlines 
 ### Setup
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/TFPrsvr/The-Pickard.git
-   cd The-Pickard
+   git clone https://github.com/TFPrsvr/The-Mechanic.git
+   cd The-Mechanic
    ```
 
 2. **Install Dependencies**:
@@ -520,4 +520,4 @@ function handleKeyDown(event: KeyboardEvent) {
 5. **Approval**: Final approval from code owner
 6. **Merge**: Squash and merge to main branch
 
-This contributing guide ensures consistent, high-quality contributions to The Pickard platform while maintaining code quality and project standards.
+This contributing guide ensures consistent, high-quality contributions to The Mechanic platform while maintaining code quality and project standards.

@@ -1,11 +1,11 @@
-# Robots.txt for The Pickard - Automotive Mechanics Database
+# Robots.txt for The Mechanic - Automotive Mechanics Database
 
 # Allow all crawlers
 User-agent: *
 Allow: /
 
 # Sitemap location (update with your production domain)
-Sitemap: https://thepickard.com/sitemap.xml
+Sitemap: https://themechanic.com/sitemap.xml
 
 # Crawl delay to be respectful
 Crawl-delay: 1

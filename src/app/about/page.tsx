@@ -12,7 +12,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16 -mx-6 sm:-mx-8 lg:-mx-12 xl:-mx-16 px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-6">About The Pickard</h1>
+          <h1 className="text-5xl font-bold mb-6">About The Mechanic</h1>
           <p className="text-xl max-w-3xl mx-auto leading-relaxed">
             Your trusted automotive database and diagnostic center, serving mechanics and vehicle owners 
             with comprehensive repair solutions, parts identification, and expert guidance since day one.
@@ -30,7 +30,7 @@ export default function AboutPage() {
             <CardContent className="p-8">
               <p className="text-lg text-gray-700 leading-relaxed">
                 We believe every vehicle deserves expert care and every mechanic deserves the right tools.
-                The Pickard bridges knowledge gaps with cutting-edge diagnostic databases, comprehensive parts catalogs,
+                The Mechanic bridges knowledge gaps with cutting-edge diagnostic databases, comprehensive parts catalogs,
                 and proven repair solutions that keep vehicles running safely and efficiently.
               </p>
             </CardContent>
@@ -87,7 +87,7 @@ export default function AboutPage() {
 
         {/* Why Choose Us */}
         <section className="bg-white rounded-lg p-8 shadow-lg">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose The Pickard?</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose The Mechanic?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">

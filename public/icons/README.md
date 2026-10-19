@@ -1,6 +1,6 @@
 # PWA Icons Directory
 
-This directory contains the Progressive Web App (PWA) icons for The Pickard application.
+This directory contains the Progressive Web App (PWA) icons for The Mechanic application.
 
 ## Required Icon Sizes
 
@@ -24,7 +24,7 @@ This directory contains the Progressive Web App (PWA) icons for The Pickard appl
 ### Design Requirements
 - **Format**: PNG with transparency
 - **Background**: Transparent or solid color (#3b82f6 theme color)
-- **Content**: The Pickard logo/symbol
+- **Content**: The Mechanic logo/symbol
 - **Safe Area**: For maskable icons, keep content within 80% of canvas
 - **Padding**: Minimum 10% padding on all sides for maskable icons
 

@@ -2,7 +2,6 @@
 
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Car, Database, BookOpen, FileText, Zap, Menu, X, Home, Heart, ChevronDown, ChevronRight, Search, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
@@ -43,15 +42,10 @@ export function Navbar() {
 
           {/* Center: Logo */}
           <div className="flex-1 flex justify-center">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/images/the-pickard-logo.png"
-                alt="The Pickard"
-                width={800}
-                height={180}
-                className="h-10 w-auto max-w-md opacity-90 contrast-125"
-                priority
-              />
+            <Link href="/" className="flex items-center" aria-label="The Mechanic - Home">
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight">
+                The Mechanic
+              </span>
             </Link>
           </div>
 

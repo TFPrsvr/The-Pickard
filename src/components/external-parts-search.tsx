@@ -10,11 +10,11 @@ import PropTypes from 'prop-types'
 interface ExternalPartsSearchProps {
   searchQuery: string
   vehicleInfo: {
-    year?: number
-    make?: string
-    model?: string
-    submodel?: string
-    engine?: string
+    year?: number | null
+    make?: string | null
+    model?: string | null
+    submodel?: string | null
+    engine?: string | null
   }
 }
 

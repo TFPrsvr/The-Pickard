@@ -236,7 +236,7 @@ function ProblemsPageContent() {
         <div className="relative overflow-hidden rounded-lg mb-8">
           <div className="absolute inset-0">
             <Image
-              src="/images/banner-background.png"
+              src="/images/banner.png"
               alt="Automotive Background"
               fill
               className="object-cover opacity-20"

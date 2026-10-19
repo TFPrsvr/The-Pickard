@@ -19,7 +19,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">The Pickard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">The Mechanic</h1>
           <p className="text-gray-600 mt-2">
             The Database made for mechanics by mechanics. The one stop shop to find out about vehicle&apos;s problems both common and not so common and interchangeable parts, upload tips for the next mechanic.
           </p>

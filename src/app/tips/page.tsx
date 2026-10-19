@@ -237,7 +237,7 @@ export default function TipsPage() {
       const data = await response.json()
 
       if (data.success) {
-        alert('Thank you! Your Pinterest pin has been submitted for review and will be added to The Pickard Reference Library.')
+        alert('Thank you! Your Pinterest pin has been submitted for review and will be added to The Mechanic Reference Library.')
         setPinterestUrl('')
         setShowPinterestSubmit(false)
       } else {
@@ -285,10 +285,10 @@ export default function TipsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-red-900">
               <Heart className="h-5 w-5 fill-current" aria-hidden="true" />
-              Submit Your Pinterest Pin to The Pickard Library
+              Submit Your Pinterest Pin to The Mechanic Library
             </CardTitle>
             <CardDescription>
-              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we&apos;ll add it to The Pickard Reference Library.
+              Share your automotive Pinterest pins with the community. Paste the URL of your pin below and we&apos;ll add it to The Mechanic Reference Library.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -311,7 +311,7 @@ export default function TipsPage() {
               <Button
                 onClick={handleSubmitPinterestPin}
                 className="bg-red-600 hover:bg-red-700"
-                aria-label="Submit Pinterest pin to The Pickard Reference Library"
+                aria-label="Submit Pinterest pin to The Mechanic Reference Library"
               >
                 Submit to Library
               </Button>

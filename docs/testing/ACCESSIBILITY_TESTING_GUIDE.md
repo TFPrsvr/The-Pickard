@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide provides comprehensive instructions for testing The Pickard application's accessibility compliance with WCAG 2.1 AA standards, which is **mandatory** for app store submission and legal compliance.
+This guide provides comprehensive instructions for testing The Mechanic application's accessibility compliance with WCAG 2.1 AA standards, which is **mandatory** for app store submission and legal compliance.
 
 ---
 

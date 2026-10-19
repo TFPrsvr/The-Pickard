@@ -1,8 +1,8 @@
-# The Pickard - Development Roadmap & Next Steps
+# The Mechanic - Development Roadmap & Next Steps
 
 ## Overview
 
-This document outlines the immediate priorities, ongoing tasks, and future enhancements for The Pickard automotive mechanics database. Tasks are organized by priority and category.
+This document outlines the immediate priorities, ongoing tasks, and future enhancements for The Mechanic automotive mechanics database. Tasks are organized by priority and category.
 
 ---
 

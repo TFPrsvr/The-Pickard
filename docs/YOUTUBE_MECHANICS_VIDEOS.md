@@ -1,6 +1,6 @@
 # YouTube Mechanics Videos Reference
 
-This document contains a curated list of embeddable YouTube mechanics videos used on The Pickard website.
+This document contains a curated list of embeddable YouTube mechanics videos used on The Mechanic website.
 
 ## Current Videos in Rotation
 

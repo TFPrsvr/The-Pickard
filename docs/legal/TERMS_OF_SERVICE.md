@@ -4,11 +4,11 @@
 
 ## Agreement to Terms
 
-By accessing or using The Pickard automotive and powersports mechanics database ("Application," "Service," "we," "our," or "us"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Application.
+By accessing or using The Mechanic automotive and powersports mechanics database ("Application," "Service," "we," "our," or "us"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Application.
 
 ## Description of Service
 
-The Pickard provides:
+The Mechanic provides:
 - Automotive and powersports vehicle diagnostics database
 - Parts compatibility and interchange information
 - Problem and solution documentation
@@ -56,7 +56,7 @@ You must be at least 13 years old to use this Application. By using the Applicat
 ## Intellectual Property Rights
 
 ### Our Content
-- The Application and all content, features, and functionality are owned by The Pickard
+- The Application and all content, features, and functionality are owned by The Mechanic
 - Content includes text, graphics, logos, icons, images, software, and database compilation
 - Our content is protected by copyright, trademark, and other intellectual property laws
 - You may not copy, modify, distribute, or create derivative works without permission
@@ -92,7 +92,7 @@ TO THE MAXIMUM EXTENT PERMITTED BY LAW:
 
 ## Indemnification
 
-You agree to indemnify, defend, and hold harmless The Pickard, its affiliates, officers, directors, employees, and agents from any claims, liabilities, damages, losses, or expenses (including legal fees) arising from:
+You agree to indemnify, defend, and hold harmless The Mechanic, its affiliates, officers, directors, employees, and agents from any claims, liabilities, damages, losses, or expenses (including legal fees) arising from:
 - Your use of the Application
 - Your violation of these Terms
 - Your violation of any rights of third parties
@@ -145,7 +145,7 @@ If any provision of these Terms is found to be unenforceable, the remaining prov
 Failure to enforce any provision does not constitute a waiver of that provision.
 
 ### Entire Agreement
-These Terms, together with the Privacy Policy, constitute the entire agreement between you and The Pickard.
+These Terms, together with the Privacy Policy, constitute the entire agreement between you and The Mechanic.
 
 ### Assignment
 You may not assign these Terms without our consent. We may assign these Terms to any affiliate or successor.
@@ -157,7 +157,7 @@ We are not liable for delays or failures due to circumstances beyond our reasona
 
 For questions about these Terms:
 
-**Email**: legal@thepickard.com
+**Email**: legal@themechanic.com
 **Address**: [Your Business Address]
 **Response Time**: We respond to inquiries within 5-7 business days
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document contains reusable patterns, checklists, and best practices from The Pickard project that can be applied to **all future projects**. These patterns ensure consistent quality, security, accessibility, and app store readiness across all applications.
+This document contains reusable patterns, checklists, and best practices from The Mechanic project that can be applied to **all future projects**. These patterns ensure consistent quality, security, accessibility, and app store readiness across all applications.
 
 ---
 

@@ -11,7 +11,7 @@ export function Footer() {
 
           {/* Left: Copyright & Icons8 */}
           <div className="flex items-center gap-1.5 text-gray-300" style={{ height: '20px' }}>
-            <span className="text-gray-400">© {new Date().getFullYear()} The Pickard</span>
+            <span className="text-gray-400">© {new Date().getFullYear()} The Mechanic</span>
             <span>•</span>
             <span>Icons by <a href="https://icons8.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">Icons8</a></span>
           </div>
@@ -19,7 +19,7 @@ export function Footer() {
           {/* Center: Connect + Icons */}
           <div className="flex items-center gap-1.5" style={{ height: '20px' }}>
             <span className="font-semibold text-gray-200 mr-1.5">Connect:</span>
-            <a href="mailto:contact@thepickard.com" aria-label="Email" className="flex items-center">
+            <a href="mailto:contact@themechanic.com" aria-label="Email" className="flex items-center">
               <Mail className="h-3 w-3 text-green-400 hover:text-green-300" />
             </a>
             <a href="tel:+1234567890" aria-label="Phone" className="flex items-center">

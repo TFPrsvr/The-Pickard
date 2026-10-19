@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen, Phone, MapPin, Download, Users, Clock, Mail, Gauge, WrenchIcon, Cog, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
 // Lazy load heavy components for better performance
@@ -44,19 +43,12 @@ export default function HomePage() {
       {/* Hero Section - Centered */}
       <section className="text-center py-2 mb-3">
         <div className="flex flex-col items-center mb-2">
-          <div className="flex justify-center">
-            <Image
-              src="/images/the-pickard-logo.png"
-              alt="The Pickard"
-              width={800}
-              height={180}
-              className="h-24 w-full max-w-2xl object-contain mb-2 opacity-90 contrast-125"
-              priority
-            />
-          </div>
-          <h1 className="text-sm font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
-            Automotive Mechanics Database
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight mb-1">
+            The Mechanic
           </h1>
+          <p className="text-sm font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
+            Automotive Mechanics Database
+          </p>
         </div>
         <p className="text-xs text-muted-foreground leading-relaxed text-center">
           Your comprehensive automotive and powersports<br />database for mechanics.
@@ -71,7 +63,7 @@ export default function HomePage() {
             <p className="text-xs text-muted-foreground leading-relaxed">
               Find solutions to complex problems, discover interchangeable parts, access expert tips, or share your own knowledge with the community.
               Explore comprehensive wiring diagrams, collaborate with fellow mechanics to solve rare issues, and contribute to our growing database.
-              Whether you&apos;re tackling routine maintenance or diagnosing that elusive problem no one has figured out yet, The Pickard connects you with the resources and expertise you need.
+              Whether you&apos;re tackling routine maintenance or diagnosing that elusive problem no one has figured out yet, The Mechanic connects you with the resources and expertise you need.
             </p>
 
             {/* Quick Category Access */}
@@ -161,7 +153,7 @@ export default function HomePage() {
               Ready to Get Started?
             </h2>
             <p className="text-white/80 mb-3 text-xs max-w-sm mx-auto leading-relaxed">
-              Join thousands of mechanics who trust The Pickard for automotive diagnostics and repairs
+              Join thousands of mechanics who trust The Mechanic for automotive diagnostics and repairs
             </p>
 
             <div className="flex flex-col sm:flex-row gap-1.5 justify-center items-center mb-2">

@@ -128,7 +128,7 @@ export const media = pgTable('media', {
   createdAt: timestamp('created_at').defaultNow(),
 })
 
-// Pinterest Pins table - User-submitted Pinterest pins for The Pickard Reference Library
+// Pinterest Pins table - User-submitted Pinterest pins for The Mechanic Reference Library
 export const pinterestPins = pgTable('pinterest_pins', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').references(() => users.id).notNull(), // Who submitted the pin

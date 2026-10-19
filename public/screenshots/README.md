@@ -1,6 +1,6 @@
 # PWA Screenshots Directory
 
-This directory contains screenshots for The Pickard PWA listing in app stores.
+This directory contains screenshots for The Mechanic PWA listing in app stores.
 
 ## Required Screenshots
 

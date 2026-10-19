@@ -1,4 +1,4 @@
-# Available shadcn/ui Components for The Pickard
+# Available shadcn/ui Components for The Mechanic
 
 ## ✅ Already Implemented:
 - **Tabs** - Used in vehicle dashboard

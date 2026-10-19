@@ -1,8 +1,8 @@
-# Administrator Guide - The Pickard
+# Administrator Guide - The Mechanic
 
 ## Overview
 
-This guide provides comprehensive instructions for administrators managing The Pickard automotive mechanics database. It covers user management, content administration, system monitoring, and maintenance procedures.
+This guide provides comprehensive instructions for administrators managing The Mechanic automotive mechanics database. It covers user management, content administration, system monitoring, and maintenance procedures.
 
 ## Admin Access
 
@@ -122,13 +122,13 @@ POST /api/admin/content/guides
 **Backup Procedures**:
 ```bash
 # Daily automated backups
-pg_dump pickard_production > backup_$(date +%Y%m%d).sql
+pg_dump mechanic_production > backup_$(date +%Y%m%d).sql
 
 # Verify backup integrity
 pg_restore --list backup_20241201.sql
 
 # Test restoration (staging environment)
-pg_restore -d pickard_staging backup_20241201.sql
+pg_restore -d mechanic_staging backup_20241201.sql
 ```
 
 **Database Maintenance**:
@@ -147,13 +147,13 @@ pg_restore -d pickard_staging backup_20241201.sql
 **Monitoring Tools**:
 ```bash
 # Check application status
-systemctl status pickard-app
+systemctl status mechanic-app
 
 # Monitor database connections
 SELECT count(*) FROM pg_stat_activity;
 
 # Review error logs
-tail -f /var/log/pickard/application.log
+tail -f /var/log/mechanic/application.log
 ```
 
 ### Security Management
@@ -316,7 +316,7 @@ npm run health-check
 **Production Settings**:
 ```env
 NODE_ENV=production
-DATABASE_URL=postgresql://prod_user:password@prod-db:5432/pickard
+DATABASE_URL=postgresql://prod_user:password@prod-db:5432/mechanic
 REDIS_URL=redis://prod-redis:6379
 CLERK_SECRET_KEY=sk_live_xxxxx
 ```
@@ -398,4 +398,4 @@ CLERK_SECRET_KEY=sk_live_xxxxx
 - Vercel support for hosting concerns
 - App store support for mobile issues
 
-This administrator guide ensures efficient management of The Pickard platform while maintaining high availability, security, and user satisfaction.
+This administrator guide ensures efficient management of The Mechanic platform while maintaining high availability, security, and user satisfaction.

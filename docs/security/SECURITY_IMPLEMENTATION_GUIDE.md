@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide implements military-grade security for The Pickard application using a comprehensive 6-layer defense architecture as specified in `CLAUDE.md`.
+This guide implements military-grade security for The Mechanic application using a comprehensive 6-layer defense architecture as specified in `CLAUDE.md`.
 
 ---
 

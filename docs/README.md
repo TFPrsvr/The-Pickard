@@ -1,8 +1,8 @@
-# The Pickard - Automotive Mechanics Database
+# The Mechanic - Automotive Mechanics Database
 
 ## Project Overview
 
-The Pickard is a comprehensive full-stack automotive mechanics database application designed for professional automotive technicians, mechanics, and service providers. Built with modern web technologies, it provides access to diagnostic tools, parts databases, repair procedures, and technical documentation.
+The Mechanic is a comprehensive full-stack automotive mechanics database application designed for professional automotive technicians, mechanics, and service providers. Built with modern web technologies, it provides access to diagnostic tools, parts databases, repair procedures, and technical documentation.
 
 ## Technology Stack
 
@@ -102,7 +102,7 @@ NODE_ENV="development"
 ## Project Structure
 
 ```
-the-pickard/
+the-mechanic/
 ├── docs/                    # Documentation
 ├── src/
 │   ├── app/                # Next.js 13+ app directory

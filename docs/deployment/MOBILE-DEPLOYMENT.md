@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Pickard is designed as a Progressive Web App (PWA) that can be deployed to mobile app stores including Google Play Store, Apple App Store, and other platforms. This document outlines the deployment strategies and requirements for mobile platforms.
+The Mechanic is designed as a Progressive Web App (PWA) that can be deployed to mobile app stores including Google Play Store, Apple App Store, and other platforms. This document outlines the deployment strategies and requirements for mobile platforms.
 
 ## Deployment Options
 
@@ -42,8 +42,8 @@ The Pickard is designed as a Progressive Web App (PWA) that can be deployed to m
 ### PWA Manifest (`public/manifest.json`)
 ```json
 {
-  "name": "The Pickard - Automotive Mechanics Database",
-  "short_name": "The Pickard",
+  "name": "The Mechanic - Automotive Mechanics Database",
+  "short_name": "The Mechanic",
   "description": "Professional automotive diagnostics and repair database",
   "start_url": "/",
   "display": "standalone",
@@ -143,7 +143,7 @@ The Pickard is designed as a Progressive Web App (PWA) that can be deployed to m
    - Submit for review
 
 ### Play Store Optimization
-- **App Name**: "The Pickard - Auto Mechanics"
+- **App Name**: "The Mechanic - Auto Mechanics"
 - **Category**: Business / Productivity
 - **Keywords**: automotive, mechanics, diagnostic, repair, parts
 - **Description**: Professional automotive database and diagnostic tools
@@ -195,7 +195,7 @@ The Pickard is designed as a Progressive Web App (PWA) that can be deployed to m
 npm install @capacitor/core @capacitor/cli
 
 # Initialize Capacitor
-npx cap init "The Pickard" "com.pickard.app"
+npx cap init "The Mechanic" "com.themechanic.app"
 
 # Add platforms
 npx cap add android
@@ -331,4 +331,4 @@ npm run test:pwa
 - Verify automotive database content permissions
 - Include proper attributions for third-party content
 
-This mobile deployment strategy ensures The Pickard can reach mechanics and automotive professionals across all major platforms while maintaining high performance and user experience standards.
+This mobile deployment strategy ensures The Mechanic can reach mechanics and automotive professionals across all major platforms while maintaining high performance and user experience standards.

@@ -178,7 +178,7 @@ export default function PartsPage() {
       {/* Banner Section */}
       <div className="relative overflow-hidden rounded-lg mb-8 h-48">
         <Image
-          src="/images/banner-background.png"
+          src="/images/banner.png"
           alt="Automotive Background"
           fill
           className="object-cover opacity-20"

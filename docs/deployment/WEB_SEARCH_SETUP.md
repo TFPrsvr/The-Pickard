@@ -1,7 +1,7 @@
 # Web Search Integration Setup
 
 ## Overview
-This guide helps you set up web search functionality for automotive mechanics terms in The Pickard application.
+This guide helps you set up web search functionality for automotive mechanics terms in The Mechanic application.
 
 ## 1. Choose Your Search API Provider
 

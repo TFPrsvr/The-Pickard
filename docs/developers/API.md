@@ -1,8 +1,8 @@
-# API Documentation - The Pickard
+# API Documentation - The Mechanic
 
 ## Overview
 
-The Pickard provides a RESTful API for accessing vehicle diagnostics, parts database, and web search functionality. All API endpoints are built with Next.js API routes and use JSON for request and response payloads.
+The Mechanic provides a RESTful API for accessing vehicle diagnostics, parts database, and web search functionality. All API endpoints are built with Next.js API routes and use JSON for request and response payloads.
 
 ## Base URL
 
@@ -425,7 +425,7 @@ type SearchCategory =
 
 ```typescript
 // lib/api-client.ts
-export class PickardAPIClient {
+export class MechanicAPIClient {
   private baseURL: string
 
   constructor(baseURL: string = '/api') {

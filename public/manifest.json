@@ -1,6 +1,6 @@
 {
-  "name": "The Pickard - Automotive Mechanics Database",
-  "short_name": "The Pickard",
+  "name": "The Mechanic - Automotive Mechanics Database",
+  "short_name": "The Mechanic",
   "description": "Professional automotive diagnostics and repair database for mechanics and technicians",
   "start_url": "/",
   "display": "standalone",

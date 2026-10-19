@@ -47,7 +47,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-lg mb-2">Email Us</h3>
                     <p className="text-gray-600 mb-2">For detailed technical questions</p>
-                    <p className="font-semibold text-green-600">support@thepickard.com</p>
+                    <p className="font-semibold text-green-600">support@themechanic.com</p>
                     <p className="text-sm text-gray-500">Response within 24 hours</p>
                   </div>
                 </div>
@@ -114,9 +114,9 @@ export default function ContactPage() {
               Emergency Hotline
             </a>
             <a
-              href="mailto:support@thepickard.com"
+              href="mailto:support@themechanic.com"
               className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              aria-label="Send email to support at thepickard.com"
+              aria-label="Send email to support at themechanic.com"
             >
               <Mail className="h-5 w-5 mr-2" aria-hidden="true" />
               Email Support

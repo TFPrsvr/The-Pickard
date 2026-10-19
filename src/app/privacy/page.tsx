@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - The Pickard',
-  description: 'Privacy Policy for The Pickard automotive and powersports mechanics database',
+  title: 'Privacy Policy - The Mechanic',
+  description: 'Privacy Policy for The Mechanic automotive and powersports mechanics database',
 }
 
 export default function PrivacyPolicyPage() {
@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
           <p>
-            The Pickard (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates an automotive and powersports mechanics database application.
+            The Mechanic (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates an automotive and powersports mechanics database application.
             This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application.
           </p>
         </section>
@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
           </ul>
 
           <h3 className="text-xl font-semibold mb-3 mt-6">Automatically Collected Information</h3>
-          <p>When you use The Pickard, we automatically collect:</p>
+          <p>When you use The Mechanic, we automatically collect:</p>
           <ul className="list-disc pl-6 mb-4">
             <li>Device information (operating system, browser type, device type)</li>
             <li>Usage data (pages viewed, features accessed, time spent)</li>
@@ -154,7 +154,7 @@ export default function PrivacyPolicyPage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
           <p className="mb-4">If you have questions about this Privacy Policy or wish to exercise your rights, contact us:</p>
-          <p><strong>Email</strong>: privacy@thepickard.com</p>
+          <p><strong>Email</strong>: privacy@themechanic.com</p>
           <p><strong>Response Time</strong>: We respond to privacy requests within 30 days.</p>
         </section>
 

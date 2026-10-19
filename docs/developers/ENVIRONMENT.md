@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Pickard application requires specific environment variables to function correctly. This document outlines all required and optional environment variables for different deployment environments.
+The Mechanic application requires specific environment variables to function correctly. This document outlines all required and optional environment variables for different deployment environments.
 
 ## Environment Files
 
@@ -21,14 +21,14 @@ The Pickard application requires specific environment variables to function corr
 #### `DATABASE_URL`
 - **Description**: Primary PostgreSQL database connection string
 - **Format**: `postgresql://username:password@host:port/database`
-- **Example**: `postgresql://user:pass@localhost:5432/pickard_db`
+- **Example**: `postgresql://user:pass@localhost:5432/mechanic_db`
 - **Required**: Yes
 - **Environment**: All
 
 #### `DIRECT_DATABASE_URL`
 - **Description**: Direct database connection for migrations and admin operations
 - **Format**: Same as DATABASE_URL
-- **Example**: `postgresql://user:pass@localhost:5432/pickard_db`
+- **Example**: `postgresql://user:pass@localhost:5432/mechanic_db`
 - **Required**: Yes (for Neon and serverless databases)
 - **Environment**: All
 
@@ -79,7 +79,7 @@ The Pickard application requires specific environment variables to function corr
 #### `NEXT_PUBLIC_APP_URL`
 - **Description**: Base URL of the application
 - **Format**: Full URL including protocol
-- **Example**: `https://pickard.example.com` or `http://localhost:3000`
+- **Example**: `https://mechanic.example.com` or `http://localhost:3000`
 - **Required**: Yes
 - **Environment**: All
 - **Note**: Used for generating absolute URLs and API calls
@@ -117,7 +117,7 @@ The Pickard application requires specific environment variables to function corr
 
 2. Fill in your actual values:
    ```env
-   DATABASE_URL="postgresql://user:pass@localhost:5432/pickard_dev"
+   DATABASE_URL="postgresql://user:pass@localhost:5432/mechanic_dev"
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_your_key_here"
    CLERK_SECRET_KEY="sk_test_your_secret_here"
    NEXT_PUBLIC_APP_URL="http://localhost:3000"
@@ -153,7 +153,7 @@ The Pickard application requires specific environment variables to function corr
 
 #### Local PostgreSQL
 1. Install PostgreSQL locally
-2. Create database: `createdb pickard_dev`
+2. Create database: `createdb mechanic_dev`
 3. Create user with permissions
 4. Use connection string format shown above
 

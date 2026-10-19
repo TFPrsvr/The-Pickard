@@ -2,13 +2,13 @@
 
 ## Overview
 
-This guide explains how to enable Multi-Factor Authentication (MFA) in Clerk for The Pickard application. MFA adds an additional security layer by requiring users to verify their identity through a second factor (SMS, authenticator app, or backup codes).
+This guide explains how to enable Multi-Factor Authentication (MFA) in Clerk for The Mechanic application. MFA adds an additional security layer by requiring users to verify their identity through a second factor (SMS, authenticator app, or backup codes).
 
 ---
 
 ## Prerequisites
 
-- Clerk account with access to The Pickard application dashboard
+- Clerk account with access to The Mechanic application dashboard
 - Admin access to your Clerk dashboard
 
 ---
@@ -16,7 +16,7 @@ This guide explains how to enable Multi-Factor Authentication (MFA) in Clerk for
 ## Step 1: Access Clerk Dashboard
 
 1. Log in to your Clerk account at [https://dashboard.clerk.com](https://dashboard.clerk.com)
-2. Select **The Pickard** application from your list of applications
+2. Select **The Mechanic** application from your list of applications
 3. Navigate to the **User & Authentication** section in the left sidebar
 
 ---
@@ -184,11 +184,11 @@ Once MFA is enabled, users will experience the following:
 
 ---
 
-## Integration with The Pickard Application
+## Integration with The Mechanic Application
 
 ### Current Authorization System:
 
-The Pickard already has role-based authorization (RBAC). MFA adds an additional security layer:
+The Mechanic already has role-based authorization (RBAC). MFA adds an additional security layer:
 
 **Security Layers:**
 1. ✅ Email/Password or Social Login (Clerk)
@@ -252,7 +252,7 @@ export function UserProfile() {
 1. **Use authenticator app, not SMS** - More secure against SIM swapping
 2. **Save backup codes** - Store in secure location (password manager)
 3. **Don't share codes** - MFA codes are single-use and time-sensitive
-4. **Enable MFA on all accounts** - Not just The Pickard
+4. **Enable MFA on all accounts** - Not just The Mechanic
 
 ---
 
@@ -334,4 +334,4 @@ Before enabling MFA in production:
 ---
 
 **Last Updated:** 2025-01-16
-**Maintained By:** The Pickard Development Team
+**Maintained By:** The Mechanic Development Team

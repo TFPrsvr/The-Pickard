@@ -1,8 +1,8 @@
-# User Guide - The Pickard
+# User Guide - The Mechanic
 
 ## Overview
 
-The Pickard is a comprehensive automotive mechanics database designed for professional technicians, mechanics, and automotive service providers. This guide will help you navigate and make the most of all available features.
+The Mechanic is a comprehensive automotive mechanics database designed for professional technicians, mechanics, and automotive service providers. This guide will help you navigate and make the most of all available features.
 
 ## Getting Started
 
@@ -264,4 +264,4 @@ Dashboard
     └── Favorite Guides
 ```
 
-This user guide ensures mechanics can efficiently navigate and utilize all features of The Pickard database to improve their diagnostic accuracy and repair efficiency.
+This user guide ensures mechanics can efficiently navigate and utilize all features of The Mechanic database to improve their diagnostic accuracy and repair efficiency.

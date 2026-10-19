@@ -1,6 +1,6 @@
 # PWA Icon Generation Guide
 
-This guide explains how to generate all required PWA icons for The Pickard application.
+This guide explains how to generate all required PWA icons for The Mechanic application.
 
 ## Required Icon Sizes
 
@@ -24,7 +24,7 @@ This guide explains how to generate all required PWA icons for The Pickard appli
 ## Source Image Requirements
 
 ### Prepare Your Source Logo
-1. Use the existing logo: `/images/the-pickard-logo.png`
+1. Use the existing logo: `/images/the-mechanic-logo.png`
 2. Ideal source: Square image (1024x1024px minimum)
 3. Format: PNG with transparency
 4. Design: Simple, recognizable at small sizes
@@ -67,7 +67,7 @@ sudo apt-get install imagemagick
 cd public/icons
 
 # Generate from source logo (replace path to your logo)
-SOURCE="../images/the-pickard-logo.png"
+SOURCE="../images/the-mechanic-logo.png"
 
 # Generate all sizes
 magick convert $SOURCE -resize 72x72 icon-72x72.png
@@ -101,7 +101,7 @@ const fs = require('fs');
 const path = require('path');
 
 const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
-const source = path.join(__dirname, '../public/images/the-pickard-logo.png');
+const source = path.join(__dirname, '../public/images/the-mechanic-logo.png');
 const output = path.join(__dirname, '../public/icons');
 
 // Ensure output directory exists

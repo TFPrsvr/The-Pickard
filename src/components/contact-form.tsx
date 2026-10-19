@@ -211,7 +211,7 @@ export function ContactForm({ title = "Contact Us", description = "Send us a mes
           <p className="text-sm text-gray-600 text-center">
             Need immediate help? Call us at{' '}
             <span className="font-semibold text-blue-600">(555) 123-AUTO</span> or email{' '}
-            <span className="font-semibold text-blue-600">support@thepickard.com</span>
+            <span className="font-semibold text-blue-600">support@themechanic.com</span>
           </p>
         </div>
       </CardContent>

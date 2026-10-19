@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The Pickard ("we," "our," or "us") operates an automotive and powersports mechanics database application. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application.
+The Mechanic ("we," "our," or "us") operates an automotive and powersports mechanics database application. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application.
 
 ## Information We Collect
 
@@ -16,7 +16,7 @@ We collect information that you provide directly to us when you:
 - Contact us for support
 
 ### Automatically Collected Information
-When you use The Pickard, we automatically collect:
+When you use The Mechanic, we automatically collect:
 - Device information (operating system, browser type, device type)
 - Usage data (pages viewed, features accessed, time spent)
 - Vehicle search queries and filters
@@ -107,7 +107,7 @@ However, no method of transmission over the internet is 100% secure. We cannot g
 
 ## Children's Privacy
 
-The Pickard is not intended for users under 13 years of age. We do not knowingly collect information from children under 13. If we learn we have collected information from a child under 13, we will delete it promptly.
+The Mechanic is not intended for users under 13 years of age. We do not knowingly collect information from children under 13. If we learn we have collected information from a child under 13, we will delete it promptly.
 
 ## International Data Transfers
 
@@ -121,7 +121,7 @@ We may update this Privacy Policy from time to time. Changes will be posted on t
 
 If you have questions about this Privacy Policy or wish to exercise your rights, contact us:
 
-**Email**: privacy@thepickard.com
+**Email**: privacy@themechanic.com
 **Address**: [Your Business Address]
 **Response Time**: We respond to privacy requests within 30 days.
 

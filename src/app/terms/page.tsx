@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - The Pickard',
-  description: 'Terms of Service for The Pickard automotive and powersports mechanics database',
+  title: 'Terms of Service - The Mechanic',
+  description: 'Terms of Service for The Mechanic automotive and powersports mechanics database',
 }
 
 export default function TermsOfServicePage() {
@@ -26,14 +26,14 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Agreement to Terms</h2>
           <p>
-            By accessing or using The Pickard automotive and powersports mechanics database (&quot;Application,&quot; &quot;Service,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;),
+            By accessing or using The Mechanic automotive and powersports mechanics database (&quot;Application,&quot; &quot;Service,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;),
             you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, do not use the Application.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Description of Service</h2>
-          <p>The Pickard provides:</p>
+          <p>The Mechanic provides:</p>
           <ul className="list-disc pl-6 mb-4">
             <li>Automotive and powersports vehicle diagnostics database</li>
             <li>Parts compatibility and interchange information</li>
@@ -134,7 +134,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
           <p className="mb-4">For questions about these Terms:</p>
-          <p><strong>Email</strong>: legal@thepickard.com</p>
+          <p><strong>Email</strong>: legal@themechanic.com</p>
           <p><strong>Response Time</strong>: We respond to inquiries within 5-7 business days</p>
         </section>
 
@@ -142,7 +142,7 @@ export default function TermsOfServicePage() {
           <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
             <p className="font-semibold uppercase">Acknowledgment</p>
             <p className="mt-2">
-              By using The Pickard, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+              By using The Mechanic, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
             </p>
           </div>
         </section>
