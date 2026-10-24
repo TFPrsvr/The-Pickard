@@ -37,7 +37,7 @@ export function Navbar() {
                 : <Menu className="h-4 w-4" aria-hidden="true" />
               }
             </button>
-            <Link href="/" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors tracking-wide leading-none" aria-label="The Mechanic - Home">
+            <Link href="/" className="inline-flex items-center text-xl font-semibold text-gray-700 hover:text-blue-600 transition-colors tracking-wide leading-none" aria-label="The Mechanic - Home">
               The Mechanic
             </Link>
           </div>
