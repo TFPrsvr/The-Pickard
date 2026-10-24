@@ -1,167 +1,204 @@
 'use client'
 
 import { useUser } from '@clerk/nextjs'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { AutomotiveWebSearch } from '@/components/automotive-web-search'
-import { SearchResult } from '@/lib/web-search'
-import { Search, Database, Wrench, Lightbulb, Globe, ArrowRight, Car, Settings } from 'lucide-react'
 import Link from 'next/link'
+import PropTypes from 'prop-types'
+
+interface ServiceCategory {
+  label: string
+  description: string
+  href: string
+  icon: string
+  color: string
+  bg: string
+  border: string
+  iconColor: string
+}
+
+const SERVICE_CATEGORIES: ServiceCategory[] = [
+  {
+    label: 'Vehicle Search',
+    description: 'Search by year, make & model',
+    href: '/search-by-category',
+    icon: 'fi-rr-car-alt',
+    color: 'text-blue-600',
+    bg: 'bg-blue-50',
+    border: 'border-blue-200',
+    iconColor: 'text-blue-600',
+  },
+  {
+    label: 'Problems & Solutions',
+    description: 'Browse known issues & fixes',
+    href: '/problems',
+    icon: 'fi-rr-wrench',
+    color: 'text-red-600',
+    bg: 'bg-red-50',
+    border: 'border-red-200',
+    iconColor: 'text-red-600',
+  },
+  {
+    label: 'Parts Database',
+    description: 'Find interchangeable parts',
+    href: '/database',
+    icon: 'fi-rr-settings',
+    color: 'text-green-600',
+    bg: 'bg-green-50',
+    border: 'border-green-200',
+    iconColor: 'text-green-600',
+  },
+  {
+    label: 'Expert Tips',
+    description: 'Mechanic-shared knowledge',
+    href: '/tips',
+    icon: 'fi-rr-bulb',
+    color: 'text-yellow-600',
+    bg: 'bg-yellow-50',
+    border: 'border-yellow-200',
+    iconColor: 'text-yellow-600',
+  },
+  {
+    label: 'Parts Finder',
+    description: 'Shop & compare parts',
+    href: '/parts',
+    icon: 'fi-rr-apps',
+    color: 'text-orange-600',
+    bg: 'bg-orange-50',
+    border: 'border-orange-200',
+    iconColor: 'text-orange-600',
+  },
+  {
+    label: 'Repair Guides',
+    description: 'Step-by-step procedures',
+    href: '/guides',
+    icon: 'fi-rr-book-alt',
+    color: 'text-indigo-600',
+    bg: 'bg-indigo-50',
+    border: 'border-indigo-200',
+    iconColor: 'text-indigo-600',
+  },
+  {
+    label: 'Diagrams',
+    description: 'Wiring & system diagrams',
+    href: '/diagrams',
+    icon: 'fi-rr-diagram-project',
+    color: 'text-teal-600',
+    bg: 'bg-teal-50',
+    border: 'border-teal-200',
+    iconColor: 'text-teal-600',
+  },
+  {
+    label: 'Web Search',
+    description: 'Search repair resources',
+    href: '/search',
+    icon: 'fi-rr-search',
+    color: 'text-purple-600',
+    bg: 'bg-purple-50',
+    border: 'border-purple-200',
+    iconColor: 'text-purple-600',
+  },
+  {
+    label: 'Web Resources',
+    description: 'Forums, manuals & more',
+    href: '/search?tab=web',
+    icon: 'fi-rr-globe',
+    color: 'text-sky-600',
+    bg: 'bg-sky-50',
+    border: 'border-sky-200',
+    iconColor: 'text-sky-600',
+  },
+]
+
+interface ServiceTileProps {
+  category: ServiceCategory
+}
+
+function ServiceTile({ category }: ServiceTileProps) {
+  const iconId = `icon-${category.label.toLowerCase().replace(/\s+/g, '-')}`
+  const descId = `desc-${category.label.toLowerCase().replace(/\s+/g, '-')}`
+  return (
+    <Link
+      href={category.href}
+      role="button"
+      aria-label={category.label}
+      aria-describedby={descId}
+      className={`flex flex-col items-center justify-center gap-2 rounded-xl border-2 ${category.border} ${category.bg} p-4 min-h-[120px] min-w-[48px] hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+    >
+      <div
+        id={iconId}
+        role="img"
+        aria-label={`${category.label} icon`}
+        className={`flex items-center justify-center w-12 h-12 rounded-full ${category.bg} border ${category.border}`}
+      >
+        <i className={`fi ${category.icon} text-2xl ${category.iconColor}`} aria-hidden="true" />
+      </div>
+      <span className={`text-sm font-semibold ${category.color} text-center leading-tight`}>
+        {category.label}
+      </span>
+      <span id={descId} className="text-xs text-gray-500 text-center leading-tight hidden sm:block">
+        {category.description}
+      </span>
+    </Link>
+  )
+}
+
+ServiceTile.propTypes = {
+  category: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    bg: PropTypes.string.isRequired,
+    border: PropTypes.string.isRequired,
+    iconColor: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 export default function DashboardPage() {
   const { user } = useUser()
 
-  const handleWebSearchResult = (result: SearchResult) => {
-    // TODO: Implement database save functionality for search results
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">The Mechanic</h1>
-          <p className="text-gray-600 mt-2">
-            The Database made for mechanics by mechanics. The one stop shop to find out about vehicle&apos;s problems both common and not so common and interchangeable parts, upload tips for the next mechanic.
+      <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8">
+
+        {/* Header */}
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Welcome back{user?.firstName ? `, ${user.firstName}` : ''}
+          </h1>
+          <p className="text-gray-500 mt-1 text-sm">
+            The database built for mechanics, by mechanics.
           </p>
         </div>
 
-        {/* Main Actions Grid - 2x2 Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Vehicle Search Section */}
-          <Link href="/search" className="block">
-            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
-              <CardHeader className="bg-gray-100 border-b border-gray-200">
-                <CardTitle className="flex items-center gap-2 text-gray-900">
-                  <Car className="h-6 w-6 text-blue-600" />
-                  Vehicle Search
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  Find vehicle problems and solutions by specific vehicle details
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between text-blue-600">
-                  <span className="font-medium">Search Vehicle Database</span>
-                  <ArrowRight className="h-5 w-5" />
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
+        {/* 3×3 Service Category Matrix */}
+        <section aria-labelledby="services-heading">
+          <h2 id="services-heading" className="text-base font-semibold text-gray-700 mb-4">
+            Services
+          </h2>
+          <div className="grid grid-cols-3 gap-3 sm:gap-4">
+            {SERVICE_CATEGORIES.map((category) => (
+              <ServiceTile key={category.href} category={category} />
+            ))}
+          </div>
+        </section>
 
-          {/* Problems Database Section */}
-          <Link href="/problems" className="block">
-            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
-              <CardHeader className="bg-gray-100 border-b border-gray-200">
-                <CardTitle className="flex items-center gap-2 text-gray-900">
-                  <Wrench className="h-6 w-6 text-red-600" />
-                  Problems & Solutions
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  Browse and search automotive problems by vehicle specifications
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between text-red-600">
-                  <span className="font-medium">Browse Problems Database</span>
-                  <ArrowRight className="h-5 w-5" />
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
+        {/* Recent Activity */}
+        <section aria-labelledby="activity-heading">
+          <h2 id="activity-heading" className="text-base font-semibold text-gray-700 mb-4">
+            Recent Activity
+          </h2>
+          <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+            <ActivityItem title="Searched for 2019 Ford F-150 transmission problems" time="2 hours ago" />
+            <ActivityItem title="Saved solution for brake replacement" time="1 day ago" />
+            <ActivityItem title="Added tip about oil change intervals" time="3 days ago" />
+          </div>
+        </section>
 
-          {/* Parts Database Section */}
-          <Link href="/database" className="block">
-            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
-              <CardHeader className="bg-gray-100 border-b border-gray-200">
-                <CardTitle className="flex items-center gap-2 text-gray-900">
-                  <Settings className="h-6 w-6 text-green-600" />
-                  Parts Database
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  Find interchangeable parts with advanced filtering options
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between text-green-600">
-                  <span className="font-medium">Search Parts Database</span>
-                  <ArrowRight className="h-5 w-5" />
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-
-          {/* Tips & Knowledge Section */}
-          <Link href="/tips" className="block">
-            <Card className="bg-white border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-gray-50">
-              <CardHeader className="bg-gray-100 border-b border-gray-200">
-                <CardTitle className="flex items-center gap-2 text-gray-900">
-                  <Lightbulb className="h-6 w-6 text-yellow-600" />
-                  Expert Tips
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  Access expert mechanic tips and share your knowledge
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between text-yellow-600">
-                  <span className="font-medium">View Tips & Knowledge</span>
-                  <ArrowRight className="h-5 w-5" />
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        </div>
-
-        {/* Web Search Section */}
-        <div className="mb-8">
-          <Card className="bg-white border-gray-200 shadow-sm">
-            <CardHeader className="bg-gray-100 border-b border-gray-200">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Globe className="h-5 w-5 text-purple-600" />
-                Web Search
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Search the web for automotive repair information
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <AutomotiveWebSearch onResultSelect={handleWebSearchResult} />
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Activity Section - Moved to bottom */}
-        <div className="mb-8">
-          <Card className="bg-white border-gray-200 shadow-sm">
-            <CardHeader className="bg-gray-100 border-b border-gray-200">
-              <CardTitle className="text-gray-900">Recent Activity</CardTitle>
-              <CardDescription className="text-gray-600">
-                Your recent database interactions
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <ActivityItem
-                  title="Searched for 2019 Ford F-150 transmission problems"
-                  time="2 hours ago"
-                />
-                <ActivityItem
-                  title="Saved solution for brake replacement"
-                  time="1 day ago"
-                />
-                <ActivityItem
-                  title="Added tip about oil change intervals"
-                  time="3 days ago"
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   )
 }
-
 
 interface ActivityItemProps {
   title: string
@@ -170,9 +207,14 @@ interface ActivityItemProps {
 
 function ActivityItem({ title, time }: ActivityItemProps) {
   return (
-    <div className="flex justify-between items-start border-b border-gray-100 pb-3 last:border-b-0 last:pb-0">
+    <div className="flex justify-between items-start px-4 py-3">
       <p className="text-sm text-gray-700">{title}</p>
-      <p className="text-xs text-gray-500">{time}</p>
+      <p className="text-xs text-gray-400 ml-4 shrink-0">{time}</p>
     </div>
   )
+}
+
+ActivityItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
 }

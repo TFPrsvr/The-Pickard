@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { ExternalLink, Search, Youtube, Globe, BookOpen } from 'lucide-react'
+import { ExternalLink, Search, PlayCircle, Globe, BookOpen } from 'lucide-react'
 import PropTypes from 'prop-types'
 
 interface AutomotiveSuggestionsProps {
@@ -43,7 +43,7 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
       url: 'https://www.youtube.com/channel/UCPPHkxoGlbECGQ7Bc3J3D_w',
       type: 'youtube' as const,
       description: 'Professional automotive diagnostic and repair tutorials',
-      icon: <Youtube className="h-4 w-4" />
+      icon: <PlayCircle className="h-4 w-4" />
     },
     {
       title: 'AutoZone Repair Guides',
@@ -85,14 +85,14 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
       url: 'https://www.youtube.com/channel/UCes1EvRjcKU4sY_UEavndBw',
       type: 'youtube' as const,
       description: 'DIY car repair tutorials and maintenance guides',
-      icon: <Youtube className="h-4 w-4" />
+      icon: <PlayCircle className="h-4 w-4" />
     },
     {
       title: 'ScannerDanner (YouTube)',
       url: 'https://www.youtube.com/channel/UCoxA17_TcYfAunWOoNwUneg',
       type: 'youtube' as const,
       description: 'Advanced diagnostic techniques and troubleshooting',
-      icon: <Youtube className="h-4 w-4" />
+      icon: <PlayCircle className="h-4 w-4" />
     }
   ], [])
 
@@ -115,7 +115,7 @@ export function AutomotiveSuggestions({ vehicleInfo, searchQuery = '' }: Automot
         url: `https://www.youtube.com/results?search_query="${vehicleString} repair maintenance"`,
         type: 'youtube',
         description: `YouTube videos for ${vehicleString} repairs`,
-        icon: <Youtube className="h-4 w-4" />
+        icon: <PlayCircle className="h-4 w-4" />
       })
 
       if (searchQuery) {

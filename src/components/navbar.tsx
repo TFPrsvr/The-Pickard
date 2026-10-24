@@ -2,7 +2,8 @@
 
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import { Car, Database, BookOpen, FileText, Zap, Menu, X, Home, Heart, ChevronDown, ChevronRight, Search, Wrench } from 'lucide-react'
+import Image from 'next/image'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -33,9 +34,9 @@ export function Navbar() {
               aria-controls="mobile-navigation-menu"
             >
               {mounted && isMobileMenuOpen ? (
-                <X className="h-5 w-5" aria-hidden="true" />
+                <i className="fi fi-rr-cross text-base leading-none" aria-hidden="true" />
               ) : (
-                <Menu className="h-5 w-5" aria-hidden="true" />
+                <i className="fi fi-rr-menu-burger text-base leading-none" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -43,9 +44,14 @@ export function Navbar() {
           {/* Center: Logo */}
           <div className="flex-1 flex justify-center">
             <Link href="/" className="flex items-center" aria-label="The Mechanic - Home">
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight">
-                The Mechanic
-              </span>
+              <Image
+                src="/images/the-mechanic-logo.png"
+                alt="The Mechanic"
+                width={800}
+                height={180}
+                className="h-10 w-auto max-w-md"
+                priority
+              />
             </Link>
           </div>
 
@@ -91,13 +97,13 @@ export function Navbar() {
               className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center"
               aria-label="Close navigation menu"
             >
-              <X className="h-3 w-3" aria-hidden="true" />
+              <i className="fi fi-rr-cross text-xs leading-none" aria-hidden="true" />
             </button>
           </div>
         </div>
 
         <nav className="px-3 py-1 space-y-1 flex-1 overflow-y-auto" aria-label="Main navigation">
-          <MobileNavLink href="/" icon={<Home className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/" icon={<i className="fi fi-rr-home text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Home
           </MobileNavLink>
 
@@ -111,7 +117,7 @@ export function Navbar() {
                 aria-label="Search by vehicle category"
               >
                 <div className="text-blue-600">
-                  <Car className="h-3 w-3" aria-hidden="true" />
+                  <i className="fi fi-rr-car-alt text-xs leading-none" aria-hidden="true" />
                 </div>
                 <span>Vehicle Types</span>
               </Link>
@@ -163,25 +169,25 @@ export function Navbar() {
             )}
           </div>
 
-          <MobileNavLink href="/search" icon={<Search className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/search" icon={<i className="fi fi-rr-search text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Problem Finder
           </MobileNavLink>
-          <MobileNavLink href="/parts" icon={<Database className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/parts" icon={<i className="fi fi-rr-database text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Parts Database
           </MobileNavLink>
-          <MobileNavLink href="/problems" icon={<Wrench className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/problems" icon={<i className="fi fi-rr-wrench text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Problems & Solutions
           </MobileNavLink>
-          <MobileNavLink href="/tips" icon={<BookOpen className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/tips" icon={<i className="fi fi-rr-bulb text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Expert Tips
           </MobileNavLink>
-          <MobileNavLink href="/guides" icon={<FileText className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/guides" icon={<i className="fi fi-rr-book-alt text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             How-to Guides
           </MobileNavLink>
-          <MobileNavLink href="/diagrams" icon={<Zap className="h-3 w-3" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/diagrams" icon={<i className="fi fi-rr-bolt text-xs leading-none" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Wiring Diagrams
           </MobileNavLink>
-          <MobileNavLink href="/pinterest" icon={<Heart className="h-3 w-3 text-red-500 fill-current" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
+          <MobileNavLink href="/pinterest" icon={<i className="fi fi-rr-heart text-xs leading-none text-red-500" aria-hidden="true" />} onClick={() => setIsMobileMenuOpen(false)}>
             Pinterest Library
           </MobileNavLink>
         </nav>

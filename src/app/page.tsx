@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Search, Wrench, Database, Lightbulb, FileText, Car, Settings, BookOpen, Phone, MapPin, Download, Users, Clock, Mail, Gauge, WrenchIcon, Cog, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
 // Lazy load heavy components for better performance
@@ -43,9 +44,17 @@ export default function HomePage() {
       {/* Hero Section - Centered */}
       <section className="text-center py-2 mb-3">
         <div className="flex flex-col items-center mb-2">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight mb-1">
-            The Mechanic
-          </h1>
+          <div className="flex justify-center">
+            <Image
+              src="/images/the-mechanic-logo.png"
+              alt="The Mechanic"
+              width={800}
+              height={180}
+              className="h-24 w-full max-w-2xl object-contain mb-2"
+              priority
+            />
+          </div>
+          <h1 className="sr-only">The Mechanic</h1>
           <p className="text-sm font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
             Automotive Mechanics Database
           </p>

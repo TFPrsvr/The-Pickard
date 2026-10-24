@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -9,11 +9,11 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-2">
         <div className="flex items-center justify-between text-[10px]" style={{ height: '20px' }}>
 
-          {/* Left: Copyright & Icons8 */}
+          {/* Left: Copyright & Attribution */}
           <div className="flex items-center gap-1.5 text-gray-300" style={{ height: '20px' }}>
             <span className="text-gray-400">© {new Date().getFullYear()} The Mechanic</span>
             <span>•</span>
-            <span>Icons by <a href="https://icons8.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">Icons8</a></span>
+            <span>Uicons by <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">Flaticon</a></span>
           </div>
 
           {/* Center: Connect + Icons */}
@@ -28,17 +28,17 @@ export function Footer() {
             <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" aria-label="Location" className="flex items-center">
               <MapPin className="h-3 w-3 text-purple-400 hover:text-purple-300" />
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex items-center">
-              <Youtube className="h-3 w-3 text-red-500 hover:text-red-400" />
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex items-center opacity-80 hover:opacity-100">
+              <i className="fi fi-brands-youtube text-red-500 text-xs" aria-hidden="true" />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center">
-              <Facebook className="h-3 w-3 text-orange-400 hover:text-orange-300" />
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center opacity-80 hover:opacity-100">
+              <i className="fi fi-brands-facebook text-blue-400 text-xs" aria-hidden="true" />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="flex items-center">
-              <Twitter className="h-3 w-3 text-blue-500 hover:text-blue-400" />
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X" className="flex items-center opacity-80 hover:opacity-100">
+              <i className="fi fi-brands-twitter text-sky-400 text-xs" aria-hidden="true" />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center">
-              <Instagram className="h-3 w-3 text-pink-500 hover:text-pink-400" />
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center opacity-80 hover:opacity-100">
+              <i className="fi fi-brands-instagram text-pink-400 text-xs" aria-hidden="true" />
             </a>
           </div>
 

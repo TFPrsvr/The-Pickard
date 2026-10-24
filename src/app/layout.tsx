@@ -5,7 +5,6 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Navbar } from '@/components/navbar'
 import { BottomNavigation, TopTabNavigation } from '@/components/bottom-navigation'
 import { Footer } from '@/components/footer'
-import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
