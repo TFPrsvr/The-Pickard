@@ -2,8 +2,7 @@
 
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useEffect } from 'react'
@@ -22,58 +21,48 @@ export function Navbar() {
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative" aria-label="Main">
       <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-6">
-        <div className="flex h-12 items-center justify-between">
-          {/* Left: Hamburger Menu */}
-          <div className="flex items-center">
+        <div className="flex h-12 items-center justify-between gap-4">
+
+          {/* Left: Hamburger + Logo */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none transition-colors"
+              className="flex items-center justify-center p-1 text-gray-600 hover:text-gray-900 active:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors rounded"
               aria-label="Open navigation menu"
               aria-expanded={mounted ? isMobileMenuOpen : false}
               aria-controls="mobile-navigation-menu"
             >
-              {mounted && isMobileMenuOpen ? (
-                <i className="fi fi-rr-cross text-base leading-none" aria-hidden="true" />
-              ) : (
-                <i className="fi fi-rr-menu-burger text-base leading-none" aria-hidden="true" />
-              )}
+              {mounted && isMobileMenuOpen
+                ? <X className="h-4 w-4" aria-hidden="true" />
+                : <Menu className="h-4 w-4" aria-hidden="true" />
+              }
             </button>
-          </div>
-
-          {/* Center: Logo */}
-          <div className="flex-1 flex justify-center">
-            <Link href="/" className="flex items-center" aria-label="The Mechanic - Home">
-              <Image
-                src="/images/the-mechanic-logo.png"
-                alt="The Mechanic"
-                width={800}
-                height={180}
-                className="h-10 w-auto max-w-md"
-                priority
-              />
+            <Link href="/" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors tracking-wide leading-none" aria-label="The Mechanic - Home">
+              The Mechanic
             </Link>
           </div>
 
           {/* Right: User Section */}
           <div className="flex items-center">
             {isSignedIn ? (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-3">
                 <span className="hidden sm:block text-[10px] text-muted-foreground">
                   Welcome, {user?.firstName || user?.username || 'User'}!
                 </span>
                 <UserButton afterSignOutUrl="/" />
               </div>
             ) : (
-              <div className="space-x-1">
-                <Button variant="ghost" asChild className="hidden sm:inline-flex text-[10px] px-2 py-1 h-7">
-                  <Link href="/sign-in">Sign In</Link>
-                </Button>
-                <Button asChild className="text-[10px] px-2 py-1 h-7">
-                  <Link href="/sign-up">Sign Up</Link>
-                </Button>
+              <div className="flex items-center gap-4">
+                <Link href="/sign-in" className="hidden sm:block text-[11px] font-medium text-muted-foreground hover:text-foreground active:text-blue-600 transition-colors">
+                  Sign In
+                </Link>
+                <Link href="/sign-up" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 active:text-blue-900 transition-colors">
+                  Sign Up
+                </Link>
               </div>
             )}
           </div>
+
         </div>
       </div>
 
@@ -96,7 +85,7 @@ export function Navbar() {
               className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center"
               aria-label="Close navigation menu"
             >
-              <i className="fi fi-rr-cross text-xs leading-none" aria-hidden="true" />
+              <X className="h-3 w-3" aria-hidden="true" />
             </button>
           </div>
         </div>

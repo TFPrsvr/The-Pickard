@@ -34,83 +34,58 @@ const MechanicsVideoPlayer = dynamic(
   }
 )
 
-const TOTAL_VIDEOS = 8
-
 export default function HomePage() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
 
   return (
     <main className="py-4">
-      {/* Hero Section - Centered */}
-      <section className="text-center py-2 mb-3">
-        <div className="flex flex-col items-center mb-2">
-          <div className="flex justify-center">
-            <Image
-              src="/images/the-mechanic-logo.png"
-              alt="The Mechanic"
-              width={800}
-              height={180}
-              className="h-24 w-full max-w-2xl object-contain mb-2"
-              priority
-            />
-          </div>
-          <h1 className="sr-only">The Mechanic</h1>
-          <p className="text-sm font-normal bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent">
-            Automotive Mechanics Database
-          </p>
-        </div>
-        <p className="text-xs text-muted-foreground leading-relaxed text-center">
-          Your comprehensive automotive and powersports<br />database for mechanics.
-        </p>
-      </section>
+      {/* Hero + Content — merged into one section */}
+      <section className="mb-3" aria-labelledby="hero-heading">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-      {/* Split Content - Text Left, Video Right */}
-      <section className="mb-3">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-          {/* Left: Text Content */}
-          <div className="flex flex-col space-y-3">
-            <p className="text-xs text-muted-foreground leading-relaxed">
+          {/* Left: Logo + all text + CTA */}
+          <div className="flex flex-col items-center space-y-3">
+            {/* Logo + subtitle side by side */}
+            <div className="flex flex-row items-center gap-3">
+              <Image
+                src="/images/the-mechanic-logo.png"
+                alt="The Mechanic"
+                width={800}
+                height={180}
+                className="h-12 w-auto object-contain"
+                priority
+              />
+              <h1 id="hero-heading" className="sr-only">The Mechanic</h1>
+              <p className="text-2xl font-bold bg-gradient-to-r from-gray-600 to-gray-400 bg-clip-text text-transparent whitespace-nowrap">
+                Automotive Mechanics Database
+              </p>
+            </div>
+            {/* Paragraphs centered under logo row */}
+            <p className="text-xs text-muted-foreground leading-relaxed text-center max-w-md">
               Find solutions to complex problems, discover interchangeable parts, access expert tips, or share your own knowledge with the community.
               Explore comprehensive wiring diagrams, collaborate with fellow mechanics to solve rare issues, and contribute to our growing database.
               Whether you&apos;re tackling routine maintenance or diagnosing that elusive problem no one has figured out yet, The Mechanic connects you with the resources and expertise you need.
             </p>
-
-            {/* Quick Category Access */}
-            <div className="pl-20">
-              <Link href="/search-by-category">
-                <Button size="sm" className="text-xs px-3 py-1.5 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700" aria-label="Select your vehicle type to start searching">
-                  Select Your Vehicle Type
-                </Button>
-              </Link>
-            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed text-center max-w-md">
+              Your comprehensive automotive and powersports database for mechanics.
+            </p>
+            <Link
+              href="/search-by-category"
+              className="text-[22px] font-normal text-blue-600 hover:text-blue-800 active:text-blue-900 transition-colors"
+              aria-label="What is your vehicle type?"
+            >
+              What is your vehicle type?
+            </Link>
           </div>
 
-          {/* Right: Video Player */}
-          <div className="w-full max-w-xs mx-auto lg:mx-0 lg:ml-auto flex flex-col">
-            <MechanicsVideoPlayer videoIndex={currentVideoIndex} />
-
-            {/* Video Navigation - Arrows Only */}
-            <div className="flex items-center justify-center gap-8 mt-3">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentVideoIndex((prev) => (prev === 0 ? TOTAL_VIDEOS - 1 : prev - 1))}
-                className="text-xl px-4 py-2 h-10 flex items-center justify-center min-w-[44px]"
-                aria-label="Previous video"
-              >
-                ←
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentVideoIndex((prev) => (prev === TOTAL_VIDEOS - 1 ? 0 : prev + 1))}
-                className="text-xl px-4 py-2 h-10 flex items-center justify-center min-w-[44px]"
-                aria-label="Next video"
-              >
-                →
-              </Button>
-            </div>
+          {/* Right: Video player — self-contained with built-in nav */}
+          <div className="w-full">
+            <MechanicsVideoPlayer
+              videoIndex={currentVideoIndex}
+              onVideoChange={setCurrentVideoIndex}
+            />
           </div>
+
         </div>
       </section>
 
