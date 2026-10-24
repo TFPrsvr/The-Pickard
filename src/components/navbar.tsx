@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 export function Navbar() {
@@ -13,10 +13,54 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [vehicleTypesExpanded, setVehicleTypesExpanded] = useState(false)
+  const hamburgerRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const wasOpenRef = useRef(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Escape key + focus trap when menu is open
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      // Return focus to hamburger when menu closes
+      if (wasOpenRef.current) hamburgerRef.current?.focus()
+      wasOpenRef.current = false
+      return
+    }
+    wasOpenRef.current = true
+
+    // Focus first focusable element in menu
+    const getFocusable = () =>
+      Array.from(menuRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])'
+      ) ?? [])
+
+    setTimeout(() => getFocusable()[0]?.focus(), 50)
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+        return
+      }
+      if (e.key !== 'Tab') return
+      const focusable = getFocusable()
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isMobileMenuOpen])
 
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative" aria-label="Main">
@@ -26,6 +70,7 @@ export function Navbar() {
           {/* Left: Hamburger + Logo */}
           <div className="flex items-center gap-3">
             <button
+              ref={hamburgerRef}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="flex items-center justify-center p-1 text-gray-600 hover:text-gray-900 active:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors rounded"
               aria-label="Open navigation menu"
@@ -37,7 +82,7 @@ export function Navbar() {
                 : <Menu className="h-4 w-4" aria-hidden="true" />
               }
             </button>
-            <Link href="/" className="inline-flex items-center text-xl font-semibold text-gray-700 hover:text-blue-600 transition-colors tracking-wide leading-none" aria-label="The Mechanic - Home">
+            <Link href="/" className="inline-flex items-center text-xl font-semibold text-gray-700 hover:text-blue-600 active:text-blue-800 transition-colors tracking-wide leading-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded-sm" aria-label="The Mechanic - Home">
               The Mechanic
             </Link>
           </div>
@@ -53,10 +98,10 @@ export function Navbar() {
               </div>
             ) : (
               <div className="flex items-center gap-4">
-                <Link href="/sign-in" className="hidden sm:block text-[11px] font-medium text-muted-foreground hover:text-foreground active:text-blue-600 transition-colors">
+                <Link href="/sign-in" className="hidden sm:inline-flex items-center text-[11px] font-medium text-muted-foreground hover:text-foreground active:text-blue-600 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded-sm">
                   Sign In
                 </Link>
-                <Link href="/sign-up" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 active:text-blue-900 transition-colors">
+                <Link href="/sign-up" className="inline-flex items-center text-[11px] font-semibold text-blue-600 hover:text-blue-800 active:text-blue-900 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded-sm">
                   Sign Up
                 </Link>
               </div>
@@ -71,18 +116,20 @@ export function Navbar() {
         <>
           <div
             id="mobile-navigation-menu"
+            ref={menuRef}
             className={`fixed top-0 left-0 h-full w-36 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] flex flex-col ${
               isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
             role="dialog"
             aria-label="Navigation menu"
+            aria-modal="true"
           >
         <div className="p-1.5">
           <div className="flex items-center justify-between">
             <h2 className="text-xs font-semibold text-gray-900 ml-8">Menu</h2>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center"
+              className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200 active:text-gray-800 transition-colors flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-500"
               aria-label="Close navigation menu"
             >
               <X className="h-3 w-3" aria-hidden="true" />
@@ -111,7 +158,7 @@ export function Navbar() {
               </Link>
               <button
                 onClick={() => setVehicleTypesExpanded(!vehicleTypesExpanded)}
-                className="px-2 py-2 text-gray-400 hover:text-gray-600 flex items-center"
+                className="px-2 py-2 text-gray-400 hover:text-gray-600 active:text-blue-600 transition-colors flex items-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-500 rounded-sm"
                 aria-expanded={vehicleTypesExpanded}
                 aria-controls="vehicle-types-submenu"
                 aria-label="Toggle vehicle categories"
@@ -226,7 +273,7 @@ function MobileNavLink({ href, children, icon, onClick }: MobileNavLinkProps) {
     <Link
       href={href}
       onClick={onClick}
-      className="flex items-center space-x-2 rounded-md px-2 py-2 text-[10px] font-medium text-gray-900 transition-colors hover:bg-gray-100 hover:text-blue-600"
+      className="flex items-center space-x-2 rounded-md px-2 py-2 text-[10px] font-medium text-gray-900 transition-colors hover:bg-gray-100 hover:text-blue-600 active:bg-blue-50 active:text-blue-800 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-500"
     >
       {icon && (
         <div className="text-blue-600">

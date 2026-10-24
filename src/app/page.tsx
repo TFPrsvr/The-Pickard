@@ -193,7 +193,7 @@ function FeatureCard({ icon, title, description, href, gradient, borderColor }: 
   }
 
   return (
-    <Link href={href} aria-label={`${title}: ${description}`}>
+    <Link href={href} aria-label={`${title}: ${description}`} className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
       <div className={`service-card group cursor-pointer relative overflow-hidden border-2 border-transparent ${getBorderColorClass()} ${getBackgroundGradient()} transition-all duration-300 h-full rounded-lg`}>
         <div className="relative z-10 h-full flex flex-col p-2">
           <div className={`text-white mb-1.5 p-1.5 bg-gradient-to-br ${gradient} rounded-md w-fit group-hover:scale-105 transition-transform shadow-lg`} aria-hidden="true">{icon}</div>

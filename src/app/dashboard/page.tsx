@@ -39,7 +39,7 @@ const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     label: 'Parts Database',
     description: 'Find interchangeable parts',
-    href: '/database',
+    href: '/parts',
     icon: 'fi-rr-settings',
     color: 'text-green-600',
     bg: 'bg-green-50',
