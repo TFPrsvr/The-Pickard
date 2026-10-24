@@ -3,14 +3,13 @@
 import PropTypes from 'prop-types'
 
 const MECHANICS_VIDEOS = [
-  { id: 'tBHZb7zjBfU', title: 'How to Super Clean Your Engine Bay', channel: 'ChrisFix' },
-  { id: 'YfpDSNNgYhE', title: 'How to Change Your Oil', channel: 'ChrisFix' },
-  { id: 'ot0ssFAnzFc', title: 'How to Replace Brake Pads and Rotors', channel: 'ChrisFix' },
-  { id: 'UlB3JBtFWqQ', title: 'How to Fix a Car that Won\'t Start', channel: 'ChrisFix' },
-  { id: 'ox-IinIsmB0', title: 'How to Diagnose a Check Engine Light', channel: 'ChrisFix' },
-  { id: 'ErC0_7OBxbs', title: 'How to Replace a Car Battery', channel: 'ChrisFix' },
-  { id: 'oEIhQml9hCM', title: 'How to Replace Windshield Wipers', channel: 'ChrisFix' },
-  { id: 'YkNMEKHHpAc', title: 'How to Replace an Air Filter', channel: 'ChrisFix' },
+  { id: 'PRSoRkM8GcM', title: 'How to SUPER CLEAN Your Engine Bay', channel: 'ChrisFix' },
+  { id: 'O1hF25Cowv8', title: 'How to Change Your Oil (Complete Guide)', channel: 'ChrisFix' },
+  { id: 'UlbFFq60Tec', title: 'How to Replace Front Brakes, Pads and Rotors', channel: 'ChrisFix' },
+  { id: 't7JCh7PHoDc', title: 'How to Change EVERY FLUID in Your Car or Truck', channel: 'ChrisFix' },
+  { id: 'PNhuDCVIydw', title: 'How to Fix a Car that Cranks but Won\'t Start', channel: 'ChrisFix' },
+  { id: 'n4vusY2-rkQ', title: 'How to Repair Rust Without Welding', channel: 'ChrisFix' },
+  { id: 'lU6OKQxSg8U', title: 'How to Change Front & Rear Brake Pads and Rotors', channel: 'ChrisFix' },
 ]
 
 export const TOTAL_VIDEOS = MECHANICS_VIDEOS.length
