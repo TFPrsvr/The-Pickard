@@ -3,7 +3,6 @@
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ChevronDown, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -129,9 +128,9 @@ export function Navbar() {
                 aria-label="Toggle vehicle categories"
               >
                 {vehicleTypesExpanded ? (
-                  <ChevronDown className="h-3 w-3" aria-hidden="true" />
+                  <i className="fi fi-tr-angle-down text-xs leading-none" aria-hidden="true" />
                 ) : (
-                  <ChevronRight className="h-3 w-3" aria-hidden="true" />
+                  <i className="fi fi-tr-angle-right text-xs leading-none" aria-hidden="true" />
                 )}
               </button>
             </div>
